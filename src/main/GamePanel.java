@@ -16,11 +16,11 @@ public class GamePanel extends JPanel implements Runnable{
 	final int tileSize = originalTileSize*scale; //make element 48x48
 	final int maxScreenRow =12;
 	final int maxScreenCol =16;
-	final int screenWidth = tileSize*maxScreenCol; //768 pxs of screen
-	final int screenHeight = tileSize*maxScreenRow; //576 pxs
+	final int screenWidth = tileSize*maxScreenCol; //768 px of screen
+	final int screenHeight = tileSize*maxScreenRow; //576 px
 	
 	//FPS
-	int fps = 60;
+	int FPS = 60;
 	
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread; //to start and to stop
@@ -34,7 +34,12 @@ public class GamePanel extends JPanel implements Runnable{
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth,screenHeight));
 		this.setBackground(Color.black);
-		this.setDoubleBuffered(true);
+		
+		/* 
+		 DoubleBuffered is a technique that draws graphics to an off-screen image first, 
+		 then displays it all at once to prevent flickering and make rendering smoother.
+		 */
+		this.setDoubleBuffered(true); 
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 	}
@@ -43,7 +48,6 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
-	
 	
 	//using sleep method
 //	@Override
@@ -82,10 +86,10 @@ public class GamePanel extends JPanel implements Runnable{
 //	}
 //}
 	
-	
 	//delta method
 	public void run() {
-		double drawInterval = 1000000000/fps;
+		
+		double drawInterval = 1000000000 / FPS;
 		double delta = 0;
 		long lastTime = System.nanoTime();
 		long currentTime;
@@ -93,6 +97,7 @@ public class GamePanel extends JPanel implements Runnable{
 		int drawCount = 0;
 		
 		while(gameThread != null) {
+			
 			currentTime = System.nanoTime();
 			
 			delta += (currentTime - lastTime) / drawInterval;
@@ -107,7 +112,7 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			if(timer >= 1000000000) {
-				System.out.println("FPS: "+drawCount);
+				System.out.println("FPS: "+ drawCount );
 				drawCount = 0;
 				timer =0;
 			}
@@ -116,11 +121,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update() {
 		//The Y-axis decreases as we move up
 		if(keyH.upPressed == true) {
-			playerY -=playerSpeed;
+			playerY -= playerSpeed;
 		}
 		//The Y-axis increases as we move down
 		else if(keyH.downPressed ==true) {
-			playerY +=playerSpeed;
+			playerY += playerSpeed;
 		}
 		//The X-axis decreases as we move left.
 		else if(keyH.leftPressed == true) {
@@ -128,7 +133,7 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		//The X-axis increases as we move right
 		else if(keyH.rightPressed == true) {
-			playerX +=playerSpeed;
+			playerX += playerSpeed;
 		}
 	}
 	
@@ -140,5 +145,4 @@ public class GamePanel extends JPanel implements Runnable{
 		g2.fillRect(playerX, playerY,tileSize ,tileSize);
 		g2.dispose();
 	}
-	
 }
