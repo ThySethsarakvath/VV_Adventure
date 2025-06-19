@@ -38,14 +38,22 @@ public class Player extends Entity {
 		
 		try {
 			
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/char_up_1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/char_up_2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/char_down_1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/char_down_2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/char_left_1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/char_left_2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/char_right_1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/char_right_2.png"));
+			up1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_up1.png"));
+			up2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_up2.png"));
+			down1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_down1.png"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_down2.png"));
+			
+			left1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_left1.png"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_left2.png"));
+			
+			right1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_right1.png"));
+			right2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_right2.png"));
+			
+			upStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_up_stand.png"));
+			downStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_down_stand.png"));
+			leftStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_left_stand.png"));
+			rightStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_right_stand.png"));
+
 			
 		} catch(IOException e) {
 			e.getStackTrace();
@@ -55,39 +63,41 @@ public class Player extends Entity {
 	
 	public void update() {
 		
-		if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 			
 			//The Y-axis decreases as we move up
-			if(keyH.upPressed == true) {
-				direction = "up";
-				y -= speed;
+			if (keyH.upPressed) {
+	            direction = "up";
+	            y -= speed;
 			}
 			//The Y-axis increases as we move down
-			else if(keyH.downPressed ==true) {
-				direction = "down";
-				y += speed;
+			else if (keyH.downPressed) {
+	            direction = "down";
+	            y += speed;
 			}
 			//The X-axis decreases as we move left.
-			else if(keyH.leftPressed == true) {
-				direction = "left";
-				x -= speed;
+			else if (keyH.leftPressed) {
+	            direction = "left";
+	            x -= speed;
 			}
 			//The X-axis increases as we move right
-			else if(keyH.rightPressed == true) {
-				direction = "right";
-				x += speed;
+			else if (keyH.rightPressed) {
+	            direction = "right";
+	            x += speed;
 			}
 			
+			// Animate walking frames
 			spriteCounter++;
-			if(spriteCounter > 10) {
-				if(spriteNum == 1) {
-					spriteNum = 2;
-				}
-				else if(spriteNum == 2) {
-					spriteNum = 1;
-				}
-				spriteCounter = 0;
-			}
+	        if (spriteCounter > 10) {
+	            if (spriteNum == 1) spriteNum = 3;
+	            else if (spriteNum == 3) spriteNum = 2;
+	            else if (spriteNum == 2) spriteNum = 1;
+	            spriteCounter = 0;
+	        }
+		}
+		else {
+			// No key is pressed, so reset to standing
+			spriteNum = 3;
 		}
 	}
 	
@@ -97,41 +107,31 @@ public class Player extends Entity {
 //		g2.fillRect(x, y, gp.tileSize , gp.tileSize);
 		
 		BufferedImage image = null;
+//		boolean moving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
 		
-		switch(direction) {
-		case "up":
-			if(spriteNum == 1) {
-				image = up1;
-			}
-			if(spriteNum == 2) {
-				image = up2;
-			}
-			break;
-		case "down":
-			if(spriteNum == 1) {
-				image = down1;
-			}
-			if(spriteNum == 2) {
-				image = down2;
-			}
-			break;
-		case "left":
-			if(spriteNum == 1) {
-				image = left1;
-			}
-			if(spriteNum == 2) {
-				image = left2;
-			}
-			break;
-		case "right":
-			if(spriteNum == 1) {
-				image = right1;
-			}
-			if(spriteNum == 2) {
-				image = right2;
-			}
-			break;
-		}
+		switch (direction) {
+	    case "up":
+	        if (spriteNum == 1) image = up1;
+	        else if (spriteNum == 2) image = up2;
+	        else if (spriteNum == 3) image = upStand;
+	        break;
+	    case "down":
+	        if (spriteNum == 1) image = down1;
+	        else if (spriteNum == 2) image = down2;
+	        else if (spriteNum == 3) image = downStand;
+	        break;
+	    case "left":
+	        if (spriteNum == 1) image = left1;
+	        else if (spriteNum == 2) image = left2;
+	        else if (spriteNum == 3) image = leftStand;
+	        break;
+	    case "right":
+	        if (spriteNum == 1) image = right1;
+	        else if (spriteNum == 2) image = right2;
+	        else if (spriteNum == 3) image = rightStand;
+	        break;
+	}
+
 		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 		
 	}
