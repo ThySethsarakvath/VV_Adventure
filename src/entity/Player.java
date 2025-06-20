@@ -15,10 +15,16 @@ public class Player extends Entity {
 	GamePanel gp;
 	KeyHandler keyH;
 	
+	public final int screenX;
+	public final int screenY;
+	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
 		this.gp = gp;
 		this.keyH = keyH;
+		
+		screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+		screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 		
 		setDefaultValues();
 		getPlayerImage();
@@ -27,8 +33,8 @@ public class Player extends Entity {
 	
 	public void setDefaultValues() {
 		
-		x = 100;
-		y = 100;
+		worldX = gp.tileSize * 23;
+		worldY = gp.tileSize * 21;
 		speed = 4;
 		direction = "down";
 		
@@ -68,22 +74,22 @@ public class Player extends Entity {
 			//The Y-axis decreases as we move up
 			if (keyH.upPressed) {
 	            direction = "up";
-	            y -= speed;
+	            worldY -= speed;
 			}
 			//The Y-axis increases as we move down
 			else if (keyH.downPressed) {
 	            direction = "down";
-	            y += speed;
+	            worldY += speed;
 			}
 			//The X-axis decreases as we move left.
 			else if (keyH.leftPressed) {
 	            direction = "left";
-	            x -= speed;
+	            worldX -= speed;
 			}
 			//The X-axis increases as we move right
 			else if (keyH.rightPressed) {
 	            direction = "right";
-	            x += speed;
+	            worldX += speed;
 			}
 			
 			// Animate walking frames
@@ -132,7 +138,7 @@ public class Player extends Entity {
 	        break;
 	}
 
-		g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 		
 	}
 	
