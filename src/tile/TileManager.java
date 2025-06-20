@@ -83,7 +83,7 @@ public class TileManager {
 //		g2.drawImage(tile[1].image,48,0,gp.tileSize,gp.tileSize,null);
 //		g2.drawImage(tile[2].image,96,0,gp.tileSize,gp.tileSize,null);
 		
-		
+		// initailizing map
 		int col = 0;
 		int row = 0;
 		int x = 0;
