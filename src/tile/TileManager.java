@@ -17,12 +17,14 @@ public class TileManager {
 	int mapTileNum[][];
 	
 	public TileManager(GamePanel gp) {
+		
 		this.gp = gp;
+		
 		tile = new Tile[10];
-		mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
-		loadMap("/maps/map01.txt");
+		loadMap("/maps/world01.txt");
 	}
 	
 	public void getTileImage() {
@@ -37,6 +39,17 @@ public class TileManager {
 			
 			tile[2] = new Tile();
 			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/Water.png"));
+			
+			// Add more blocks 
+			
+//			tile[3] = new Tile();
+//			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
+//			
+//			tile[4] = new Tile();
+//			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
+//			
+//			tile[5] = new Tile();
+//			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
 			
 		}catch(IOException e) {
 			
@@ -53,11 +66,11 @@ public class TileManager {
 			int col = 0;
 			int row = 0;
 			
-			while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
+			while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
 				
 				String line = br.readLine();
 				
-				while(col < gp.maxScreenCol) {
+				while(col < gp.maxWorldCol) {
 					String numbers[] = line.split(" ");
 					
 					int num = Integer.parseInt(numbers[col]);
@@ -66,7 +79,7 @@ public class TileManager {
 					col++;
 				}
 				
-				if(col == gp.maxScreenCol) {
+				if(col == gp.maxWorldCol) {
 					col =0;
 					row++;
 				}
@@ -77,33 +90,57 @@ public class TileManager {
 		}
 	}
 	
-	public void draw(Graphics2D g2) {
+	public void draw(Graphics2D g2) { // Draw world map, camera setting
 		
 //		g2.drawImage(tile[0].image,0,0,gp.tileSize,gp.tileSize,null);
 //		g2.drawImage(tile[1].image,48,0,gp.tileSize,gp.tileSize,null);
 //		g2.drawImage(tile[2].image,96,0,gp.tileSize,gp.tileSize,null);
 		
+<<<<<<< HEAD
 		// initailizing map
 		int col = 0;
 		int row = 0;
 		int x = 0;
 		int y =0;
+=======
 		
-		while(col < gp.maxScreenCol && row < gp.maxScreenRow) {
+		int worldCol = 0;
+		int worldRow = 0;
+>>>>>>> 5011ce569fc0230cce312844d01baec259d0d875
+		
+		while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
 			
-			int tileNum = mapTileNum[col][row];
+			int tileNum = mapTileNum[worldCol][worldRow];
 			
+			int worldX = worldCol * gp.tileSize; // For example worldX = worldCol++ x 48
+			int worldY = worldRow * gp.tileSize; // For example worldY = worldRow++ x 48
+			/*
+			 	+ gp.player.screenX, because we want the player still origin at the center 
+			 	in your screen while you are walking
+			 */
+			int screenX = worldX - gp.player.worldX + gp.player.screenX; 
+			int screenY = worldY - gp.player.worldY + gp.player.screenY;
 			
-			g2.drawImage(tile[tileNum].image,x,y,gp.tileSize,gp.tileSize,null);
-			col++;
-			x += gp.tileSize;
+			/*
+			 	Avoiding draw world that far away from screen
+			 		- Improve performance with larger map ex. 10000 x 10000, 
+			 		  it not draw 10000 x 10000 at the same time 
+			 */
 			
-			if(col == gp.maxScreenCol) {
+			if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
+			   worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
+		       worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
+			   worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 				
-				col = 0;
-				x = 0;
-				row ++;
-				y += gp.tileSize;
+				g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,gp.tileSize, null);
+				
+			}
+		
+			worldCol++;
+			
+			if(worldCol == gp.maxWorldCol) {
+				worldCol = 0;
+				worldRow ++;
 			}
 		}
 	}
