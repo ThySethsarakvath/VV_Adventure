@@ -68,9 +68,6 @@ public class TileManager {
 			tile[10] = new Tile();
 			tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lava.png"));
 			
-			tile[11] = new Tile();
-			tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/door.png"));
-			
 			// Add more blocks 
 			
 //			tile[] = new Tile();
