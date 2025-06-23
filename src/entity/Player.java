@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 public class Player extends Entity {
 	
@@ -41,8 +42,8 @@ public class Player extends Entity {
 	// Player coordinate
 	public void setDefaultValues() {
 		
-		worldX = gp.tileSize * 58;
-		worldY = gp.tileSize * 99;
+		worldX = gp.tileSize * 0;
+		worldY = gp.tileSize * 0;
 		speed = 4;
 		direction = "down";
 		
@@ -50,31 +51,36 @@ public class Player extends Entity {
 	
 	public void getPlayerImage() {
 		
-		try {
-			
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_up1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_up2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_down1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_down2.png"));
-			
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_left1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_left2.png"));
-			
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_right1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/Steve_right2.png"));
-			
-			upStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_up_stand.png"));
-			downStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_down_stand.png"));
-			leftStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_left_stand.png"));
-			rightStand = ImageIO.read(getClass().getResourceAsStream("/player/Steve_right_stand.png"));
-
-			
-		} catch(IOException e) {
-			e.getStackTrace();
-		}
-		
+		up1 = setup("Steve_up1");
+		up2 = setup("Steve_up2");
+		down1 = setup("Steve_down1");
+		down2 = setup("Steve_down2");
+		left1 = setup("Steve_left1");
+		left2 = setup("Steve_left2");
+		right1 = setup("Steve_right1");
+		right2 = setup("Steve_right2");
+		upStand = setup("Steve_up_stand");
+		downStand = setup("Steve_down_stand");
+		leftStand = setup("Steve_left_stand");
+		rightStand = setup("Steve_right_stand");
 	}
 	
+	public BufferedImage setup(String imageName) {
+		
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image =null;
+		
+		try {
+			
+			image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
+			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+		}catch(IOException e) {
+			e.printStackTrace();
+	
+		}
+		
+		return image;
+	}
 	public void update() {
 		
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
@@ -164,7 +170,7 @@ public class Player extends Entity {
 	        break;
 	}
 
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, screenX, screenY, null);
 		
 	}
 	

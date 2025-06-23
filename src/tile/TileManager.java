@@ -1,6 +1,7 @@
 package tile;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +10,7 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 public class TileManager {
 	
@@ -20,7 +22,7 @@ public class TileManager {
 		
 		this.gp = gp;
 		
-		tile = new Tile[20];
+		tile = new Tile[50];
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
@@ -29,85 +31,67 @@ public class TileManager {
 	
 	public void getTileImage() {
 		
+		// unused placeholder
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		setup(0,"grass0",false);
+		
+		//Tiles
+		setup(10,"grass",false);
+		setup(11,"stone",true);
+		setup(12,"water",true);
+		setup(13,"dirt",false);
+		setup(14,"dirt_path",false);
+		setup(15,"sand",false);
+		setup(16,"sand2",false);
+		setup(17,"tree",true);
+		setup(18,"tree_snow",true);
+		setup(19,"snow",false);
+		setup(20,"lava",true);
+		setup(21,"brick",true);
+		setup(22,"down_corner_outlier1",true);
+		setup(23,"down_corner_outlier2",true);
+		setup(24,"down_middle_outlier",true);
+		setup(25,"left_middle_outlier",true);
+		setup(26,"right_middle_outlier",true);
+		setup(27,"up_corner_outlier1",true);
+		setup(28,"up_corner_outlier2",true);
+		setup(29,"up_middle_outlier",true);
+		setup(30,"corner1",true);
+		setup(31,"corner2",true);
+		setup(32,"corner3",true);
+		setup(33,"corner4",true);
+		setup(34,"dirt_path1",false);
+		setup(35,"dirt_path2",false);
+		setup(36,"cdirt_path3",false);
+		setup(37,"dirt_path4",false);
+		setup(38,"dirt_path5",false);
+		setup(39,"dirt_path6",false);
+		setup(40,"dirt_path7",false);
+		setup(41,"dirt_path8",false);
+		setup(42,"dirt_path9",false);
+		setup(43,"dirt_path10",false);
+		setup(44,"dirt_path11",false);
+		setup(45,"dirt_path12",false);
+		
+	}
+	
+	public void setup(int index, String image,boolean collision) {
+		
+		UtilityTool uTool = new UtilityTool();
 		try {
 			
-			tile[0] = new Tile();
-			tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
-			
-			tile[1] = new Tile();
-			tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/stone.png"));
-			tile[1].collision = true;
-			
-			tile[2] = new Tile();
-			tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/water.png"));
-			tile[2].collision = true;
-			
-			tile[3] = new Tile();
-			tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/dirt.png"));
-			
-			tile[4] = new Tile();
-			tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/dirt_path.png"));
-			
-			tile[5] = new Tile();
-			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
-			
-			tile[6] = new Tile();
-			tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand2.png"));
-			
-			tile[7] = new Tile();
-			tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree.png"));
-			tile[7].collision = true;
-			
-			tile[8] = new Tile();
-			tile[8].image = ImageIO.read(getClass().getResourceAsStream("/tiles/tree_snow.png"));
-			tile[8].collision = true;
-			
-			tile[9] = new Tile();
-			tile[9].image = ImageIO.read(getClass().getResourceAsStream("/tiles/snow.png"));
-			
-			tile[10] = new Tile();
-			tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lava.png"));
-			
-			tile[11] = new Tile();
-			tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/brick.png"));
-			
-			tile[12] = new Tile();
-			tile[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/down_corner_outlier1.png"));
-			tile[12].collision = true;
-			
-			tile[13] = new Tile();
-			tile[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/down_corner_outlier2.png"));
-			tile[13].collision = true;
-			
-			tile[14] = new Tile();
-			tile[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/down_middle_outlier.png"));
-			tile[14].collision = true;
-			
-			tile[15] = new Tile();
-			tile[15].image = ImageIO.read(getClass().getResourceAsStream("/tiles/left_middle_outlier.png"));
-			tile[15].collision = true;
-			
-			tile[16] = new Tile();
-			tile[16].image = ImageIO.read(getClass().getResourceAsStream("/tiles/right_middle_outlier.png"));
-			tile[16].collision = true;
-			
-			tile[17] = new Tile();
-			tile[17].image = ImageIO.read(getClass().getResourceAsStream("/tiles/up_corner_outlier1.png"));
-			tile[17].collision = true;
-			
-			tile[18] = new Tile();
-			tile[18].image = ImageIO.read(getClass().getResourceAsStream("/tiles/up_corner_outlier2.png"));
-			tile[18].collision = true;
-			
-			tile[19] = new Tile();
-			tile[19].image = ImageIO.read(getClass().getResourceAsStream("/tiles/up_middle_outlier.png"));
-			tile[19].collision = true;
-			
-			
-			// Add more blocks 
-			
-//			tile[] = new Tile();
-//			tile[].image = ImageIO.read(getClass().getResourceAsStream("/tiles/earth.png"));
+			tile[index] =new Tile();
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+image+".png"));
+			tile[index].image = uTool.scaleImage(tile[index].image,gp.tileSize,gp.tileSize);
+			tile[index].collision = collision;
 			
 		}catch(IOException e) {
 			
@@ -181,7 +165,7 @@ public class TileManager {
 		       worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
 			   worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 				
-				g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize,gp.tileSize, null);
+				g2.drawImage(tile[tileNum].image, screenX, screenY, null);
 				
 			}
 		
