@@ -20,7 +20,7 @@ public class TileManager {
 		
 		this.gp = gp;
 		
-		tile = new Tile[12];
+		tile = new Tile[20];
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
@@ -67,6 +67,42 @@ public class TileManager {
 			
 			tile[10] = new Tile();
 			tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lava.png"));
+			
+			tile[11] = new Tile();
+			tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/brick.png"));
+			
+			tile[12] = new Tile();
+			tile[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/down_corner_outlier1.png"));
+			tile[12].collision = true;
+			
+			tile[13] = new Tile();
+			tile[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/down_corner_outlier2.png"));
+			tile[13].collision = true;
+			
+			tile[14] = new Tile();
+			tile[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/down_middle_outlier.png"));
+			tile[14].collision = true;
+			
+			tile[15] = new Tile();
+			tile[15].image = ImageIO.read(getClass().getResourceAsStream("/tiles/left_middle_outlier.png"));
+			tile[15].collision = true;
+			
+			tile[16] = new Tile();
+			tile[16].image = ImageIO.read(getClass().getResourceAsStream("/tiles/right_middle_outlier.png"));
+			tile[16].collision = true;
+			
+			tile[17] = new Tile();
+			tile[17].image = ImageIO.read(getClass().getResourceAsStream("/tiles/up_corner_outlier1.png"));
+			tile[17].collision = true;
+			
+			tile[18] = new Tile();
+			tile[18].image = ImageIO.read(getClass().getResourceAsStream("/tiles/up_corner_outlier2.png"));
+			tile[18].collision = true;
+			
+			tile[19] = new Tile();
+			tile[19].image = ImageIO.read(getClass().getResourceAsStream("/tiles/up_middle_outlier.png"));
+			tile[19].collision = true;
+			
 			
 			// Add more blocks 
 			
