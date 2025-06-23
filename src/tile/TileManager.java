@@ -13,7 +13,7 @@ import main.GamePanel;
 import main.UtilityTool;
 
 public class TileManager {
-	
+
 	GamePanel gp;
 	public Tile[] tile;
 	public int mapTileNum[][];
@@ -33,15 +33,15 @@ public class TileManager {
 		
 		// unused placeholder
 		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
-		setup(0,"grass0",false);
+		setup(1,"grass0",false);
+		setup(2,"grass0",false);
+		setup(3,"grass0",false);
+		setup(4,"grass0",false);
+		setup(5,"grass0",false);
+		setup(6,"grass0",false);
+		setup(7,"grass0",false);
+		setup(8,"grass0",false);
+		setup(9,"grass0",false);
 		
 		//Tiles
 		setup(10,"grass",false);
@@ -70,7 +70,7 @@ public class TileManager {
 		setup(33,"corner4",true);
 		setup(34,"dirt_path1",false);
 		setup(35,"dirt_path2",false);
-		setup(36,"cdirt_path3",false);
+		setup(36,"dirt_path3",false);
 		setup(37,"dirt_path4",false);
 		setup(38,"dirt_path5",false);
 		setup(39,"dirt_path6",false);

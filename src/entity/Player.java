@@ -42,8 +42,8 @@ public class Player extends Entity {
 	// Player coordinate
 	public void setDefaultValues() {
 		
-		worldX = gp.tileSize * 0;
-		worldY = gp.tileSize * 0;
+		worldX = gp.tileSize * 5;
+		worldY = gp.tileSize * 5;
 		speed = 4;
 		direction = "down";
 		
