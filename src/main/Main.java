@@ -8,7 +8,6 @@ public class Main {
 	//VV Adventure main program
     public static void main(String[] args) {
     	
-    	System.out.println("Hello");
     	
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
