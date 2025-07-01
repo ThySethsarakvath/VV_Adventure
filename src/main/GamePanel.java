@@ -67,43 +67,6 @@ public class GamePanel extends JPanel implements Runnable{
 		gameThread.start();
 	}
 	
-	//using sleep method
-//	@Override
-//	public void run() {
-//		// TODO Auto-generated method stub
-//		
-//		double drawInterval = 1000000000/fps; //draw the screen within 0.01666 s
-//		double nextDrawTime = System.nanoTime() +drawInterval;
-//		//game loop or core
-//		while(gameThread != null) {
-////			long currentTime = System.nanoTime();
-////			System.out.println("Current time: "+currentTime);
-//			
-//			// update character position
-//			update();
-//			
-//			//draw the screen with the update postion of character
-//			repaint();
-//			
-//			try {
-//				
-//			double remainingTime = nextDrawTime -System.nanoTime();
-//			remainingTime = remainingTime/1000000;
-//			
-//			if(remainingTime <0) {
-//				remainingTime =0;
-//			}
-//			
-//			
-//			Thread.sleep((long) remainingTime);
-//			nextDrawTime +=drawInterval;
-//			
-//		}catch(InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//}
-	
 	//delta method
 	public void run() {
 		
@@ -130,7 +93,7 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			if(timer >= 1000000000) {
-				System.out.println("FPS: "+ drawCount );
+//				System.out.println("FPS: "+ drawCount );
 				drawCount = 0;
 				timer =0;
 			}
