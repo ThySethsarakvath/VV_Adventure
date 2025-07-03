@@ -12,11 +12,13 @@ public class CollisionChecker {
 	
 	public void checkTile(Entity entity) {
 		
+		// Calculate player's solidArea corners
 		int entityLeftWorldX = entity.worldX + entity.solidArea.x;
 		int entityRightWorldX = entity.worldX + entity.solidArea.x + entity.solidArea.width;
 		int entityTopWorldY = entity.worldY + entity.solidArea.y;
 		int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
 		
+		// Convert pixel positions to tile grid positions
 		int entityLeftCol = entityLeftWorldX / gp.tileSize;
 		int entityRightCol = entityRightWorldX / gp.tileSize;
 		int entityTopRow = entityTopWorldY / gp.tileSize;
