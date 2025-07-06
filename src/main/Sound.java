@@ -13,6 +13,7 @@ public class Sound {
 	public Sound() {
 		
 		soundURL[0] = getClass().getResource("/sound/Background_music.wav");
+		soundURL[1] = getClass().getResource("/sound/bootSE.wav");
 	}
 	
 	public void setFile(int i) {

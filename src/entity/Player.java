@@ -179,6 +179,7 @@ public class Player extends Entity {
 				break;
 			case "speed_boot":
 				if(!speedBoosted) {
+					gp.playSE(1);
 					speedBoosted = true;
 					speed += 2;
 					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
