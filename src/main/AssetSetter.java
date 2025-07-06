@@ -1,6 +1,7 @@
 package main;
 
 import object.OBJ_Door;
+import object.OBJ_speedBoot;
 
 public class AssetSetter {
 
@@ -17,6 +18,11 @@ public class AssetSetter {
 		gp.obj[0] = new OBJ_Door(gp);
 		gp.obj[0].worldX = 30 * gp.tileSize;
 		gp.obj[0].worldY = 21 * gp.tileSize;
+		
+		// Set speed boot to the world
+		gp.obj[1] = new OBJ_speedBoot(gp);
+		gp.obj[1].worldX = 32 * gp.tileSize;
+		gp.obj[1].worldY = 21 * gp.tileSize;
 		
 	}
 	

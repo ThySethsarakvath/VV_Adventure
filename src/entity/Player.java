@@ -20,6 +20,14 @@ public class Player extends Entity {
 	public final int screenX;
 	public final int screenY;
 	
+	// Count how many object we interaction with
+	int openDoor = 0;
+	
+	// Speed boot
+	int getSpeedBoot = 0;
+	int speedTimer = 0;
+	boolean speedBoosted = false;
+	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
 		this.gp = gp;
@@ -31,6 +39,11 @@ public class Player extends Entity {
 		solidArea = new Rectangle();
 		solidArea.x = 8;
 		solidArea.y = 16;
+		
+		// Object interaction
+		solidAreaDefaultX = solidArea.x;
+		solidAreaDefaultY = solidArea.y;
+		
 		solidArea.width = 32;
 		solidArea.height = 32;
 		
@@ -106,6 +119,10 @@ public class Player extends Entity {
 			collisionOn = false;
 			gp.cChecker.checkTile(this);
 			
+			// CHECK OBJECT COLLISION
+			int objIndex = gp.cChecker.checkObject(this, true); // True = player
+			pickUpObject(objIndex);
+			
 			// IF COLLISION IS FALSE, PLAYER CAN MOVE
 			if(collisionOn == false) {
 				switch(direction) {
@@ -136,6 +153,40 @@ public class Player extends Entity {
 		else {
 			// No key is pressed, so reset to standing
 			spriteNum = 3;
+		}
+		
+		// Reset speed to the default one
+		if(speedBoosted) {
+			speedTimer--;
+			if(speedTimer <= 0) {
+				speed -= 2;
+				speedBoosted = false;
+			}
+		}
+	}
+	
+	public void pickUpObject(int i) {
+		
+		if(i != -1) {
+			//gp.obj[i] = null; // delete object that player touched
+			String objectName = gp.obj[i].name;
+			
+			switch(objectName) {
+			case "Door":
+				openDoor++;
+				gp.obj[i] = null;
+				System.out.println("Number of open door: " + openDoor); // For debug
+				break;
+			case "speed_boot":
+				if(!speedBoosted) {
+					speedBoosted = true;
+					speed += 2;
+					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
+					System.out.println("Speed boost activated!"); // Debug
+					gp.obj[i] = null;
+				}
+				break;
+			}
 		}
 	}
 	

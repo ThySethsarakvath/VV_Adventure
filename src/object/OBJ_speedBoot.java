@@ -6,17 +6,17 @@ import javax.imageio.ImageIO;
 
 import main.GamePanel;
 
-public class OBJ_Door extends SuperObject {
+public class OBJ_speedBoot extends SuperObject {
 	
 	GamePanel gp;
 
-	public OBJ_Door(GamePanel gp) {
+	public OBJ_speedBoot(GamePanel gp) {
 		
-		name = "Door";
+		name = "speed_boot";
 		
 		try {
 			
-			image = ImageIO.read(getClass().getResourceAsStream("/objects/door.png"));
+			image = ImageIO.read(getClass().getResourceAsStream("/objects/speed_boot.png"));
 			uTool.scaleImage(image, gp.tileSize, gp.tileSize);
 			
 		} catch (IOException e) {
@@ -26,3 +26,4 @@ public class OBJ_Door extends SuperObject {
 	}
 	
 }
+
