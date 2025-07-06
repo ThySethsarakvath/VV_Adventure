@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -40,7 +41,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public AssetSetter aSetter = new AssetSetter(this);
 	Thread gameThread; //to start and to stop
 	public Player player = new Player(this, keyH);
-	public SuperObject obj[] = new SuperObject[10]; // object array
+	public SuperObject obj[] = new SuperObject[10];// object array
+	public Entity npc[] = new Entity[10];
 	
 	
 	
@@ -59,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void setupGame() {
 		aSetter.setObject();
+		aSetter.setNpc();
 		playMusic(0);
 	}
 
@@ -102,8 +105,15 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 
+		//Player
 		player.update();
 		
+		//Npc
+		for(int i = 0;i<npc.length;i++) {
+			if(npc[i] != null) {
+				npc[i].update();
+			}
+		}
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -119,6 +129,13 @@ public class GamePanel extends JPanel implements Runnable{
 		for(int i = 0; i < obj.length; i++) {
 			if(obj[i] != null) { // to avoid null pointer errors
 				obj[i].draw(g2, this);
+			}
+		}
+		
+		//Npc
+		for(int i = 0; i<npc.length;i++) {
+			if(npc[i] !=null) {
+				npc[i].draw(g2);
 			}
 		}
 		

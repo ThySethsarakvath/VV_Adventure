@@ -1,0 +1,61 @@
+package entity;
+
+import java.util.Random;
+
+import main.GamePanel;
+
+public class Npc extends Entity {
+
+	public Npc(GamePanel gp) {
+		super(gp);
+
+		direction = "down";
+		speed = 1;
+
+		getImage();
+	}
+
+	public void getImage() {
+
+		up1 = setup("/npc/npc_up1");
+		up2 = setup("/npc/npc_up2");
+		down1 = setup("/npc/npc_down1");
+		down2 = setup("/npc/npc_down2");
+		left1 = setup("/npc/npc_left1");
+		left2 = setup("/npc/npc_left2");
+		right1 = setup("/npc/npc_right1");
+		right2 = setup("/npc/npc_right2");
+		upStand = setup("/npc/npc_up");
+		downStand = setup("/npc/npc_down");
+		leftStand = setup("/npc/npc_left");
+		rightStand = setup("/npc/npc_right");
+	}
+
+	public void setAction() {
+		
+		actionLockCounter ++;
+		
+		if(actionLockCounter == 120) {
+			
+		Random rand = new Random();
+		int i = rand.nextInt(100) +1; // number from 1 to 100
+		
+		if (i <= 20) {
+		    // Do nothing — keeps current direction and "stands" still
+		} else if (i <= 40) {
+		    direction = "up";
+		} else if (i <= 60) {
+		    direction = "down";
+		} else if (i <= 80) {
+		    direction = "left";
+		} else {
+		    direction = "right";
+		}
+
+		
+		actionLockCounter = 0;
+	}
+		
+	}
+
+}

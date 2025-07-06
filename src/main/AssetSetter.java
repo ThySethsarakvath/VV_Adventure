@@ -1,5 +1,6 @@
 package main;
 
+import entity.Npc;
 import object.OBJ_Door;
 import object.OBJ_speedBoot;
 
@@ -24,6 +25,12 @@ public class AssetSetter {
 		gp.obj[1].worldX = 32 * gp.tileSize;
 		gp.obj[1].worldY = 21 * gp.tileSize;
 		
+	}
+	
+	public void setNpc() {
+		gp.npc[0] = new Npc(gp);
+		gp.npc[0].worldX = gp.tileSize*21;
+		gp.npc[0].worldY = gp.tileSize*21;
 	}
 	
 }

@@ -14,7 +14,6 @@ import main.UtilityTool;
 
 public class Player extends Entity {
 	
-	GamePanel gp;
 	KeyHandler keyH;
 	
 	public final int screenX;
@@ -30,7 +29,7 @@ public class Player extends Entity {
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
-		this.gp = gp;
+		super(gp);
 		this.keyH = keyH;
 		
 		screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -64,36 +63,20 @@ public class Player extends Entity {
 	
 	public void getPlayerImage() {
 		
-		up1 = setup("Steve_up1");
-		up2 = setup("Steve_up2");
-		down1 = setup("Steve_down1");
-		down2 = setup("Steve_down2");
-		left1 = setup("Steve_left1");
-		left2 = setup("Steve_left2");
-		right1 = setup("Steve_right1");
-		right2 = setup("Steve_right2");
-		upStand = setup("Steve_up_stand");
-		downStand = setup("Steve_down_stand");
-		leftStand = setup("Steve_left_stand");
-		rightStand = setup("Steve_right_stand");
+		up1 = setup("/player/Steve_up1");
+		up2 = setup("/player/Steve_up2");
+		down1 = setup("/player/Steve_down1");
+		down2 = setup("/player/Steve_down2");
+		left1 = setup("/player/Steve_left1");
+		left2 = setup("/player/Steve_left2");
+		right1 = setup("/player/Steve_right1");
+		right2 = setup("/player/Steve_right2");
+		upStand = setup("/player/Steve_up_stand");
+		downStand = setup("/player/Steve_down_stand");
+		leftStand = setup("/player/Steve_left_stand");
+		rightStand = setup("/player/Steve_right_stand");
 	}
 	
-	public BufferedImage setup(String imageName) {
-		
-		UtilityTool uTool = new UtilityTool();
-		BufferedImage image =null;
-		
-		try {
-			
-			image = ImageIO.read(getClass().getResourceAsStream("/player/"+imageName+".png"));
-			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-		}catch(IOException e) {
-			e.printStackTrace();
-	
-		}
-		
-		return image;
-	}
 	public void update() {
 		
 		if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
@@ -122,6 +105,10 @@ public class Player extends Entity {
 			// CHECK OBJECT COLLISION
 			int objIndex = gp.cChecker.checkObject(this, true); // True = player
 			pickUpObject(objIndex);
+			
+			//Npc collsion
+			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+			interactNpc(npcIndex);
 			
 			// IF COLLISION IS FALSE, PLAYER CAN MOVE
 			if(collisionOn == false) {
@@ -188,6 +175,13 @@ public class Player extends Entity {
 				}
 				break;
 			}
+		}
+	}
+	
+	public void interactNpc(int i) {
+		
+		if(i!= -1) {
+			System.out.println("Hitting Npc");
 		}
 	}
 	
