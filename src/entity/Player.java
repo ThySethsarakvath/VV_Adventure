@@ -20,7 +20,7 @@ public class Player extends Entity {
 	public final int screenY;
 	
 	// Count how many object we interaction with
-	int openDoor = 0;
+//	public int openDoor = 0;
 	
 	// Speed boot
 	int getSpeedBoot = 0;
@@ -156,25 +156,26 @@ public class Player extends Entity {
 		
 		if(i != -1) {
 			//gp.obj[i] = null; // delete object that player touched
-			String objectName = gp.obj[i].name;
-			
-			switch(objectName) {
-			case "Door":
-				openDoor++;
-				gp.obj[i] = null;
-				System.out.println("Number of open door: " + openDoor); // For debug
-				break;
-			case "speed_boot":
-				if(!speedBoosted) {
-					gp.playSE(1);
-					speedBoosted = true;
-					speed += 2;
-					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
-					System.out.println("Speed boost activated!"); // Debug
-					gp.obj[i] = null;
-				}
-				break;
-			}
+//			String objectName = gp.obj[i].name;
+//			
+//			switch(objectName) {
+//			case "Door":
+//				openDoor++;
+//				gp.obj[i] = null;
+//				gp.ui.showMessage("The door opened!");
+//
+//				break;
+//			case "speed_boot":
+//				if(!speedBoosted) {
+//					gp.playSE(1);
+//					speedBoosted = true;
+//					speed += 2;
+//					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
+//
+//					gp.obj[i] = null;
+//				}
+//				break;
+//			}
 		}
 	}
 	
