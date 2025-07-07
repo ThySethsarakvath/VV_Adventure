@@ -38,21 +38,31 @@ public class GamePanel extends JPanel implements Runnable {
 	int screenHeight2 = screenHeight;
 	BufferedImage tempScreen;
 	Graphics2D g2;
+	
 	// FPS
 	int FPS = 60;
 
+	// SYSTEM
 	TileManager tileM = new TileManager(this);
-	KeyHandler keyH = new KeyHandler();
-
-	Sound sound = new Sound();
+	KeyHandler keyH = new KeyHandler(this);
+	Sound music = new Sound();
+	Sound se = new Sound();
+	
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
+	public UI ui = new UI(this);
 	Thread gameThread; // to start and to stop
 
 	// Entity and Object
 	public Player player = new Player(this, keyH);
 	public SuperObject obj[] = new SuperObject[10];// object array
 	public Entity npc[] = new Entity[10];
+	
+	// GAME STATE
+	public int gameState;
+	public final int playState = 1;
+	public final int pauseState = 2;
+	public final int dialogueState = 3;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -72,11 +82,13 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setObject();
 		aSetter.setNpc();
 		playMusic(0);
+		
+		gameState = playState;
 
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
 		
-		setFullScreen(); // command this if want to turn off fullscreen mode
+//		setFullScreen(); // command this if want to turn off fullscreen mode
 	}
 
 	public void setFullScreen() {
@@ -90,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable {
 		screenHeight2 = Main.window.getHeight();
 		
 		}
+	
 	public void startGameThread() {
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -115,8 +128,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 			if (delta >= 1) {
 				update();
-//				repaint();
-				drawToTempScreen();
+				repaint();
+//				drawToTempScreen();
 				drawToScreen();
 				delta--;
 				drawCount++;
@@ -133,7 +146,13 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 
 		// Player
-		player.update();
+		if(gameState == playState) {
+			player.update();
+		} 
+		
+		if(gameState == pauseState) {
+			// Nothing for now
+		}
 
 		// Npc
 		for (int i = 0; i < npc.length; i++) {
@@ -143,34 +162,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
-	public void drawToTempScreen() {
-		tileM.draw(g2); // draw the world before player !!
-
-		// OBJECT
-		for (int i = 0; i < obj.length; i++) {
-			if (obj[i] != null) { // to avoid null pointer errors
-				obj[i].draw(g2, this);
-			}
-		}
-
-		// Npc
-		for (int i = 0; i < npc.length; i++) {
-			if (npc[i] != null) {
-				npc[i].draw(g2);
-			}
-		}
-
-		// PLAYER
-		player.draw(g2);
-	}
-
-//	public void paintComponent(Graphics g) {
-//
-//		super.paintComponent(g);
-//
-//		Graphics2D g2 = (Graphics2D) g;
-//
-//		// TILE
+//	public void drawToTempScreen() {
 //		tileM.draw(g2); // draw the world before player !!
 //
 //		// OBJECT
@@ -189,9 +181,39 @@ public class GamePanel extends JPanel implements Runnable {
 //
 //		// PLAYER
 //		player.draw(g2);
-//
-//		g2.dispose();
 //	}
+
+	public void paintComponent(Graphics g) {
+
+		super.paintComponent(g);
+
+		Graphics2D g2 = (Graphics2D) g;
+
+		// TILE
+		tileM.draw(g2); // draw the world before player !!
+
+		// OBJECT
+		for (int i = 0; i < obj.length; i++) {
+			if (obj[i] != null) { // to avoid null pointer errors
+				obj[i].draw(g2, this);
+			}
+		}
+
+		// Npc
+		for (int i = 0; i < npc.length; i++) {
+			if (npc[i] != null) {
+				npc[i].draw(g2);
+			}
+		}
+
+		// PLAYER
+		player.draw(g2);
+		
+		// UI
+		ui.draw(g2);
+
+		g2.dispose();
+	}
 
 	public void drawToScreen() {
 		
@@ -202,20 +224,20 @@ public class GamePanel extends JPanel implements Runnable {
 	// for background music
 	public void playMusic(int i) {
 
-		sound.setFile(i); // get sound from file
-		sound.play(); // play sound
-		sound.loop(); // loop sound through game
+		music.setFile(i); // get sound from file
+		music.play(); // play sound
+		music.loop(); // loop sound through game
 	}
 
 	public void stopMusic() {
 
-		sound.stop();
+		music.stop();
 	}
 
 	// for item sound effect
 	public void playSE(int i) {
 
-		sound.setFile(i);
-		sound.play();
+		se.setFile(i);
+		se.play();
 	}
 }
