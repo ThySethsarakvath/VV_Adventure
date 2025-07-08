@@ -11,7 +11,7 @@ public class UI {
 
 	GamePanel gp;
 	Graphics2D g2;
-	Font arial_40;
+	Font arial_30;
 //	BufferedImage doorImage;
 	public boolean messageOn = false;
 	public String message = "";
@@ -20,7 +20,7 @@ public class UI {
 	public UI(GamePanel gp) {
 		this.gp = gp;
 		
-		arial_40 = new Font("Arial", Font.PLAIN, 40);
+		arial_30 = new Font("Arial", Font.PLAIN, 30);
 //		OBJ_Door door = new OBJ_Door(gp);
 //		doorImage = door.image;
 	}
@@ -36,8 +36,18 @@ public class UI {
 		
 		this.g2 = g2;
 		
-		g2.setFont(arial_40);
+		g2.setFont(arial_30);
 		g2.setColor(Color.white);
+		
+	    if (messageOn) {
+	        g2.drawString(message, 20, 70); 
+	        messageCounter++;
+
+	        if (messageCounter > 120) {
+	            messageCounter = 0;
+	            messageOn = false;
+	        }
+	    }
 		
 		if(gp.gameState == gp.playState) {
 			// Do playState stuff later

@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public int gameState;
 	public final int playState = 1;
 	public final int pauseState = 2;
-	public final int dialogueState = 3;
+//	public final int dialogueState = 3;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -162,26 +162,27 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 
-//	public void drawToTempScreen() {
-//		tileM.draw(g2); // draw the world before player !!
-//
-//		// OBJECT
-//		for (int i = 0; i < obj.length; i++) {
-//			if (obj[i] != null) { // to avoid null pointer errors
-//				obj[i].draw(g2, this);
-//			}
-//		}
-//
-//		// Npc
-//		for (int i = 0; i < npc.length; i++) {
-//			if (npc[i] != null) {
-//				npc[i].draw(g2);
-//			}
-//		}
-//
-//		// PLAYER
-//		player.draw(g2);
-//	}
+	// For activate full screen
+	public void drawToTempScreen() {
+		tileM.draw(g2); // draw the world before player !!
+
+		// OBJECT
+		for (int i = 0; i < obj.length; i++) {
+			if (obj[i] != null) { // to avoid null pointer errors
+				obj[i].draw(g2, this);
+			}
+		}
+
+		// Npc
+		for (int i = 0; i < npc.length; i++) {
+			if (npc[i] != null) {
+				npc[i].draw(g2);
+			}
+		}
+
+		// PLAYER
+		player.draw(g2);
+	}
 
 	public void paintComponent(Graphics g) {
 
