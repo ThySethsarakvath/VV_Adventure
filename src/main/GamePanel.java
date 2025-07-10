@@ -88,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
 		
-//		setFullScreen(); // command this if want to turn off fullscreen mode
+		setFullScreen(); // command this if want to turn off fullscreen mode
 	}
 
 	public void setFullScreen() {
@@ -128,8 +128,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 			if (delta >= 1) {
 				update();
-				repaint();
-//				drawToTempScreen();
+//				repaint();
+				drawToTempScreen();
 				drawToScreen();
 				delta--;
 				drawCount++;

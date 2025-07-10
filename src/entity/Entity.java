@@ -13,6 +13,7 @@ import main.UtilityTool;
 public class Entity {
 
 	GamePanel gp;
+	
 	public int worldX, worldY;
 	public int speed;
 	
@@ -22,7 +23,7 @@ public class Entity {
 	public int spriteCounter = 0;
 	public int spriteNum = 1;
 	
-	public Rectangle solidArea = new Rectangle(0,0,48,48);
+	public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 	
 	public int solidAreaDefaultX, solidAreaDefaultY; // For Object interaction attributes
 	
@@ -34,15 +35,13 @@ public class Entity {
 		this.gp = gp;
 	}
 	
-	public void setAction() {
-		
-	}
+	public void setAction() {}
 	
 	public void update() {
 		setAction();
 		collisionOn = false;
 		gp.cChecker.checkTile(this);
-		gp.cChecker.checkObject(this,false);
+		gp.cChecker.checkObject(this, false);
 		gp.cChecker.checkPlayer(this);
 		
 		if (!collisionOn && !direction.equals("stand")) {
@@ -67,7 +66,6 @@ public class Entity {
 		    // Set to standing frame
 		    spriteNum = 3;
 		}
-
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -102,27 +100,24 @@ public class Entity {
 		        else if (spriteNum == 2) image = right2;
 		        else if (spriteNum == 3) image = rightStand;
 		        break;
-		}
-			g2.drawImage(image, screenX, screenY, gp.tileSize,gp.tileSize, null);
+		        }
 			
+			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);	
 		}
 	}
 	
-public BufferedImage setup(String imagePath) {
+	public BufferedImage setup(String imagePath) {
 		
 		UtilityTool uTool = new UtilityTool();
-		BufferedImage image =null;
+		BufferedImage image = null;
 		
 		try {
-			
-			image = ImageIO.read(getClass().getResourceAsStream(imagePath+".png"));
+			image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
 			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-		}catch(IOException e) {
+		} catch(IOException e) {
 			e.printStackTrace();
-	
 		}
 		
 		return image;
 	}
-	
 }

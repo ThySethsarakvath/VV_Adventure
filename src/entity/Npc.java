@@ -7,6 +7,7 @@ import main.GamePanel;
 public class Npc extends Entity {
 
 	public Npc(GamePanel gp) {
+
 		super(gp);
 
 		direction = "down";
@@ -15,6 +16,7 @@ public class Npc extends Entity {
 		getImage();
 	}
 
+	// Set NPC sprite
 	public void getImage() {
 
 		up1 = setup("/npc/npc_up1");
@@ -32,30 +34,26 @@ public class Npc extends Entity {
 	}
 
 	public void setAction() {
-		
-		actionLockCounter ++;
-		
-		if(actionLockCounter == 120) {
-			
-		Random rand = new Random();
-		int i = rand.nextInt(100) +1; // number from 1 to 100
-		
-		if (i <= 20) {
-		    // Do nothing — keeps current direction and "stands" still
-		} else if (i <= 40) {
-		    direction = "up";
-		} else if (i <= 60) {
-		    direction = "down";
-		} else if (i <= 80) {
-		    direction = "left";
-		} else {
-		    direction = "right";
+
+		actionLockCounter++;
+
+		if (actionLockCounter == 120) {
+			Random rand = new Random();
+			int i = rand.nextInt(100) + 1; // number from 1 to 100
+
+			if (i <= 20) {
+				// Do nothing — keeps current direction and "stands" still
+			} else if (i <= 40) {
+				direction = "up";
+			} else if (i <= 60) {
+				direction = "down";
+			} else if (i <= 80) {
+				direction = "left";
+			} else {
+				direction = "right";
+			}
+
+			actionLockCounter = 0;
 		}
-
-		
-		actionLockCounter = 0;
 	}
-		
-	}
-
 }
