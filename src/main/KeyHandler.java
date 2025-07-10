@@ -33,13 +33,16 @@ public class KeyHandler implements KeyListener {
 		if(code == KeyEvent.VK_D) {
 			rightPressed = true;
 		}
-		if(code == KeyEvent.VK_P) {
-			if(gp.gameState == gp.playState) {
-				gp.gameState = gp.pauseState;
-			} else if(gp.gameState == gp.pauseState) {
-				gp.gameState = gp.playState;
-			}
+		if (code == KeyEvent.VK_P) {
+		    if (gp.gameState == gp.playState) {
+		        gp.gameState = gp.pauseState;
+		        gp.music.pause(); // Pause music
+		    } else if (gp.gameState == gp.pauseState) {
+		        gp.gameState = gp.playState;
+		        gp.music.resume();; // Resume music
+		    }
 		}
+
 
 	}
 

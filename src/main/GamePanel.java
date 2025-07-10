@@ -147,19 +147,30 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Player
 		if(gameState == playState) {
+//			gameState = pauseState;
 			player.update();
+			for (int i = 0; i < npc.length; i++) {
+				if (npc[i] != null) {
+					npc[i].update();
+				}
+			}
+//			stopMusic();
+			
 		} 
 		
 		if(gameState == pauseState) {
-			// Nothing for now
+//			gameState = playState;
+			
+			
+//			playMusic(0);
 		}
 
 		// Npc
-		for (int i = 0; i < npc.length; i++) {
-			if (npc[i] != null) {
-				npc[i].update();
-			}
-		}
+//		for (int i = 0; i < npc.length; i++) {
+//			if (npc[i] != null) {
+//				npc[i].update();
+//			}
+//		}
 	}
 
 	// For activate full screen
@@ -182,6 +193,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// PLAYER
 		player.draw(g2);
+		ui.draw(g2);
 	}
 
 	public void paintComponent(Graphics g) {
