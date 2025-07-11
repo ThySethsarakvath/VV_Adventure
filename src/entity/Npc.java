@@ -14,6 +14,7 @@ public class Npc extends Entity {
 		speed = 1;
 
 		getImage();
+		setDialogue();
 	}
 
 	// Set NPC sprite
@@ -31,6 +32,15 @@ public class Npc extends Entity {
 		downStand = setup("/npc/npc_down");
 		leftStand = setup("/npc/npc_left");
 		rightStand = setup("/npc/npc_right");
+	}
+	
+	public void setDialogue() {
+		
+		dialogues[0] = "Hello, player!";
+		dialogues[1] = "How are you!";
+		dialogues[2] = "You need to find a way to get out from this \nisland!";
+		dialogues[3] = "You will face some monsters!";
+		
 	}
 
 	public void setAction() {
@@ -55,5 +65,13 @@ public class Npc extends Entity {
 
 			actionLockCounter = 0;
 		}
+	}
+	
+	public void speak() {
+		
+		// Do this character specific stuff
+		
+		super.speak();
+		
 	}
 }
