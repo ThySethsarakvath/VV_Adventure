@@ -38,7 +38,7 @@ public class Npc extends Entity {
 		
 		dialogues[0] = "Hello, player!";
 		dialogues[1] = "How are you!";
-		dialogues[2] = "You need to find a way to get out from this \nisland!";
+		dialogues[2] = "You need to find a way to get out \nfrom this island!";
 		dialogues[3] = "You will face some monsters!";
 		
 	}

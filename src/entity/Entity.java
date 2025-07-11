@@ -46,7 +46,16 @@ public class Entity {
 		if(dialogues[dialogueIndex] == null) {
 			dialogueIndex = 0;
 		}
+		
+		// Set the current dialogue text
 		gp.ui.currentDialogue = dialogues[dialogueIndex];
+		
+		// Reset typing animation 
+		gp.ui.displayedText = "";
+		gp.ui.charIndex = 0;
+		gp.ui.textCompleted = false;
+		gp.ui.textTimer = 0;
+		
 		dialogueIndex++;
 		
 		// NPC will face to us during we're talking to each other

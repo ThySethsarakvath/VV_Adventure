@@ -55,10 +55,15 @@ public class KeyHandler implements KeyListener {
 		// DIALOGUE STATE
 		else if(gp.gameState == gp.dialogueState) {
 			if(code == KeyEvent.VK_ENTER) {
-				gp.gameState = gp.playState;
+				if(gp.ui.textCompleted) {
+					gp.gameState = gp.playState;
+				} else {
+					// Fast-forward typing if user presses before it's done
+					gp.ui.displayedText = gp.ui.currentDialogue;
+					gp.ui.textCompleted = true;
+				}
 			}
 		}
-		
 	}
 
 	@Override
