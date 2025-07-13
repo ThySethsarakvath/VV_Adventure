@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import object.OBJ_Door;
+import object.OBJ_Heart;
+import object.SuperObject;
 
 import javax.imageio.ImageIO;
 
@@ -21,6 +23,7 @@ public class UI {
 	GamePanel gp;
 	Graphics2D g2;
 	Font PressStart2P;
+	BufferedImage full_heart,half_heart, empty_heart;
 	public boolean messageOn = false;
 	public String message = "";
 	int messageCounter = 0;
@@ -51,7 +54,14 @@ public class UI {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		SuperObject heart = new OBJ_Heart(gp);
+		full_heart = heart.image;
+		half_heart = heart.image2;
+		empty_heart = heart.image3;
 	}
+	
+	
 	
 	public void playBlip() {
 		try {
@@ -82,18 +92,54 @@ public class UI {
 		// PLAY STATE
 		if(gp.gameState == gp.playState) {
 			// Do playState stuff later
+			
+			drawPlayerlife();
 		}
 		
 		// PAUSE STATE
 		if(gp.gameState == gp.pauseState) {
 			drawPauseScreen();
+			drawPlayerlife();
 		}
 		
 		// DIALOGUE STATE
 		if(gp.gameState == gp.dialogueState) {
 			drawDialogueScreen();
+			drawPlayerlife();
 		}
 	}
+	
+	public void drawPlayerlife() {
+		
+//		gp.player.life = 3;
+		int x = gp.tileSize/2;
+		int y = gp.tileSize/2;
+		
+		int i = 0;
+		//Empty heart
+		while(i<gp.player.maxLife/2) {
+			g2.drawImage(empty_heart, x, y,null);
+			i++;
+			x+=gp.tileSize;
+		}
+		//Reset 
+		x = gp.tileSize/2;
+		y = gp.tileSize/2;
+		
+		i = 0;
+		
+		//Current life
+		while(i<gp.player.life) {
+			g2.drawImage(half_heart,x,y,null);
+			i++;
+			if(i<gp.player.life) {
+				g2.drawImage(full_heart, x, y,null);
+			}
+			i++;
+			x+=gp.tileSize;
+		}
+	}
+	
 	
 	public void drawPauseScreen() {
 		
