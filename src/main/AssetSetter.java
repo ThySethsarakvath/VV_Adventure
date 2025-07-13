@@ -1,6 +1,7 @@
 package main;
 
 import entity.Npc;
+import monster.Zombie;
 import object.OBJ_Door;
 import object.OBJ_speedBoot;
 
@@ -31,6 +32,16 @@ public class AssetSetter {
 		gp.npc[0] = new Npc(gp);
 		gp.npc[0].worldX = gp.tileSize*21;
 		gp.npc[0].worldY = gp.tileSize*21;
+	}
+	
+	public void setMoster() {
+		gp.monster[0] = new Zombie(gp);
+		gp.monster[0].worldX = gp.tileSize*29;
+		gp.monster[0].worldY = gp.tileSize*29;
+		
+		gp.monster[1] = new Zombie(gp);
+		gp.monster[1].worldX = gp.tileSize*30;
+		gp.monster[1].worldY = gp.tileSize*30;
 	}
 	
 }
