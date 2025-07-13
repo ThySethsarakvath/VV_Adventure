@@ -5,24 +5,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import entity.Entity;
 
-public class OBJ_speedBoot extends SuperObject {
-	
-	GamePanel gp;
+public class OBJ_speedBoot extends Entity {
 
 	public OBJ_speedBoot(GamePanel gp) {
+		super(gp);
 		
 		name = "speed_boot";
-		
-		try {
-			
-			image = ImageIO.read(getClass().getResourceAsStream("/objects/speed_boot.png"));
-			uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		collision = true;
+		down1 = setup("/objects/speed_boot");
+
 	}
 	
 }

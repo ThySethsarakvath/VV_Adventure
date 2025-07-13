@@ -166,12 +166,12 @@ public class Player extends Entity {
 			String objectName = gp.obj[i].name;
 
 			switch (objectName) {
-			case "Door":
-				openDoor++;
-				gp.obj[i] = null;
-				gp.ui.showMessage("The door opened!");
-
-				break;
+//			case "Door":
+//				openDoor++;
+//				gp.obj[i] = null;
+//				gp.ui.showMessage("The door opened!");
+//
+//				break;
 			case "speed_boot":
 				if (!speedBoosted) {
 					gp.playSE(1);

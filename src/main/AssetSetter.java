@@ -18,7 +18,7 @@ public class AssetSetter {
 		// for example here door located at (30, 21)
 		gp.obj[0] = new OBJ_Door(gp);
 		gp.obj[0].worldX = 30 * gp.tileSize;
-		gp.obj[0].worldY = 21 * gp.tileSize;
+		gp.obj[0].worldY = 24 * gp.tileSize;
 		
 		// Set speed boot to the world
 		gp.obj[1] = new OBJ_speedBoot(gp);

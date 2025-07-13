@@ -7,15 +7,24 @@ import main.GamePanel;
 public class Npc extends Entity {
 
 	public Npc(GamePanel gp) {
+	    super(gp);
 
-		super(gp);
+	    direction = "down";
+	    speed = 1;
 
-		direction = "down";
-		speed = 1;
+	    // Customize solid area position and size
+	    solidArea.x = 0; // X-offset within NPC sprite
+	    solidArea.y = 16; // Y-offset
+	    solidArea.width = 48; // Hitbox width
+	    solidArea.height = 32; // Hitbox height
 
-		getImage();
-		setDialogue();
+	    solidAreaDefaultX = solidArea.x;
+	    solidAreaDefaultY = solidArea.y;
+
+	    getImage();
+	    setDialogue();
 	}
+
 
 	// Set NPC sprite
 	public void getImage() {

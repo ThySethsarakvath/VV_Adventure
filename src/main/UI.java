@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 import object.OBJ_Door;
 import object.OBJ_Heart;
-import object.SuperObject;
+import entity.Entity;
 
 import javax.imageio.ImageIO;
 
@@ -55,7 +55,7 @@ public class UI {
 			e.printStackTrace();
 		}
 		
-		SuperObject heart = new OBJ_Heart(gp);
+		Entity heart = new OBJ_Heart(gp);
 		full_heart = heart.image;
 		half_heart = heart.image2;
 		empty_heart = heart.image3;
