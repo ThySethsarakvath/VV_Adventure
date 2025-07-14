@@ -7,9 +7,12 @@ import main.GamePanel;
 
 public class Zombie extends Entity {
 
+	GamePanel gp;
 	public Zombie(GamePanel gp) {
 		super(gp);
+		this.gp = gp;
 		
+		type = 2;
 		name = "Zombie";
 		speed = 1;
 		maxLife = 6;
@@ -22,24 +25,23 @@ public class Zombie extends Entity {
 
 	    solidAreaDefaultX = solidArea.x;
 	    solidAreaDefaultY = solidArea.y;
-	    
-	    getImgae();
+	    getImage();
 	}
 	
-	public void getImgae() {
+	public void getImage() {
 		
-		up1 = setup("/monster/zombie_up1");
-		up2 = setup("/monster/zombie_up2");
-		down1 = setup("/monster/zombie_down1");
-		down2 = setup("/monster/zombie_down2");
-		left1 = setup("/monster/zombie_left1");
-		left2 = setup("/monster/zombie_left2");
-		right1 = setup("/monster/zombie_right1");
-		right2 = setup("/monster/zombie_right2");
-		upStand = setup("/monster/zombie_up");
-		downStand = setup("/monster/zombie_down");
-		leftStand = setup("/monster/zombie_left");
-		rightStand = setup("/monster/zombie_right");
+		up1 = setup("/monster/zombie_up1",gp.tileSize,gp.tileSize);
+		up2 = setup("/monster/zombie_up2",gp.tileSize,gp.tileSize);
+		down1 = setup("/monster/zombie_down1",gp.tileSize,gp.tileSize);
+		down2 = setup("/monster/zombie_down2",gp.tileSize,gp.tileSize);
+		left1 = setup("/monster/zombie_left1",gp.tileSize,gp.tileSize);
+		left2 = setup("/monster/zombie_left2",gp.tileSize,gp.tileSize);
+		right1 = setup("/monster/zombie_right1",gp.tileSize,gp.tileSize);
+		right2 = setup("/monster/zombie_right2",gp.tileSize,gp.tileSize);
+		upStand = setup("/monster/zombie_up",gp.tileSize,gp.tileSize);
+		downStand = setup("/monster/zombie_down",gp.tileSize,gp.tileSize);
+		leftStand = setup("/monster/zombie_left",gp.tileSize,gp.tileSize);
+		rightStand = setup("/monster/zombie_right",gp.tileSize,gp.tileSize);
 		
 		
 	}

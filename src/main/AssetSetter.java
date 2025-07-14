@@ -34,7 +34,7 @@ public class AssetSetter {
 		gp.npc[0].worldY = gp.tileSize*21;
 	}
 	
-	public void setMoster() {
+	public void setMonster() {
 		gp.monster[0] = new Zombie(gp);
 		gp.monster[0].worldX = gp.tileSize*29;
 		gp.monster[0].worldY = gp.tileSize*29;

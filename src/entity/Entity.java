@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -12,41 +13,37 @@ import main.UtilityTool;
 
 public class Entity {
 
-	GamePanel gp;
-	
-	public int worldX, worldY;
-	public int speed;
+	protected GamePanel gp;
 	
 	public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2,upStand, downStand, leftStand, rightStand;
-	public String direction = "down";
-	
-	public int spriteCounter = 0;
-	public int spriteNum = 1;
-	
-	public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
-	
-	public int solidAreaDefaultX, solidAreaDefaultY; // For Object interaction attributes
-	
-	public boolean collisionOn = false;
-	
-	public int actionLockCounter = 0;
-	
-	public boolean invincible = false;
-	public int invinCounter = 0;
-	
-	// FOR DIALOGUE ATTRIBUTES
-	String dialogues[] = new String[20];
-	int dialogueIndex = 0;
-	
+	public BufferedImage aUp1, aUp2 , aDown1,aDown2,aRight1,aRight2,aLeft1,aLeft2;
 	public BufferedImage image,image2,image3;
-	public String name;
+	public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+	public Rectangle attackArea = new Rectangle(0,0,0,0);
+	public int solidAreaDefaultX, solidAreaDefaultY; // For Object interaction attributes
+	public boolean collisionOn = false;
+	String dialogues[] = new String[20];
+	
+	//STATE
+	public int worldX, worldY;
+	public String direction = "down";
+	public int spriteNum = 1;
+	int dialogueIndex = 0;
+	public boolean invincible = false;
 	public boolean collision = false;
+	public boolean attacking = false;
 	
+	// COUNTER
+	public int actionLockCounter = 0;
+	public int invinCounter = 0;
+	public int spriteCounter = 0;
+	
+	// CHARACTER ATTRIBUTES
+	public String name;
 	public int type; // 0 = player , 1 = npc, 2 = monster
-	
-	//Hero State
 	public int maxLife;
 	public int life;
+	public int speed;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -128,6 +125,14 @@ public class Entity {
 		    // Set to standing frame
 		    spriteNum = 3;
 		}
+		
+		if (invincible) {
+			invinCounter++;
+			if (invinCounter > 40) {
+				invincible = false;
+				invinCounter = 0;
+			}
+		}
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -164,18 +169,26 @@ public class Entity {
 		        break;
 		        }
 			
+			// Image transparent when receive damage
+			if (invincible == true) {
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+			}
+			
 			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);	
+			
+			// Reset Alpha
+			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		}
 	}
 	
-	public BufferedImage setup(String imagePath) {
+	public BufferedImage setup(String imagePath,int width, int height) {
 		
 		UtilityTool uTool = new UtilityTool();
 		BufferedImage image = null;
 		
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+			image = uTool.scaleImage(image,width, height);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
