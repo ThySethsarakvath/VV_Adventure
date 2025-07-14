@@ -66,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// GAME STATE
 	public int gameState;
+	public final int titleState = 0;
 	public final int playState = 1;
 	public final int pauseState = 2;
 	// For dialogues
@@ -91,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setMonster();
 //		playMusic(0);
 
-		gameState = playState;
+		gameState = titleState;
 
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
@@ -184,54 +185,69 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// For activate full screen
 	public void drawToTempScreen() {
-		tileM.draw(g2); // draw the world before player !!
+		
+		// TITLE SCREEN
+		if(gameState == titleState) {
+			
+			ui.draw(g2);
+			
+		}
+		
+		// OTHERS
+		else {
+			
+			tileM.draw(g2); // draw the world before player !!
 
-		//add entity to the list
-		entityList.add(player);
-		
-		// Npc
-		for (int i = 0; i < npc.length; i++) {
-			if (npc[i] != null) {
-				entityList.add(npc[i]);
-			}
-		}
-		// OBJECT
-		for (int i = 0; i < obj.length; i++) {
-			if (obj[i] != null) { // to avoid null pointer errors
-				entityList.add(obj[i]);
-			}
-		}
-		
-		for (int i = 0; i < monster.length; i++) {
-			if (monster[i] != null) {
-				entityList.add(monster[i]);
-			}
-		}
-		
-		//Sort the entity to check their coordinate
-				Collections.sort(entityList, new Comparator<Entity>() {
-
-					@Override
-					public int compare(Entity e1, Entity e2) {
-						// TODO Auto-generated method stub
-						
-						int result = Integer.compare(e1.worldY, e2.worldY);
-						return result;
-					}
-					
-				});
-				
-				// draw entities
-				for(int i = 0 ; i<entityList.size();i++) {
-					entityList.get(i).draw(g2);
+			//add entity to the list
+			entityList.add(player);
+			
+			// NPC
+			for (int i = 0; i < npc.length; i++) {
+				if (npc[i] != null) {
+					entityList.add(npc[i]);
 				}
-				
-				// empty entities list
-				entityList.clear();
+			}
+			
+			// OBJECT
+			for (int i = 0; i < obj.length; i++) {
+				if (obj[i] != null) { // to avoid null pointer errors
+					entityList.add(obj[i]);
+				}
+			}
+			
+			// MONSTER
+			for (int i = 0; i < monster.length; i++) {
+				if (monster[i] != null) {
+					entityList.add(monster[i]);
+				}
+			}
+			
+			//Sort the entity to check their coordinate
+			Collections.sort(entityList, new Comparator<Entity>() {
 
-		// PLAYER
-//		player.draw(g2);
-		ui.draw(g2);
+			@Override
+			public int compare(Entity e1, Entity e2) {
+				
+				int result = Integer.compare(e1.worldY, e2.worldY);
+				
+				return result;
+				}
+			});
+					
+			// draw entities
+			for(int i = 0 ; i < entityList.size(); i++) {
+				entityList.get(i).draw(g2);
+			}
+			
+			// empty entities list
+			entityList.clear();
+
+			// PLAYER
+//			player.draw(g2);
+			
+			// UI
+			ui.draw(g2);
+		}
 	}
 
 //	public void paintComponent(Graphics g) {
@@ -239,66 +255,76 @@ public class GamePanel extends JPanel implements Runnable {
 //		super.paintComponent(g);
 //
 //		Graphics2D g2 = (Graphics2D) g;
-//
-//		// TILE
-//		tileM.draw(g2); // draw the world before player !!
-//
-//		// OBJECT
-////		for (int i = 0; i < obj.length; i++) {
-////			if (obj[i] != null) { // to avoid null pointer errors
-////				obj[i].draw(g2, this);
-////			}
-////		}
-////
-////		// Npc
-////		for (int i = 0; i < npc.length; i++) {
-////			if (npc[i] != null) {
-////				npc[i].draw(g2);
-////			}
-////		}
-//
-//		// add entity to the list
-//		entityList.add(player);
-//
-//		for (int i = 0; i < npc.length; i++) {
-//			if (npc[i] != null) {
-//				entityList.add(npc[i]);
-//			}
-//		}
-//		for (int i = 0; i < obj.length; i++) {
-//			if (obj[i] != null) { // to avoid null pointer errors
-//				entityList.add(obj[i]);
-//			}
+//		
+//		// TITLE SCREEN
+//		if(gameState == titleState) {
+//			ui.draw(g2);
 //		}
 //		
-//		//Sort the entity to check their coordinate
-//		Collections.sort(entityList, new Comparator<Entity>() {
+//		// OTHERS
+//		else {
+//			
+//			// TILE
+//			tileM.draw(g2); // draw the world before player !!
 //
-//			@Override
-//			public int compare(Entity e1, Entity e2) {
-//				// TODO Auto-generated method stub
-//				
-//				int result = Integer.compare(e1.worldY, e2.worldY);
-//				return result;
+//			// OBJECT
+////			for (int i = 0; i < obj.length; i++) {
+////				if (obj[i] != null) { // to avoid null pointer errors
+////					obj[i].draw(g2, this);
+////				}
+////			}
+//	//
+////			// Npc
+////			for (int i = 0; i < npc.length; i++) {
+////				if (npc[i] != null) {
+////					npc[i].draw(g2);
+////				}
+////			}
+//
+//			// add entity to the list
+//			entityList.add(player);
+//
+//			for (int i = 0; i < npc.length; i++) {
+//				if (npc[i] != null) {
+//					entityList.add(npc[i]);
+//				}
+//			}
+//			for (int i = 0; i < obj.length; i++) {
+//				if (obj[i] != null) { // to avoid null pointer errors
+//					entityList.add(obj[i]);
+//				}
 //			}
 //			
-//		});
-//		
-//		// draw entities
-//		for(int i = 0 ; i<entityList.size();i++) {
-//			entityList.get(i).draw(g2);
+//			//Sort the entity to check their coordinate
+//			Collections.sort(entityList, new Comparator<Entity>() {
+//
+//				@Override
+//				public int compare(Entity e1, Entity e2) {
+//					// TODO Auto-generated method stub
+//					
+//					int result = Integer.compare(e1.worldY, e2.worldY);
+//					return result;
+//				}
+//				
+//			});
+//			
+//			// draw entities
+//			for(int i = 0 ; i<entityList.size();i++) {
+//				entityList.get(i).draw(g2);
+//			}
+//			
+//			// draw entities list
+//			for(int i = 0 ; i<entityList.size();i++) {
+//				entityList.remove(i);
+//			}
+//			// PLAYER
+////			player.draw(g2);
+//
+//			// UI
+//			ui.draw(g2);
+//			
 //		}
 //		
-//		// draw entities list
-//		for(int i = 0 ; i<entityList.size();i++) {
-//			entityList.remove(i);
-//		}
-//		// PLAYER
-////		player.draw(g2);
-//
-//		// UI
-//		ui.draw(g2);
-//
 //		g2.dispose();
 //	}
 
