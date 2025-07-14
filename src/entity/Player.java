@@ -196,6 +196,10 @@ public class Player extends Entity {
 	}
 
 	public void attacking() {
+		if (spriteNum == 2 && !attackSoundPlayed) {
+	        gp.playSE(3);
+	        attackSoundPlayed = true;
+	    }
 		spriteCounter++;
 
 		if (spriteCounter <= 5) {
@@ -244,6 +248,7 @@ public class Player extends Entity {
 			spriteNum = 1;
 			spriteCounter = 0;
 			attacking = false;
+			attackSoundPlayed = false;
 		}
 	}
 
@@ -287,6 +292,7 @@ public class Player extends Entity {
 
 	    // 🗡️ Attack using F key
 	    if (gp.keyH.fPressed == true) {
+//	    	gp.playSE(3);
 	        attacking = true;
 	        gp.keyH.fPressed = false;
 	    }
@@ -297,6 +303,7 @@ public class Player extends Entity {
 
 		if (i != -1) {
 			if (invincible == false) {
+				gp.playSE(2);
 				life -= 1;
 				invincible = true;
 			}
@@ -313,8 +320,13 @@ public class Player extends Entity {
 				gp.monster[i].life -=1;
 				gp.monster[i].invincible =true;
 				
+				int hurtSound = new java.util.Random().nextInt(2) + 4; // returns 4 or 5
+		        gp.playSE(hurtSound);
+				
 				if(gp.monster[i].life <= 0) {
-					gp.monster[i] =null;
+					gp.monster[i].die = true;
+					
+					gp.playSE(6);
 				}
 			}
 		}
