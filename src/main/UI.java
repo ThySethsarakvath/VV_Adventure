@@ -39,6 +39,9 @@ public class UI {
 	int textSpeed = 3; // Delay between characters (smaller = faster)
 	public boolean textCompleted = false;
 	
+	// For TITLE STATE attributes
+	public int commandNum = 0;
+	
 	public UI(GamePanel gp) {
 		this.gp = gp;
 		
@@ -89,6 +92,11 @@ public class UI {
 		g2.setFont(PressStart2P);
 		g2.setColor(Color.white);
 		
+		// TITLE STATE
+		if(gp.gameState == gp.titleState) {
+			drawTitleScreen();
+		}
+		
 		// PLAY STATE
 		if(gp.gameState == gp.playState) {
 			// Do playState stuff later
@@ -107,6 +115,82 @@ public class UI {
 			drawDialogueScreen();
 			drawPlayerlife();
 		}
+	}
+	
+	public void drawTitleScreen() {
+		
+		// FULL SCREEN CLEAR (IF WE ARE USING drawToTempScreen())
+		//============== drawToTempScreen() ==============
+	    g2.setColor(Color.black);
+	    g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);  // Clear the screen
+	    //=================================================
+		
+		// TITLE NAME
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 56F));
+		String text = "VV_Adventure";
+		int x = getXforCenteredText(text);
+		int y = gp.tileSize * 3;
+		
+		// SHADOW
+		g2.setColor(Color.gray);
+		g2.drawString(text, x + 4, y + 4);
+		
+		// MAIN COLOR
+		g2.setColor(Color.white);
+		g2.drawString(text, x, y);
+		
+		// MENU
+		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 26F));
+		
+		// IF WE ARE USING drawToTempScreen()
+		//================= drawToTempScreen() =================
+		String[] menu = {"NEW GAME", "LOAD GAME", "QUIT"};
+
+	    y += gp.tileSize * 4;  // starting y for menu
+
+	    for (int i = 0; i < menu.length; i++) {
+	        text = menu[i];
+	        x = getXforCenteredText(text);
+
+	        if (i == commandNum) {
+	            g2.drawString("> " + text + " <", x - gp.tileSize, y);
+	        } else {
+	            g2.drawString(text, x, y);
+	        }
+
+	        y += gp.tileSize * 1.5;
+	    }
+	    //======================================================
+		
+		// IF WE ARE USING paintComponent()
+	    //================= paintComponent() =================
+//		text = "NEW GAME";
+//		x = getXforCenteredText(text); 
+//		y += gp.tileSize * 4;
+//		g2.drawString(text, x, y);
+//		
+//		if(commandNum == 0) {
+//			g2.drawString(">", x - gp.tileSize , y);
+//		}
+//		
+//		text = "LOAD GAME";
+//		x = getXforCenteredText(text); 
+//		y += gp.tileSize * 1.5;
+//		g2.drawString(text, x, y);
+//		
+//		if(commandNum == 1) {
+//			g2.drawString(">", x - gp.tileSize , y);
+//		}
+//		
+//		text = "QUIT";
+//		x = getXforCenteredText(text); 
+//		y += gp.tileSize * 1.5;
+//		g2.drawString(text, x, y);
+//		
+//		if(commandNum == 2) {
+//			g2.drawString(">", x - gp.tileSize , y);
+//		}
+	    //====================================================
 	}
 	
 	public void drawPlayerlife() {
