@@ -74,6 +74,9 @@ public class KeyHandler implements KeyListener {
 			if(code == KeyEvent.VK_F) {
 				fPressed = true;
 			}
+			if(code == KeyEvent.VK_ESCAPE) {
+				gp.gameState = gp.titleState;
+			}
 		}
 		
 		// PAUSE STATE
