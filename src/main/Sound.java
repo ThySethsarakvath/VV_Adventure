@@ -10,6 +10,11 @@ public class Sound {
     Long currentFrame;
     AudioInputStream audioStream;
     String currentTrackPath;
+    
+    // FOR OPTION STATE
+    FloatControl fc;
+    int volumeScale = 3;
+    float volume;
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/Background_music.wav");
@@ -27,6 +32,10 @@ public class Sound {
             audioStream = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
+            
+            fc = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
+            checkVolume();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,6 +57,21 @@ public class Sound {
     public void pause() {
         currentFrame = clip.getMicrosecondPosition();
         clip.stop();
+    }
+    
+    public void checkVolume() {
+    	
+    	switch(volumeScale) {
+    	case 0: volume = -80f; break;
+    	case 1: volume = -20f; break;
+    	case 2: volume = -12f; break;
+    	case 3: volume = -5f; break;
+    	case 4: volume = 1f; break;
+    	case 5: volume = 6f; break;
+    	}
+    	
+    	fc.setValue(volume);
+    	
     }
 
     public void resume() {
