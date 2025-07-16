@@ -40,6 +40,8 @@ public class GamePanel extends JPanel implements Runnable {
 	int screenHeight2 = screenHeight;
 	BufferedImage tempScreen;
 	Graphics2D g2;
+	// FOR MENU ACTION
+	public boolean fullScreenOn = true;
 
 	// FPS
 	int FPS = 60;
@@ -105,9 +107,18 @@ public class GamePanel extends JPanel implements Runnable {
 		// Get screen size from local device
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice gd = ge.getDefaultScreenDevice();
-		gd.setFullScreenWindow(Main.window);
+		
+		if(fullScreenOn) {
+			gd.setFullScreenWindow(Main.window);
+		} else {
+			// Otherwise, stay windowed
+			gd.setFullScreenWindow(null);
+			Main.window.setSize(screenWidth, screenHeight); // Restore to windowed size
+			Main.window.setLocationRelativeTo(null);
+		}
+		
 
-		// width and height of full screen
+		// Update actual width/height based on result
 		screenWidth2 = Main.window.getWidth();
 		screenHeight2 = Main.window.getHeight();
 
