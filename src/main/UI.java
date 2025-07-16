@@ -115,6 +115,11 @@ public class UI {
 			drawDialogueScreen();
 			drawPlayerlife();
 		}
+		
+		// OPTIONS STATE
+		if(gp.gameState == gp.optionsState) {
+			drawOptionsScreen();
+		}
 	}
 	
 	public void drawTitleScreen() {
@@ -241,7 +246,7 @@ public class UI {
 		
 		// WINDOW
 		int boxX = gp.tileSize * 2;
-		int boxY = (gp.tileSize / 2);
+		int boxY = (gp.tileSize * 8);
 		int boxWidth = gp.screenWidth - (gp.tileSize * 4);
 		int boxHeight = gp.tileSize * 4;
 		
@@ -284,6 +289,40 @@ public class UI {
 			textY += 40;
 		}
 	
+	}
+	
+	public void drawOptionsScreen() {
+		
+		g2.setColor(Color.white);
+		g2.setFont(g2.getFont().deriveFont(14F));
+		
+		// SUB WINDOW
+		int frameX = gp.tileSize * 4;
+		int frameY = gp.tileSize;
+		int frameWidth = gp.tileSize * 8;
+		int frameHeight = gp.tileSize * 10;
+		
+		// IF WE WANT TO USE WOOD DIALOGUE
+		g2.drawImage(dialogueBoxImage, frameX, frameY, frameWidth, frameHeight, null);
+		
+		// DEFAULT DIALOGUE
+//		drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+		
+	}
+	
+	
+	// FOR DEFAULT DIALOGUE
+	public void drawSubWindow(int x, int y, int width, int height) {
+		
+		Color c = new Color(0, 0, 0, 210);
+		g2.setColor(c);
+		g2.fillRoundRect(x, y, width, height, 35, 35);
+		
+		c = new Color(255, 255, 255);
+		g2.setColor(c);
+		g2.setStroke(new BasicStroke(5));
+		g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
+		
 	}
 	
 	public int getXforCenteredText(String text) {
