@@ -102,7 +102,15 @@ public class KeyHandler implements KeyListener {
 		}
 		if(code == KeyEvent.VK_ESCAPE) {
 			gp.gameState = gp.optionsState;
+			gp.ui.commandNum = 0;
 		}
+//		if(code == KeyEvent.VK_ESCAPE){
+//		    if (gp.gameState == gp.playState) {
+//		        gp.gameState = gp.optionsState;
+//		        gp.ui.subState = 0; // make sure it always starts at the top
+//		        gp.ui.commandNum = 0;
+//		    }
+//		}
 	}
 	
 	public void pauseState(int code) {
@@ -129,7 +137,11 @@ public class KeyHandler implements KeyListener {
 	public void optionsState(int code) {
 		
 		if(code == KeyEvent.VK_ESCAPE){
-			gp.gameState = gp.playState;
+		    if (gp.gameState == gp.playState) {
+		        gp.gameState = gp.optionsState;
+//		        gp.ui.subState = 0; // make sure it always starts at the top
+//		        gp.ui.commandNum = 0;
+		    }
 		}
 		
 		if(code == KeyEvent.VK_ENTER) {
