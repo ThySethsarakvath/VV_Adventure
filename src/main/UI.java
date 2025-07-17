@@ -35,6 +35,7 @@ public class UI {
 	BufferedImage checkmarkImage;
 	BufferedImage longBoxImage;
 	BufferedImage pointImage;
+	BufferedImage bgImage;
 	
 	// For dialogue text appear letter by letter
 	public String displayedText = ""; // Text currently shown
@@ -53,6 +54,12 @@ public class UI {
 		this.gp = gp;
 		subState = 0;
 		commandNum = 0;
+		
+		try {
+			bgImage = ImageIO.read(getClass().getResourceAsStream("/background/background.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		try {
 			InputStream is = getClass().getResourceAsStream("/font/PressStart2P-Regular.ttf");
@@ -157,11 +164,7 @@ public class UI {
 	
 	public void drawTitleScreen() {
 		
-		// FULL SCREEN CLEAR (IF WE ARE USING drawToTempScreen())
-		//============== drawToTempScreen() ==============
-	    g2.setColor(Color.black);
-	    g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);  // Clear the screen
-	    //=================================================
+		g2.drawImage(bgImage, 0, 0, gp.screenWidth, gp.screenHeight, null);
 		
 		// TITLE NAME
 		g2.setFont(g2.getFont().deriveFont(Font.BOLD, 56F));
