@@ -102,7 +102,10 @@ public class KeyHandler implements KeyListener {
 		}
 		if(code == KeyEvent.VK_ESCAPE) {
 			gp.gameState = gp.optionsState;
+			gp.ui.subState = 0;
 			gp.ui.commandNum = 0;
+			enterPressed = false;
+			
 		}
 //		if(code == KeyEvent.VK_ESCAPE){
 //		    if (gp.gameState == gp.playState) {
@@ -144,7 +147,7 @@ public class KeyHandler implements KeyListener {
 		    }
 		}
 		
-		if(code == KeyEvent.VK_ENTER) {
+		if(code == KeyEvent.VK_ENTER && !enterPressed) {
 			enterPressed = true;
 		}
 		

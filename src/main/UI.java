@@ -51,6 +51,8 @@ public class UI {
 	
 	public UI(GamePanel gp) {
 		this.gp = gp;
+		subState = 0;
+		commandNum = 0;
 		
 		try {
 			InputStream is = getClass().getResourceAsStream("/font/PressStart2P-Regular.ttf");
@@ -549,6 +551,7 @@ public class UI {
 		if(commandNum == 0) {
 			g2.drawString(">", textX - 25, textY);
 			if(gp.keyH.enterPressed == true) {
+				gp.music.stop();
 				subState = 0;
 				gp.gameState = gp.titleState;
 			}
