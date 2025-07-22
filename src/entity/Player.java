@@ -71,6 +71,23 @@ public class Player extends Entity {
 		maxLife = 10; // 10 lives = 5 hearts
 		life = maxLife;
 	}
+	
+	public void setDefaultPositions() {
+		
+		worldX = gp.tileSize * 28;
+		worldY = gp.tileSize * 18;
+		direction = "down";
+		
+	}
+	
+	// public void restoreLifeAndMana()
+	
+	public void restoreLife() {
+		
+		life = maxLife;
+		invincible = false;
+		
+	}
 
 	public void getPlayerImage() {
 
@@ -192,6 +209,10 @@ public class Player extends Entity {
 				invincible = false;
 				invinCounter = 0;
 			}
+		}
+		if(life <= 0) {
+			gp.gameState = gp.gameOverState;
+//			gp.playSE(); For game over sound
 		}
 	}
 

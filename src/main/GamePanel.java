@@ -55,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
 	public UI ui = new UI(this);
+	Config config = new Config(this);
 	Thread gameThread; // to start and to stop
 
 	// Entity and Object
@@ -74,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable {
 	// For dialogues
 	public final int dialogueState = 3;
 	public final int optionsState = 5;
+	public final int gameOverState = 6;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -100,7 +102,30 @@ public class GamePanel extends JPanel implements Runnable {
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
 
-		setFullScreen(); // command this if want to turn off fullscreen mode
+		if(fullScreenOn == true) {
+			setFullScreen(); // command this if want to turn off fullscreen mode
+		}
+	}
+	
+	public void retry() {
+		
+		player.setDefaultPositions();
+		player.restoreLife();
+		aSetter.setNpc();
+		aSetter.setMonster();
+		
+	}
+	
+	public void restart() {
+		
+		player.setDefaultValues();
+		player.setDefaultPositions();
+		player.restoreLife();
+//		player.setItems(); when we have inventory
+		aSetter.setNpc();
+		aSetter.setMonster();
+//		aSetter.setInteractiveTile(); Future version
+		
 	}
 
 	public void setFullScreen() {
