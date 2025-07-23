@@ -38,6 +38,7 @@ public class UI {
 	BufferedImage pointImage;
 	BufferedImage bgImage;
 	BufferedImage InImage;
+	BufferedImage DeImage;
 	
 	// For dialogue text appear letter by letter
 	public String displayedText = ""; // Text currently shown
@@ -66,6 +67,12 @@ public class UI {
 		
 		try {
 			InImage = ImageIO.read(getClass().getResourceAsStream("/dialogues/inventory.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			DeImage = ImageIO.read(getClass().getResourceAsStream("/dialogues/D_Image.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -643,7 +650,7 @@ public class UI {
 		final int frameX = gp.screenWidth / 2 - frameWidth / 2 - gp.tileSize*2;           // Center horizontally
 		final int frameY = gp.screenHeight / 2 + gp.tileSize + 8;     // Just below player
 
-		drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+		g2.drawImage(InImage, frameX, frameY, frameWidth, frameHeight, null);
 		
 		final int slotXStart = frameX + 21;
 		final int slotYStart = frameY +21;
@@ -669,8 +676,9 @@ public class UI {
 		int cursorWidth = gp.tileSize;
 		int cursorHeight = gp.tileSize;
 		// draw Cursor
-		g2.setColor(Color.white);
-		g2.setStroke(new BasicStroke(3));
+		Color goldenBrown = new Color(0xb37731);
+		g2.setColor(goldenBrown);
+		g2.setStroke(new BasicStroke(5));
 		g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight,10,10);
 		
 		// Description frame
@@ -690,7 +698,7 @@ public class UI {
 
 		int itemIndex = getItemIndexOnSlot();
 		if (itemIndex < gp.player.inventory.size()) {
-			drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
+			g2.drawImage(DeImage, dFrameX, dFrameY, dFrameWidth, dFrameHeight, null);
 			String[] paragraphLines = gp.player.inventory.get(itemIndex).description.split("\n");
 
 			for (String paragraph : paragraphLines) {
