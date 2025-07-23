@@ -5,6 +5,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class UI {
 	BufferedImage longBoxImage;
 	BufferedImage pointImage;
 	BufferedImage bgImage;
+	BufferedImage InImage;
 	
 	// For dialogue text appear letter by letter
 	public String displayedText = ""; // Text currently shown
@@ -50,11 +52,20 @@ public class UI {
 	// FOR SUB SCREEN ATTRIBUTE
 	int subState = 0;
 	
+	public int slotCol = 0;
+	public int slotRow = 0;
+	
 	public UI(GamePanel gp) {
 		this.gp = gp;
 		
 		try {
 			bgImage = ImageIO.read(getClass().getResourceAsStream("/background/background.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			InImage = ImageIO.read(getClass().getResourceAsStream("/dialogues/inventory.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -101,8 +112,6 @@ public class UI {
 		half_heart = heart.image2;
 		empty_heart = heart.image3;
 	}
-	
-	
 	
 	public void playBlip() {
 		try {
@@ -162,6 +171,11 @@ public class UI {
 		// GAMEOVER STATE
 		if(gp.gameState == gp.gameOverState) {
 			drawGameOverScreen();
+		}
+		
+		if(gp.gameState == gp.characterState) {
+			drawCharacterScreen(); // for character state if want in the future
+			drawInventory();
 		}
 	}
 	
@@ -616,6 +630,101 @@ public class UI {
 		}
 	}
 	
+	
+	public void drawCharacterScreen() {
+		
+	}
+	
+	public void drawInventory() {
+
+		final int frameWidth = gp.tileSize * 9;        // Width to match visual slots
+		final int frameHeight = gp.tileSize * 4 + 12;   // Slight padding for title bar
+
+		final int frameX = gp.screenWidth / 2 - frameWidth / 2 - gp.tileSize*2;           // Center horizontally
+		final int frameY = gp.screenHeight / 2 + gp.tileSize + 8;     // Just below player
+
+		drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+		
+		final int slotXStart = frameX + 21;
+		final int slotYStart = frameY +21;
+		int slotX = slotXStart;
+		int slotY = slotYStart;
+		final int slotSize = gp.tileSize + 8;
+		
+		for(int i = 0;i<gp.player.inventory.size();i++) {
+			
+			g2.drawImage(gp.player.inventory.get(i).down1, slotX,slotY,null);
+			
+			slotX += slotSize;
+			
+			if(i == 6 || i == 13 || i == 20) {
+				slotX = slotXStart;
+				slotY +=slotSize;
+			}
+		}
+		
+		// Cursor
+		int cursorX = slotXStart + (slotSize *slotCol);
+		int cursorY = slotYStart + (slotSize*slotRow);
+		int cursorWidth = gp.tileSize;
+		int cursorHeight = gp.tileSize;
+		// draw Cursor
+		g2.setColor(Color.white);
+		g2.setStroke(new BasicStroke(3));
+		g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight,10,10);
+		
+		// Description frame
+		int dFrameX = frameX+frameWidth +16;
+		int dFrameY = frameY ;
+		int dFrameWidth = gp.tileSize*4;
+		int dFrameHeight = frameHeight;
+		
+		
+		
+		int textX = dFrameX + 20;
+		int textY = dFrameY +gp.tileSize ;
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 10F));
+		
+		int maxLineWidth = dFrameWidth - 40; // total horizontal space (20px padding on both sides)
+		FontMetrics fm = g2.getFontMetrics();
+
+		int itemIndex = getItemIndexOnSlot();
+		if (itemIndex < gp.player.inventory.size()) {
+			drawSubWindow(dFrameX,dFrameY,dFrameWidth,dFrameHeight);
+			String[] paragraphLines = gp.player.inventory.get(itemIndex).description.split("\n");
+
+			for (String paragraph : paragraphLines) {
+			    String[] words = paragraph.split(" ");
+			    String currentLine = "";
+
+			    for (String word : words) {
+			        String testLine = currentLine.isEmpty() ? word : currentLine + " " + word;
+
+			        if (fm.stringWidth(testLine) <= maxLineWidth) {
+			            currentLine = testLine;
+			        } else {
+			            g2.drawString(currentLine, textX, textY);
+			            textY += 20;
+			            currentLine = word;
+			        }
+			    }
+
+			    // draw any remaining line after the loop
+			    if (!currentLine.isEmpty()) {
+			        g2.drawString(currentLine, textX, textY);
+			        textY += 20;
+			    }
+			}
+
+		}
+
+		
+	}
+	
+	public int getItemIndexOnSlot() {
+		int itemIndex = slotCol + (slotRow*7);
+		return itemIndex;
+	}
 	
 	// FOR DEFAULT DIALOGUE
 	public void drawSubWindow(int x, int y, int width, int height) {

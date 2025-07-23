@@ -7,12 +7,15 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.OBJ_Shield;
+import object.OBJ_Sword;
 
 public class Player extends Entity {
 
@@ -28,6 +31,8 @@ public class Player extends Entity {
 	int getSpeedBoot = 0;
 	int speedTimer = 0;
 	boolean speedBoosted = false;
+	public ArrayList<Entity> inventory = new ArrayList<>();
+	public final int maxinventorySize = 21;
 
 	public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -54,6 +59,7 @@ public class Player extends Entity {
 		setDefaultValues();
 		getPlayerImage();
 		getPlayerAttackImage();
+		setItems();
 	}
 
 	// Player coordinate
@@ -70,6 +76,29 @@ public class Player extends Entity {
 
 		maxLife = 10; // 10 lives = 5 hearts
 		life = maxLife;
+		level =1;
+		strength = 1; // the more strength , the more damage;
+		dexterity = 1; // the more dex, the less receives;
+		exp =0;
+		nextLevelExp = 5;
+		coin = 0;
+		currentWeapon = new OBJ_Sword(gp);
+		currentShield = new OBJ_Shield(gp);
+		attack = getAttack(); // total attack base on strength and weapon
+		defense = getDefense(); // total defense base on dexterity and shield
+	}
+	
+	public void setItems() {
+		inventory.add(currentShield);
+		inventory.add(currentWeapon);
+	}
+	
+	public int getAttack() {
+		return attack = strength * currentWeapon.attackValue;
+	}
+	
+	public int getDefense() {
+		return defense = dexterity * currentShield.defenseValue;
 	}
 	
 	public void setDefaultPositions() {
@@ -276,6 +305,10 @@ public class Player extends Entity {
 	public void pickUpObject(int i) {
 
 		if (i != -1) {
+			
+			if(inventory.size() != maxinventorySize) {
+				inventory.add(gp.obj[i]);
+			}
 			// gp.obj[i] = null; // delete object that player touched
 			String objectName = gp.obj[i].name;
 
@@ -286,17 +319,17 @@ public class Player extends Entity {
 //				gp.ui.showMessage("The door opened!");
 //
 //				break;
-			case "speed_boot":
-				if (!speedBoosted) {
-					gp.playSE(1);
-					speedBoosted = true;
-					speed += 2;
-					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
-
-					gp.obj[i] = null;
-				}
-				break;
+//			case "speed_boot":
+//				if (!speedBoosted) {
+//					gp.playSE(1);
+//					speedBoosted = true;
+//					speed += 2;
+//					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
+//					gp.obj[i] = null;
+//				}
+//				break;
 			}
+			gp.obj[i] = null;
 		}
 	}
 
