@@ -98,39 +98,66 @@ public class TileManager {
 		}
 	}
 	
+//	public void loadMap(String filePath) {
+//		
+//		try {
+//			
+//			InputStream is = getClass().getResourceAsStream(filePath);
+//			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+//			
+//			int col = 0;
+//			int row = 0;
+//			
+//			while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
+//				
+//				String line = br.readLine();
+//				
+//				while(col < gp.maxWorldCol) {
+//					String numbers[] = line.split(" ");
+//					
+//					int num = Integer.parseInt(numbers[col]);
+//					
+//					mapTileNum[col][row] =num;
+//					col++;
+//				}
+//				
+//				if(col == gp.maxWorldCol) {
+//					col =0;
+//					row++;
+//				}
+//			}
+//			
+//		}catch(Exception e){
+//			
+//		}
+//	}
+	
 	public void loadMap(String filePath) {
-		
-		try {
-			
-			InputStream is = getClass().getResourceAsStream(filePath);
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			
-			int col = 0;
-			int row = 0;
-			
-			while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
-				
-				String line = br.readLine();
-				
-				while(col < gp.maxWorldCol) {
-					String numbers[] = line.split(" ");
-					
-					int num = Integer.parseInt(numbers[col]);
-					
-					mapTileNum[col][row] =num;
-					col++;
-				}
-				
-				if(col == gp.maxWorldCol) {
-					col =0;
-					row++;
-				}
-			}
-			
-		}catch(Exception e){
-			
-		}
+	    try {
+	        InputStream is = getClass().getResourceAsStream(filePath);
+	        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+	        int row = 0;
+
+	        while (row < gp.maxWorldRow) {
+	            String line = br.readLine(); // read one line from map file
+	            if (line == null) break; // safety: stop if file is shorter than expected
+
+	            String numbers[] = line.split(" ");
+
+	            for (int col = 0; col < gp.maxWorldCol; col++) {
+	                int num = Integer.parseInt(numbers[col]);
+	                mapTileNum[col][row] = num;
+	            }
+	            row++;
+	        }
+
+	        br.close(); // close the reader after reading
+	    } catch (Exception e) {
+	        e.printStackTrace(); // print error if file not found or bad format
+	    }
 	}
+
 	
 	public void draw(Graphics2D g2) { // Draw world map, camera setting
 		
