@@ -120,6 +120,10 @@ public class KeyHandler implements KeyListener {
 			enterPressed = false;
 
 		}
+		// reload map for debug
+		if (code == KeyEvent.VK_R) {
+			gp.tileM.loadMap("/maps/world01.txt");
+		}
 //		if(code == KeyEvent.VK_ESCAPE){
 //		    if (gp.gameState == gp.playState) {
 //		        gp.gameState = gp.optionsState;
