@@ -3,6 +3,9 @@ package main;
 import entity.Npc;
 import monster.Zombie;
 import object.OBJ_Door;
+import object.OBJ_Shield;
+import object.OBJ_Sword;
+import object.OBJ_WoodenSword;
 import object.OBJ_speedBoot;
 
 public class AssetSetter {
@@ -15,17 +18,34 @@ public class AssetSetter {
 	
 	public void setObject() {
 		
+		int i = 0 ;
 		// This is where you can set position of the object
 		// for example here door located at (30, 21)
-		gp.obj[0] = new OBJ_Door(gp);
-		gp.obj[0].worldX = 30 * gp.tileSize;
-		gp.obj[0].worldY = 24 * gp.tileSize;
+		gp.obj[i] = new OBJ_Door(gp);
+		gp.obj[i].worldX = 30 * gp.tileSize;
+		gp.obj[i].worldY = 24 * gp.tileSize;
+		i++;
 		
 		// Set speed boot to the world
-		gp.obj[1] = new OBJ_speedBoot(gp);
-		gp.obj[1].worldX = 32 * gp.tileSize;
-		gp.obj[1].worldY = 21 * gp.tileSize;
+		gp.obj[i] = new OBJ_speedBoot(gp);
+		gp.obj[i].worldX = 32 * gp.tileSize;
+		gp.obj[i].worldY = 21 * gp.tileSize;
+		i++;
 		
+		gp.obj[i] = new OBJ_WoodenSword(gp);
+		gp.obj[i].worldX = 33 * gp.tileSize;
+		gp.obj[i].worldY = 22 * gp.tileSize;
+		i++;
+		
+		gp.obj[i] = new OBJ_Sword(gp);
+		gp.obj[i].worldX = 34 * gp.tileSize;
+		gp.obj[i].worldY = 23 * gp.tileSize;
+		i++;
+		
+		gp.obj[i] = new OBJ_Shield(gp);
+		gp.obj[i].worldX = 35 * gp.tileSize;
+		gp.obj[i].worldY = 24 * gp.tileSize;
+		i++;
 	}
 	
 	public void setNpc() {

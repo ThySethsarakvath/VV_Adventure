@@ -159,6 +159,9 @@ public class KeyHandler implements KeyListener {
 				gp.ui.slotCol++;
 			}
 		}
+		if(code == KeyEvent.VK_ENTER) {
+			gp.player.selectItem();
+		}
 
 	}
 

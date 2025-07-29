@@ -9,9 +9,12 @@ public class OBJ_Sword extends Entity {
 		super(gp);
 		// TODO Auto-generated constructor stub
 		
+		type = type_dsword;
 		name = "Diamond Sowrd";
 		down1 = setup("/objects/Sword",gp.tileSize,gp.tileSize);
-		attackValue = 2;
+		attackValue = 4;
+		attackArea.width = 36;
+		attackArea.height = 36;
 		description = "[" + name + "]\nA Diamond Sword.";
 	}
 

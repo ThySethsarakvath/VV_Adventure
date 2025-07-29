@@ -12,7 +12,7 @@ public class Zombie extends Entity {
 		super(gp);
 		this.gp = gp;
 		
-		type = 2;
+		type = type_monster;
 		name = "Zombie";
 		speed = 1;
 		maxLife = 6;

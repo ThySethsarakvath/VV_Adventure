@@ -660,6 +660,11 @@ public class UI {
 		
 		for(int i = 0;i<gp.player.inventory.size();i++) {
 			
+			//Equip cursor
+			if(gp.player.inventory.get(i) == gp.player.currentWeapon || gp.player.inventory.get(i) == gp.player.currentShield) {
+				g2.setColor(new Color(75,46,25));
+				g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
+			}
 			g2.drawImage(gp.player.inventory.get(i).down1, slotX,slotY,null);
 			
 			slotX += slotSize;

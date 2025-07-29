@@ -53,8 +53,7 @@ public class Player extends Entity {
 		solidArea.width = 32;
 		solidArea.height = 32;
 		
-		attackArea.width = 36;
-		attackArea.height = 36;
+		
 
 		setDefaultValues();
 		getPlayerImage();
@@ -94,6 +93,7 @@ public class Player extends Entity {
 	}
 	
 	public int getAttack() {
+		attackArea = currentWeapon.attackArea;
 		return attack = strength * currentWeapon.attackValue;
 	}
 	
@@ -135,15 +135,28 @@ public class Player extends Entity {
 	}
 
 	public void getPlayerAttackImage() {
-
-		aUp1 = setup("/player/Steve_up_a1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-		aUp2 = setup("/player/Steve_up_a2", gp.tileSize, gp.tileSize * 2);
-		aDown1 = setup("/player/Steve_down_a1", gp.tileSize, gp.tileSize * 2);
-		aDown2 = setup("/player/Steve_down_a2", gp.tileSize, gp.tileSize * 2);
-		aRight1 = setup("/player/Steve_right_a1", gp.tileSize * 2, gp.tileSize);
-		aRight2 = setup("/player/Steve_right_a2", gp.tileSize * 2, gp.tileSize);
-		aLeft1 = setup("/player/Steve_left_a1", gp.tileSize * 2, gp.tileSize);
-		aLeft2 = setup("/player/Steve_left_a2", gp.tileSize * 2, gp.tileSize);
+		
+		if(currentWeapon.type == type_dsword) {
+			aUp1 = setup("/player/Steve_up_a1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_up_a2", gp.tileSize, gp.tileSize * 2);
+			aDown1 = setup("/player/Steve_down_a1", gp.tileSize, gp.tileSize * 2);
+			aDown2 = setup("/player/Steve_down_a2", gp.tileSize, gp.tileSize * 2);
+			aRight1 = setup("/player/Steve_right_a1", gp.tileSize * 2, gp.tileSize);
+			aRight2 = setup("/player/Steve_right_a2", gp.tileSize * 2, gp.tileSize);
+			aLeft1 = setup("/player/Steve_left_a1", gp.tileSize * 2, gp.tileSize);
+			aLeft2 = setup("/player/Steve_left_a2", gp.tileSize * 2, gp.tileSize);
+		}
+		if(currentWeapon.type == type_wsword) {
+			aUp1 = setup("/player/Steve_wood_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_wood_up2", gp.tileSize, gp.tileSize * 2);
+			aDown1 = setup("/player/Steve_wood_down1", gp.tileSize, gp.tileSize * 2);
+			aDown2 = setup("/player/Steve_wood_down2", gp.tileSize, gp.tileSize * 2);
+			aRight1 = setup("/player/Steve_wood_right2", gp.tileSize * 2, gp.tileSize);
+			aRight2 = setup("/player/Steve_wood_right1", gp.tileSize * 2, gp.tileSize);
+			aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
+			aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
+		}
+		
 
 	}
 
@@ -388,6 +401,35 @@ public class Player extends Entity {
 		}
 	}
 
+	public void selectItem() {
+		
+		int itemIndex = gp.ui.getItemIndexOnSlot();
+		
+		if(itemIndex < inventory.size()) {
+			Entity selectedItem = inventory.get(itemIndex);
+			
+//			if(selectedItem.type == type_dsword || selectedItem.type == type_wsword) {
+//				currentWeapon = selectedItem;
+//				attack = getAttack();
+//			}
+			
+			if(selectedItem.type == type_dsword || selectedItem.type == type_wsword) {
+				currentWeapon = selectedItem;
+				attack = getAttack();
+				getPlayerAttackImage();
+			}
+			
+			if(selectedItem.type == type_shield) {
+				currentShield = selectedItem;
+				defense = getDefense();
+			}
+			if(selectedItem.type == type_consumable) {
+				//later
+			}
+		}
+		
+	}
+	
 	public void draw(Graphics2D g2) {
 
 //		g2.setColor(Color.white);
