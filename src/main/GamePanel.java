@@ -49,8 +49,8 @@ public class GamePanel extends JPanel implements Runnable {
 	// SYSTEM
 	TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
-	Sound music = new Sound();
-	Sound se = new Sound();
+	public Sound music = new Sound();
+	public Sound se = new Sound();
 
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public AssetSetter aSetter = new AssetSetter(this);
@@ -110,6 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
 	
 	public void retry() {
 		
+		music.play();
 		player.setDefaultPositions();
 		player.restoreLife();
 		aSetter.setNpc();
