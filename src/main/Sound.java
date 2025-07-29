@@ -55,8 +55,10 @@ public class Sound {
     }
 
     public void pause() {
-        currentFrame = clip.getMicrosecondPosition();
-        clip.stop();
+    	if (clip != null && clip.isRunning()) {	
+    		currentFrame = clip.getMicrosecondPosition();
+    		clip.stop();
+    	}
     }
     
     public void checkVolume() {
@@ -80,8 +82,10 @@ public class Sound {
             audioStream = AudioSystem.getAudioInputStream(resumeURL);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
-            clip.setMicrosecondPosition(currentFrame);
-            clip.start();
+            if(clip != null) {
+            	clip.setMicrosecondPosition(currentFrame);
+            	clip.start();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
