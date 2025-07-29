@@ -563,31 +563,33 @@ public class UI {
 		int textX;
 		int textY;
 		
+		g2.setFont(g2.getFont().deriveFont(12F));
+		
 		// TITLE
 		String text = "CONTROL";
 		textX = getXforCenteredText(text);
-		textY = frameY + gp.tileSize;
+		textY = frameY + gp.tileSize + 70;
 		g2.drawString(text, textX, textY);
 		
 		textX = frameX + gp.tileSize;
 		textY += gp.tileSize;
-		g2.drawString("Move", textX, textY); textY += gp.tileSize;
-		g2.drawString("Confirm/Attack", textX, textY); textY += gp.tileSize;
-		g2.drawString("Shoot/Cast", textX, textY); textY += gp.tileSize;
-		g2.drawString("Pause", textX, textY); textY += gp.tileSize;
-		g2.drawString("Options", textX, textY); textY += gp.tileSize;
+		g2.drawString("Move", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("Confirm/Attack", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("Shoot/Cast", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("Pause", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("Options", textX, textY); textY += gp.tileSize - 20;
 		
 		textX = frameX + gp.tileSize * 6;
-		textY = frameY + gp.tileSize * 2;
-		g2.drawString("WASD", textX, textY); textY += gp.tileSize;
-		g2.drawString("ENTER", textX, textY); textY += gp.tileSize;
-		g2.drawString("F", textX, textY); textY += gp.tileSize;
-		g2.drawString("P", textX, textY); textY += gp.tileSize;
-		g2.drawString("ESC", textX, textY); textY += gp.tileSize;
+		textY = frameY + (gp.tileSize * 4) - 25;
+		g2.drawString("WASD", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("ENTER", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("F", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("P", textX, textY); textY += gp.tileSize - 20;
+		g2.drawString("ESC", textX, textY); textY += gp.tileSize - 20;
 		
 		// BACK
 		textX = frameX + gp.tileSize;
-		textY = frameY + gp.tileSize * 9;
+		textY = frameY + gp.tileSize * 7;
 		g2.drawString("BACK", textX, textY);
 		if(commandNum == 0) {
 			g2.drawString(">", textX - 25, textY);
@@ -603,7 +605,9 @@ public class UI {
 		int textX = frameX + gp.tileSize;
 		int textY = frameY + gp.tileSize * 3;
 		
-		currentDialogue = "Quit the game and \nreturn to the title screen?";
+		g2.setFont(g2.getFont().deriveFont(12F));
+		
+		currentDialogue = "Quit the game and return \nto the title screen?";
 		
 		for(String line : currentDialogue.split("\n")) {
 			g2.drawString(line, textX, textY);
@@ -613,12 +617,13 @@ public class UI {
 		// YES
 		String text = "Yes";
 		textX = getXforCenteredText(text);
-		textY += gp.tileSize * 3;
+		textY += gp.tileSize * 2;
 		g2.drawString(text, textX, textY);
 		if(commandNum == 0) {
 			g2.drawString(">", textX - 25, textY);
 			if(gp.keyH.enterPressed == true) {
 				subState = 0;
+				gp.music.stop();
 				gp.gameState = gp.titleState;
 			}
 		}
