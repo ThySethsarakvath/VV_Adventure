@@ -371,7 +371,7 @@ public class Player extends Entity {
 	public void contactMonster(int i) {
 
 		if (i != -1) {
-			if (invincible == false) {
+			if (invincible == false && gp.monster[i].die == false) {
 				gp.playSE(2);
 				life -= 1;
 				invincible = true;

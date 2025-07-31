@@ -301,8 +301,7 @@ public class Entity {
 			changeAlpha(g2, 1f);
 		}
 
-		if (dieCounter > 40) {
-			die = false;
+		if (dieCounter > i*8) {
 			alive = false;
 		}
 	}

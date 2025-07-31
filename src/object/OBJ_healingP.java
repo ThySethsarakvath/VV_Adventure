@@ -21,6 +21,7 @@ public class OBJ_healingP extends Entity {
 		if(gp.player.life > gp.player.maxLife) {
 			gp.player.life = gp.player.maxLife;
 		}
+		gp.playSE(9);
 	}
 
 }
