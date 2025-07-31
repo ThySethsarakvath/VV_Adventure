@@ -321,6 +321,7 @@ public class Player extends Entity {
 		if (i != -1) {
 			
 			if(inventory.size() != maxinventorySize) {
+				gp.playSE(8);
 				inventory.add(gp.obj[i]);
 			}
 			// gp.obj[i] = null; // delete object that player touched

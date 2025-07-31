@@ -66,13 +66,26 @@ public class AssetSetter {
 	}
 	
 	public void setMonster() {
-		gp.monster[0] = new Zombie(gp);
-		gp.monster[0].worldX = gp.tileSize*29;
-		gp.monster[0].worldY = gp.tileSize*29;
+		int i =0;
+		gp.monster[i] = new Zombie(gp);
+		gp.monster[i].worldX = gp.tileSize*29;
+		gp.monster[i].worldY = gp.tileSize*29;
+		i++;
 		
-		gp.monster[1] = new Zombie(gp);
-		gp.monster[1].worldX = gp.tileSize*30;
-		gp.monster[1].worldY = gp.tileSize*30;
+		gp.monster[i] = new Zombie(gp);
+		gp.monster[i].worldX = gp.tileSize*30;
+		gp.monster[i].worldY = gp.tileSize*30;
+		i++;
+		
+		gp.monster[i] = new Zombie(gp);
+		gp.monster[i].worldX = gp.tileSize*28;
+		gp.monster[i].worldY = gp.tileSize*28;
+		i++;
+		
+		gp.monster[i] = new Zombie(gp);
+		gp.monster[i].worldX = gp.tileSize*31;
+		gp.monster[i].worldY = gp.tileSize*31;
+		i++;
 	}
 	
 }
