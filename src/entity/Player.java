@@ -237,14 +237,19 @@ public class Player extends Entity {
 			spriteNum = 3;
 		}
 		
-		if(gp.keyH.jPressed == true && pro.alive == false) {
+		if(gp.keyH.jPressed == true && pro.alive == false && shotCounter == 30) {
 			
 			// set defualt coord, direction and user
 			pro.set(worldX,worldY,direction,true,this);
 			
 			//add pro to the list
 			gp.projectileList.add(pro);
-//			gp.playSE();
+			shotCounter = 0 ;
+			gp.playSE(10);
+		}
+		
+		if(shotCounter < 30) {
+			shotCounter++;
 		}
 
 		// ⚡ Speed boost timer
@@ -312,7 +317,7 @@ public class Player extends Entity {
 			
 			// Check monster collision with the attack area
 			int monsterIndex = gp.cChecker.checkEntity(this,gp.monster);
-			damageMonster(monsterIndex);
+			damageMonster(monsterIndex,attack);
 			
 			worldX = currentX;
 			worldY = currentY;
@@ -392,7 +397,7 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void damageMonster(int i) {
+	public void damageMonster(int i, int attack) {
 		
 		if(i != -1) {
 		
@@ -401,7 +406,12 @@ public class Player extends Entity {
 				int hurtSound = new java.util.Random().nextInt(2) + 4; // returns 4 or 5
 		        gp.playSE(hurtSound);
 		        
-				gp.monster[i].life -=1;
+		        int damage = attack -gp.monster[i].defense;
+		        if(damage<0) {
+		        	damage =0;
+		        }
+		        
+				gp.monster[i].life -=damage;
 				gp.monster[i].invincible =true;
 				gp.monster[i].damageReaction();
 				

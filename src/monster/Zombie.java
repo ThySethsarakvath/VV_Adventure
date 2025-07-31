@@ -4,6 +4,7 @@ import java.util.Random;
 
 import entity.Entity;
 import main.GamePanel;
+import object.OBJ_Fireball;
 
 public class Zombie extends Entity {
 
@@ -12,11 +13,12 @@ public class Zombie extends Entity {
 		super(gp);
 		this.gp = gp;
 		
-		type = type_monster;
+		type = type_zombie;
 		name = "Zombie";
 		speed = 1;
 		maxLife = 6;
 		life = maxLife;
+//		pro = new OBJ_Fireball(gp);
 		
 		solidArea.x = 0; // X-offset within zombie sprite
 	    solidArea.y = 16; // Y-offset
@@ -68,6 +70,14 @@ public class Zombie extends Entity {
 
 			actionLockCounter = 0;
 		}
+		
+		// add this for new projectile moster
+//		int i = new Random().nextInt(100)+1;
+//		if(i > 99 && pro.alive == false && shotCounter == 30) {
+//			pro.set(worldX, worldY, direction, true, this);
+//			gp.projectileList.add(pro);
+//			shotCounter=0;
+		
 	}
 	
 	public void damageReaction() {

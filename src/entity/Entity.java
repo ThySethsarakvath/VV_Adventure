@@ -46,6 +46,7 @@ public class Entity {
 	public int spriteCounter = 0;
 	int dieCounter;
 	int hpBarCounter =0;
+	public int shotCounter;
 
 	// CHARACTER ATTRIBUTES
 	public String name;
@@ -75,7 +76,7 @@ public class Entity {
 	public int type; // 0 = player , 1 = npc, 2 = monster
 	public final int type_player = 0;
 	public final int type_npc = 1;
-	public final int type_monster = 2;
+	public final int type_zombie = 2;
 	public final int type_dsword = 3;
 	public final int type_wsword = 4;
 	public final int type_shield = 5;
@@ -140,13 +141,8 @@ public class Entity {
 		gp.cChecker.checkEntity(this, gp.npc);
 		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-		if (this.type == type_monster && contactPlayer == true) {
-			if (gp.player.invincible == false) {
-				// recieve damage
-				gp.playSE(2);
-				gp.player.life -= 1;
-				gp.player.invincible = true;
-			}
+		if (this.type == type_zombie && contactPlayer == true) {
+			damagePlayer(attack);
 		}
 
 		if (!collisionOn && !direction.equals("stand")) {
@@ -190,6 +186,26 @@ public class Entity {
 				invinCounter = 0;
 			}
 		}
+		if(shotCounter < 30) {
+			shotCounter++;
+		}
+	}
+	
+	public void damagePlayer(int attack) {
+		
+		if (gp.player.invincible == false) {
+			// recieve damage
+			gp.playSE(2);
+			
+			int damage = attack-gp.player.defense;
+			if(damage<0) {
+				damage = 0;
+			}
+			
+			gp.player.life -= damage;
+			gp.player.invincible = true;
+		}
+		
 	}
 
 	public void draw(Graphics2D g2) {
