@@ -254,7 +254,7 @@ public class Player extends Entity {
 		}
 		if(life <= 0) {
 			gp.gameState = gp.gameOverState;
-			gp.music.pause();
+			gp.music.stop();
 //			gp.playSE(); For game over sound
 		}
 	}
