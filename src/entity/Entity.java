@@ -50,6 +50,8 @@ public class Entity {
 	// CHARACTER ATTRIBUTES
 	public String name;
 	public int maxLife;
+	public int mana;
+	public int maxMana;
 	public int life;
 	public int speed;
 	public int level;
@@ -62,11 +64,13 @@ public class Entity {
 	public int coin;
 	public Entity currentWeapon;
 	public Entity currentShield;
+	public Projectile pro;
 	
 	//Item Attributes
 	public int attackValue;
 	public int defenseValue;
 	public String description = "";
+	public int useCost;
 	
 	public int type; // 0 = player , 1 = npc, 2 = monster
 	public final int type_player = 0;

@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.OBJ_Fireball;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
 
@@ -83,6 +84,7 @@ public class Player extends Entity {
 		coin = 0;
 		currentWeapon = new OBJ_Sword(gp);
 		currentShield = new OBJ_Shield(gp);
+		pro = new OBJ_Fireball(gp);
 		attack = getAttack(); // total attack base on strength and weapon
 		defense = getDefense(); // total defense base on dexterity and shield
 	}
@@ -233,6 +235,16 @@ public class Player extends Entity {
 		} else {
 			// No key is pressed, so reset to standing
 			spriteNum = 3;
+		}
+		
+		if(gp.keyH.jPressed == true && pro.alive == false) {
+			
+			// set defualt coord, direction and user
+			pro.set(worldX,worldY,direction,true,this);
+			
+			//add pro to the list
+			gp.projectileList.add(pro);
+//			gp.playSE();
 		}
 
 		// ⚡ Speed boost timer
