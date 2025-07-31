@@ -6,6 +6,7 @@ import object.OBJ_Door;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
 import object.OBJ_WoodenSword;
+import object.OBJ_healingP;
 import object.OBJ_speedBoot;
 
 public class AssetSetter {
@@ -45,6 +46,16 @@ public class AssetSetter {
 		gp.obj[i] = new OBJ_Shield(gp);
 		gp.obj[i].worldX = 35 * gp.tileSize;
 		gp.obj[i].worldY = 24 * gp.tileSize;
+		i++;
+		
+		gp.obj[i] = new OBJ_healingP(gp);
+		gp.obj[i].worldX = 35 * gp.tileSize;
+		gp.obj[i].worldY = 25 * gp.tileSize;
+		i++;
+		
+		gp.obj[i] = new OBJ_healingP(gp);
+		gp.obj[i].worldX = 36 * gp.tileSize;
+		gp.obj[i].worldY = 26 * gp.tileSize;
 		i++;
 	}
 	
