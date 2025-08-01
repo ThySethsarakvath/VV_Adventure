@@ -77,6 +77,7 @@ public class Zombie extends Entity {
 //			pro.set(worldX, worldY, direction, true, this);
 //			gp.projectileList.add(pro);
 //			shotCounter=0;
+//		}
 		
 	}
 	

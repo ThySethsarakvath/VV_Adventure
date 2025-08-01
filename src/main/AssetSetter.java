@@ -1,6 +1,7 @@
 package main;
 
 import entity.Npc;
+import monster.Skeleton;
 import monster.Zombie;
 import object.OBJ_Door;
 import object.OBJ_Shield;
@@ -85,6 +86,16 @@ public class AssetSetter {
 		gp.monster[i] = new Zombie(gp);
 		gp.monster[i].worldX = gp.tileSize*31;
 		gp.monster[i].worldY = gp.tileSize*31;
+		i++;
+		
+		gp.monster[i] = new Skeleton(gp);
+		gp.monster[i].worldX = gp.tileSize*31;
+		gp.monster[i].worldY = gp.tileSize*41;
+		i++;
+		
+		gp.monster[i] = new Skeleton(gp);
+		gp.monster[i].worldX = gp.tileSize*30;
+		gp.monster[i].worldY = gp.tileSize*41;
 		i++;
 	}
 	
