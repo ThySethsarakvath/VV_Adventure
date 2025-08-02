@@ -437,10 +437,14 @@ public class Player extends Entity {
 //				attack = getAttack();
 //			}
 			
-			if(selectedItem.type == type_dsword || selectedItem.type == type_wsword) {
+			if(selectedItem.type == type_dsword || selectedItem.type == type_wsword ) {
 				currentWeapon = selectedItem;
 				attack = getAttack();
 				getPlayerAttackImage();
+			}
+			
+			if(selectedItem.type == type_firecharge) {
+				currentBall = selectedItem;
 			}
 			
 			if(selectedItem.type == type_shield) {

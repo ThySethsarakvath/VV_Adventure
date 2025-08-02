@@ -28,6 +28,7 @@ public class Skeleton extends Entity {
 	    solidAreaDefaultX = solidArea.x;
 	    solidAreaDefaultY = solidArea.y;
 	    getImage();
+	    getAttackImage();
 	}
 	
 	public void getImage() {
@@ -46,6 +47,67 @@ public class Skeleton extends Entity {
 		rightStand = setup("/monster/sr",gp.tileSize,gp.tileSize);
 		
 		
+	}
+	
+	public void getAttackImage() {
+		
+		aUp1 = setup("/monster/sua1",gp.tileSize,gp.tileSize);
+		aUp2 = setup("/monster/sua2",gp.tileSize,gp.tileSize);
+		aDown1 = setup("/monster/sda1",gp.tileSize,gp.tileSize);
+		aDown2 = setup("/monster/sda2",gp.tileSize,gp.tileSize);
+		aLeft1 = setup("/monster/sla1",gp.tileSize,gp.tileSize);
+		aLeft2 = setup("/monster/sla2",gp.tileSize,gp.tileSize);
+		aRight1 = setup("/monster/sra1",gp.tileSize,gp.tileSize);
+		aRight2 = setup("/monster/sra2",gp.tileSize,gp.tileSize);
+		
+		
+	}
+	
+	@Override
+	public void update() {
+		super.update();
+		
+		if(attacking) {
+			attackAnimation();
+		}
+	}
+	
+	public void attackAnimation() {
+		
+		
+	    spriteCounter++;
+	    
+	    // Frame 1: Draw bow (0-20 frames) - extended for better visibility
+	    if (spriteCounter <= 20) {
+	        spriteNum = 1;
+	    } 
+	    // Frame 2: Release arrow (21-35 frames)
+	    else if (spriteCounter <= 35) {
+	        spriteNum = 2;
+	        
+	        // Fire arrow exactly once at frame 21
+	        if (spriteCounter == 21 && !pro.alive && shotCounter >= 30) {
+	            pro.set(worldX, worldY, direction, true, this);
+	            gp.projectileList.add(pro);
+	            shotCounter = 0;
+	            gp.playSE(10); // Play arrow sound
+	        }
+	    }
+	    // Smooth transition period (36-45 frames)
+	    else if (spriteCounter <= 45) {
+	        // Blend between attack and standing frames
+	        if (spriteCounter % 3 < 2) { // Show attack frame 2/3 of the time
+	            spriteNum = 2; 
+	        } else {
+	            spriteNum = 3; // Briefly show standing frame
+	        }
+	    }
+	    // Complete reset
+	    else {
+	        attacking = false;
+	        spriteNum = 3;
+	        spriteCounter = 0;
+	    }
 	}
 	
 	public void setAction() {
@@ -67,16 +129,24 @@ public class Skeleton extends Entity {
 			} else {
 				direction = "right";
 			}
+			if(i>80) {
+				attacking = true;
+				spriteNum = 1;
+				spriteCounter = 0;
+			}
 
 			actionLockCounter = 0;
 		}
 		
 		// add this for new projectile moster
 		int i = new Random().nextInt(100)+1;
-		if(i > 99 && pro.alive == false && shotCounter == 30) {
-			pro.set(worldX, worldY, direction, true, this);
-			gp.projectileList.add(pro);
-			shotCounter=0;
+		if(!attacking && i > 99 && pro.alive == false && shotCounter == 30 ){
+			attacking = true;
+			spriteNum = 1;
+			spriteCounter = 0;
+//			pro.set(worldX, worldY, direction, true, this);
+//			gp.projectileList.add(pro);
+//			shotCounter=0;
 		}
 		
 	}

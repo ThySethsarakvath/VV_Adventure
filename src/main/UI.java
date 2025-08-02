@@ -666,7 +666,7 @@ public class UI {
 		for(int i = 0;i<gp.player.inventory.size();i++) {
 			
 			//Equip cursor
-			if(gp.player.inventory.get(i) == gp.player.currentWeapon || gp.player.inventory.get(i) == gp.player.currentShield) {
+			if(gp.player.inventory.get(i) == gp.player.currentWeapon || gp.player.inventory.get(i) == gp.player.currentShield || gp.player.inventory.get(i) == gp.player.currentBall) {
 				g2.setColor(new Color(75,46,25));
 				g2.fillRoundRect(slotX,slotY,gp.tileSize,gp.tileSize,10,10);
 			}

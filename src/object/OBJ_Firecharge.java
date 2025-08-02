@@ -9,7 +9,11 @@ public class OBJ_Firecharge extends Entity {
 		super(gp);
 		// TODO Auto-generated constructor stub
 		
-		
+		type = type_firecharge;
+		name = "Fire Charge";
+		down1 = setup("/objects/fire_charge",gp.tileSize,gp.tileSize);
+		defenseValue =1;
+		description = "[" + name + "]\nA Contain this to shoot the fire ball.";
 	}
 
 }

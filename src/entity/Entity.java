@@ -65,6 +65,7 @@ public class Entity {
 	public int coin;
 	public Entity currentWeapon;
 	public Entity currentShield;
+	public Entity currentBall;
 	public Projectile pro;
 	
 	//Item Attributes
@@ -81,6 +82,7 @@ public class Entity {
 	public final int type_wsword = 4;
 	public final int type_shield = 5;
 	public final int type_consumable = 6;
+	public final int type_firecharge = 7;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -145,7 +147,7 @@ public class Entity {
 			damagePlayer(attack);
 		}
 
-		if (!collisionOn && !direction.equals("stand")) {
+		if (!attacking && !collisionOn && !direction.equals("stand")) {
 			switch (direction) {
 			case "up":
 				worldY -= speed;
@@ -163,6 +165,7 @@ public class Entity {
 		}
 
 		// Animate only if moving
+		if(!attacking) {
 		if (!direction.equals("stand") && !collisionOn) {
 			spriteCounter++;
 			if (spriteCounter > 10) {
@@ -177,6 +180,7 @@ public class Entity {
 		} else {
 			// Set to standing frame
 			spriteNum = 3;
+		}
 		}
 
 		if (invincible) {
@@ -209,87 +213,109 @@ public class Entity {
 	}
 
 	public void draw(Graphics2D g2) {
+	    BufferedImage image = null;
+	    int screenX = worldX - gp.player.worldX + gp.player.screenX;
+	    int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-		BufferedImage image = null;
-		int screenX = worldX - gp.player.worldX + gp.player.screenX;
-		int screenY = worldY - gp.player.worldY + gp.player.screenY;
+	    if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
+	            && worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
+	            && worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
+	            && worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-		if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX
-				&& worldX - gp.tileSize < gp.player.worldX + gp.player.screenX
-				&& worldY + gp.tileSize > gp.player.worldY - gp.player.screenY
-				&& worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+	        switch (direction) {
+	            case "up":
+	                if (attacking == true) {
+	                    if(spriteCounter <=20) {
+	                    	image = aUp1;
+	                    }
+	                    else {
+	                    	image = aUp2;
+	                    }
+	                } if(attacking == false){
+	                    if (spriteNum == 1) image = up1;
+	                    if (spriteNum == 2) image = up2;
+	                    if (spriteNum == 3) image = upStand;
+	                }
+	                break;
+	            case "down":
+	                if (attacking == true) {
+	                	if(spriteCounter <=20) {
+	                    	image = aDown1;
+	                    }
+	                    else {
+	                    	image = aDown2;
+	                    }
+	                } if(attacking == false) {
+	                    if (spriteNum == 1) image = down1;
+	                    if (spriteNum == 2) image = down2;
+	                    if (spriteNum == 3) image = downStand;
+	                }
+	                break;
+	            case "left":
+	                if (attacking == true) {
+	                	if(spriteCounter <=20) {
+	                    	image = aLeft1;
+	                    }
+	                    else {
+	                    	image = aLeft2;
+	                    }
+	                } if(attacking == false) {
+	                    if (spriteNum == 1) image = left1;
+	                    if (spriteNum == 2) image = left2;
+	                    if (spriteNum == 3) image = leftStand;
+	                }
+	                break;
+	            case "right":
+	                if (attacking == true) {
+	                	if(spriteCounter <=20) {
+	                    	image = aRight1;
+	                    }
+	                    else {
+	                    	image = aRight2;
+	                    }
+	                } if(attacking == false) {
+	                    if (spriteNum == 1) image = right1;
+	                    if (spriteNum == 2) image = right2;
+	                    if (spriteNum == 3) image = rightStand;
+	                }
+	                break;
+	        }
 
-			switch (direction) {
-			case "up":
-				if (spriteNum == 1)
-					image = up1;
-				else if (spriteNum == 2)
-					image = up2;
-				else if (spriteNum == 3)
-					image = upStand;
-				break;
-			case "down":
-				if (spriteNum == 1)
-					image = down1;
-				else if (spriteNum == 2)
-					image = down2;
-				else if (spriteNum == 3)
-					image = downStand;
-				break;
-			case "left":
-				if (spriteNum == 1)
-					image = left1;
-				else if (spriteNum == 2)
-					image = left2;
-				else if (spriteNum == 3)
-					image = leftStand;
-				break;
-			case "right":
-				if (spriteNum == 1)
-					image = right1;
-				else if (spriteNum == 2)
-					image = right2;
-				else if (spriteNum == 3)
-					image = rightStand;
-				break;
-			}
-			
-			//Monster HP bar
-			if(type ==2 && hpBarOn == true) {
-				
-				double oneScale = (double)gp.tileSize/maxLife;
-				double hpBarValue = oneScale*life;
-				
-				g2.setColor(new Color(35,35,35));
-				g2.fillRect(screenX-1, screenY-16, gp.tileSize, 10);
-				
-				g2.setColor(new Color(255,0,0));
-				g2.fillRect(screenX, screenY-15, (int)hpBarValue, 10);
-				
-				hpBarCounter ++;
-				
-				if(hpBarCounter > 600) { // the bar appear within 600 frames = 10s
-					hpBarCounter = 0;
-					hpBarOn = false;
-				}
-			}
+	        //Monster HP bar
+	        if(type == 2 && hpBarOn == true) {
+	            double oneScale = (double)gp.tileSize/maxLife;
+	            double hpBarValue = oneScale*life;
+	            
+	            g2.setColor(new Color(35,35,35));
+	            g2.fillRect(screenX-1, screenY-16, gp.tileSize, 10);
+	            
+	            g2.setColor(new Color(255,0,0));
+	            g2.fillRect(screenX, screenY-15, (int)hpBarValue, 10);
+	            
+	            hpBarCounter++;
+	            
+	            if(hpBarCounter > 600) {
+	                hpBarCounter = 0;
+	                hpBarOn = false;
+	            }
+	        }
 
-			// Image transparent when receive damage
-			if (invincible == true) {
-				hpBarOn = true;
-				hpBarCounter = 0;
-				changeAlpha(g2, 0.5f);
-			}
+	        // Image transparent when receive damage
+	        if (invincible == true) {
+	            hpBarOn = true;
+	            hpBarCounter = 0;
+	            changeAlpha(g2, 0.5f);
+	        }
 
-			if (die == true) {
-				deadAnimation(g2);
-			}
+	        if (die == true) {
+	            deadAnimation(g2);
+	        }
 
-			g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+	        g2.drawImage(image, screenX, screenY, null);
 
-			// Reset Alpha
-			changeAlpha(g2, 1f);
-		}
+	        // Reset Alpha
+	        changeAlpha(g2, 1f);
+	    }
 	}
 
 	public void deadAnimation(Graphics2D g2) {

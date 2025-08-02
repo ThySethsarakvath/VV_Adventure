@@ -180,6 +180,7 @@ public class GamePanel extends JPanel implements Runnable {
 //				repaint();
 				drawToTempScreen();
 				drawToScreen();
+				try { Thread.sleep(1); } catch (InterruptedException e) {}
 				delta--;
 				drawCount++;
 			}

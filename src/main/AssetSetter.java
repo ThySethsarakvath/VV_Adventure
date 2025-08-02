@@ -4,6 +4,7 @@ import entity.Npc;
 import monster.Skeleton;
 import monster.Zombie;
 import object.OBJ_Door;
+import object.OBJ_Firecharge;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
 import object.OBJ_WoodenSword;
@@ -56,6 +57,11 @@ public class AssetSetter {
 		
 		gp.obj[i] = new OBJ_healingP(gp);
 		gp.obj[i].worldX = 36 * gp.tileSize;
+		gp.obj[i].worldY = 26 * gp.tileSize;
+		i++;
+		
+		gp.obj[i] = new OBJ_Firecharge(gp);
+		gp.obj[i].worldX = 37 * gp.tileSize;
 		gp.obj[i].worldY = 26 * gp.tileSize;
 		i++;
 	}
