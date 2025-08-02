@@ -84,6 +84,7 @@ public class Entity {
 	public final int type_consumable = 6;
 	public final int type_firecharge = 7;
 	public final int type_skeleton = 8;
+	public final int type_axe = 9;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;

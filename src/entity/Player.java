@@ -158,6 +158,17 @@ public class Player extends Entity {
 			aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
 			aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
 		}
+		
+		if(currentWeapon.type == type_axe) {
+			aUp1 = setup("/player/Steve_axe_u1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_axe_u2", gp.tileSize, gp.tileSize * 2);
+			aDown1 = setup("/player/Steve_axe_d1", gp.tileSize, gp.tileSize * 2);
+			aDown2 = setup("/player/Steve_axe_d2", gp.tileSize, gp.tileSize * 2);
+			aRight1 = setup("/player/Steve_axe_r1", gp.tileSize * 2, gp.tileSize);
+			aRight2 = setup("/player/Steve_axe_r2", gp.tileSize * 2, gp.tileSize);
+			aLeft1 = setup("/player/Steve_axe_l1", gp.tileSize * 2, gp.tileSize);
+			aLeft2 = setup("/player/Steve_axe_l2", gp.tileSize * 2, gp.tileSize);
+		}
 //		if(currentBall.type == type_firecharge) {
 //			aUp1 = setup("/player/Steve_fire_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
 //			aUp2 = setup("/player/Steve_fire_up2", gp.tileSize, gp.tileSize * 2);
@@ -460,7 +471,7 @@ public class Player extends Entity {
 //				attack = getAttack();
 //			}
 			
-			if(selectedItem.type == type_dsword || selectedItem.type == type_wsword ) {
+			if(selectedItem.type == type_dsword || selectedItem.type == type_wsword || selectedItem.type == type_axe) {
 				currentWeapon = selectedItem;
 				attack = getAttack();
 				getPlayerAttackImage();
