@@ -158,16 +158,16 @@ public class Player extends Entity {
 			aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
 			aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
 		}
-		if(currentBall.type == type_firecharge) {
-			aUp1 = setup("/player/Steve_fire_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_fire_up2", gp.tileSize, gp.tileSize * 2);
-			aDown1 = setup("/player/Steve_fire_down1", gp.tileSize, gp.tileSize * 2);
-			aDown2 = setup("/player/Steve_fire_down2", gp.tileSize, gp.tileSize * 2);
-			aRight1 = setup("/player/Steve_fire_right2", gp.tileSize * 2, gp.tileSize);
-			aRight2 = setup("/player/Steve_fire_right1", gp.tileSize * 2, gp.tileSize);
-			aLeft1 = setup("/player/Steve_fire_left1", gp.tileSize * 2, gp.tileSize);
-			aLeft2 = setup("/player/Steve_fire_left2", gp.tileSize * 2, gp.tileSize);
-		}
+//		if(currentBall.type == type_firecharge) {
+//			aUp1 = setup("/player/Steve_fire_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+//			aUp2 = setup("/player/Steve_fire_up2", gp.tileSize, gp.tileSize * 2);
+//			aDown1 = setup("/player/Steve_fire_down1", gp.tileSize, gp.tileSize * 2);
+//			aDown2 = setup("/player/Steve_fire_down2", gp.tileSize, gp.tileSize * 2);
+//			aRight1 = setup("/player/Steve_fire_right2", gp.tileSize * 2, gp.tileSize);
+//			aRight2 = setup("/player/Steve_fire_right1", gp.tileSize * 2, gp.tileSize);
+//			aLeft1 = setup("/player/Steve_fire_left1", gp.tileSize * 2, gp.tileSize);
+//			aLeft2 = setup("/player/Steve_fire_left2", gp.tileSize * 2, gp.tileSize);
+//		}
 
 		
 
