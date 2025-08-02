@@ -83,6 +83,7 @@ public class Entity {
 	public final int type_shield = 5;
 	public final int type_consumable = 6;
 	public final int type_firecharge = 7;
+	public final int type_skeleton = 8;
 	
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -282,7 +283,7 @@ public class Entity {
 	        }
 
 	        //Monster HP bar
-	        if(type == 2 && hpBarOn == true) {
+	        if((type == type_zombie || type == type_skeleton) && hpBarOn == true) {
 	            double oneScale = (double)gp.tileSize/maxLife;
 	            double hpBarValue = oneScale*life;
 	            

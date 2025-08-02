@@ -64,6 +64,16 @@ public class AssetSetter {
 		gp.obj[i].worldX = 37 * gp.tileSize;
 		gp.obj[i].worldY = 26 * gp.tileSize;
 		i++;
+		
+		gp.obj[i] = new OBJ_Firecharge(gp);
+		gp.obj[i].worldX = 38 * gp.tileSize;
+		gp.obj[i].worldY = 26 * gp.tileSize;
+		i++;
+		
+		gp.obj[i] = new OBJ_Firecharge(gp);
+		gp.obj[i].worldX = 39 * gp.tileSize;
+		gp.obj[i].worldY = 26 * gp.tileSize;
+		i++;
 	}
 	
 	public void setNpc() {

@@ -158,6 +158,17 @@ public class Player extends Entity {
 			aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
 			aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
 		}
+		if(currentBall.type == type_firecharge) {
+			aUp1 = setup("/player/Steve_fire_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_fire_up2", gp.tileSize, gp.tileSize * 2);
+			aDown1 = setup("/player/Steve_fire_down1", gp.tileSize, gp.tileSize * 2);
+			aDown2 = setup("/player/Steve_fire_down2", gp.tileSize, gp.tileSize * 2);
+			aRight1 = setup("/player/Steve_fire_right2", gp.tileSize * 2, gp.tileSize);
+			aRight2 = setup("/player/Steve_fire_right1", gp.tileSize * 2, gp.tileSize);
+			aLeft1 = setup("/player/Steve_fire_left1", gp.tileSize * 2, gp.tileSize);
+			aLeft2 = setup("/player/Steve_fire_left2", gp.tileSize * 2, gp.tileSize);
+		}
+
 		
 
 	}
@@ -238,14 +249,14 @@ public class Player extends Entity {
 		}
 		
 		if(gp.keyH.jPressed == true && pro.alive == false && shotCounter == 30) {
-			
-			// set defualt coord, direction and user
-			pro.set(worldX,worldY,direction,true,this);
-			
-			//add pro to the list
-			gp.projectileList.add(pro);
-			shotCounter = 0 ;
-			gp.playSE(10);
+		    // Only shoot if have resource
+		    if(pro.haveResource(this)) {
+		        pro.set(worldX,worldY,direction,true,this);
+		        pro.subtractResource(this);
+		        gp.projectileList.add(pro);
+		        shotCounter = 0;
+		        gp.playSE(10);
+		    }
 		}
 		
 		if(shotCounter < 30) {
@@ -400,29 +411,41 @@ public class Player extends Entity {
 	public void damageMonster(int i, int attack) {
 		
 		if(i != -1) {
-		
-			if(gp.monster[i].invincible == false) {
-				
-				int hurtSound = new java.util.Random().nextInt(2) + 4; // returns 4 or 5
-		        gp.playSE(hurtSound);
-		        
-		        int damage = attack -gp.monster[i].defense;
-		        if(damage<0) {
-		        	damage =0;
+		    Entity monster = gp.monster[i];
+		    
+		    if(!monster.invincible) {
+		        int hurtSound;
+		        int deathSound;
+
+		        switch(monster.type) {
+		            case type_zombie:
+		                hurtSound = new java.util.Random().nextInt(2) + 4; // 4 or 5
+		                deathSound = 6;
+		                break;
+		            case type_skeleton:
+		                hurtSound = new java.util.Random().nextInt(2) + 12; // 12 or 13
+		                deathSound = 14;
+		                break;
+		            default:
+		                hurtSound = 2; // Fallback sound
+		                deathSound = -1;
 		        }
-		        
-				gp.monster[i].life -=damage;
-				gp.monster[i].invincible =true;
-				gp.monster[i].damageReaction();
-				
-				
-				if(gp.monster[i].life <= 0) {
-					gp.monster[i].die = true;
-					
-					gp.playSE(6);
-				}
-			}
+
+		        gp.playSE(hurtSound);
+		        int damage = attack - monster.defense;
+		        if(damage < 0) damage = 0;
+
+		        monster.life -= damage;
+		        monster.invincible = true;
+		        monster.damageReaction();
+
+		        if(monster.life <= 0) {
+		            monster.die = true;
+		            if(deathSound != -1) gp.playSE(deathSound);
+		        }
+		    }
 		}
+
 	}
 
 	public void selectItem() {

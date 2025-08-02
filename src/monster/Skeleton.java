@@ -13,7 +13,7 @@ public class Skeleton extends Entity {
 		super(gp);
 		this.gp = gp;
 		
-		type = type_zombie;
+		type = type_skeleton;
 		name = "Skelton";
 		speed = 1;
 		maxLife = 6;
@@ -90,7 +90,7 @@ public class Skeleton extends Entity {
 	            pro.set(worldX, worldY, direction, true, this);
 	            gp.projectileList.add(pro);
 	            shotCounter = 0;
-	            gp.playSE(10); // Play arrow sound
+	            gp.playSE(11); // Play arrow sound
 	        }
 	    }
 	    // Smooth transition period (36-45 frames)
