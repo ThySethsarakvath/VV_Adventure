@@ -32,6 +32,7 @@ public class Sound {
         soundURL[12] = getClass().getResource("/sound/Skeleton_hurt2.wav");
         soundURL[13] = getClass().getResource("/sound/Skeleton_hurt3.wav");
         soundURL[14] = getClass().getResource("/sound/Skeleton_death.wav");
+        soundURL[15] = getClass().getResource("/sound/cut.wav");
 
 
     }
