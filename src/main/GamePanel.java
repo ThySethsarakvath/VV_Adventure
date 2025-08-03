@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
+import tile_interactive.InteractiveTile;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -63,8 +64,9 @@ public class GamePanel extends JPanel implements Runnable {
 	public Entity obj[] = new Entity[10];// object array
 	public Entity npc[] = new Entity[10];
 	public Entity monster[] = new Entity[20];
-
+	public InteractiveTile iTile[] = new InteractiveTile[50];
 	public ArrayList<Entity> projectileList = new ArrayList<>();
+	public ArrayList<Entity> particleList = new ArrayList<>();
 	// This list store player npc obj
 	ArrayList<Entity> entityList = new ArrayList<>();
 
@@ -97,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setObject();
 		aSetter.setNpc();
 		aSetter.setMonster();
+		aSetter.setInteractiveTile();
 //		playMusic(0);
 
 		gameState = titleState;
@@ -227,7 +230,24 @@ public class GamePanel extends JPanel implements Runnable {
 					}
 				}
 			}
-
+			
+			// Particle
+			for (int i = 0; i < particleList.size(); i++) {
+				if (particleList.get(i) != null) {
+					if(particleList.get(i).alive == true ) {
+						particleList.get(i).update();
+					}
+					if(particleList.get(i).alive == false) {
+						particleList.remove(i);
+					}
+				}
+			}
+			
+			for(int i = 0; i < iTile.length; i++) {
+				if(iTile[i] != null) {
+					iTile[i].update();
+				}
+			}
 		}
 
 		if (gameState == pauseState) {
@@ -244,11 +264,19 @@ public class GamePanel extends JPanel implements Runnable {
 			ui.draw(g2);
 			
 		}
+	
 		
 		// OTHERS
 		else {
 			
 			tileM.draw(g2); // draw the world before player !!
+			
+			// INTERACTIVE TILE
+			for(int i = 0; i < iTile.length; i++) {
+				if(iTile[i] != null) {
+					iTile[i].draw(g2);
+				}
+			}
 
 			//add entity to the list
 			entityList.add(player);
@@ -277,6 +305,12 @@ public class GamePanel extends JPanel implements Runnable {
 			for (int i = 0; i < projectileList.size(); i++) {
 				if (projectileList.get(i) != null) {
 					entityList.add(projectileList.get(i));
+				}
+			}
+			
+			for (int i = 0; i < particleList.size(); i++) {
+				if (particleList.get(i) != null) {
+					entityList.add(particleList.get(i));
 				}
 			}
 			
