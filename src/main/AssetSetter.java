@@ -11,6 +11,7 @@ import object.OBJ_Sword;
 import object.OBJ_WoodenSword;
 import object.OBJ_healingP;
 import object.OBJ_speedBoot;
+import tile_interactive.IT_DryTree;
 
 public class AssetSetter {
 
@@ -119,6 +120,27 @@ public class AssetSetter {
 		gp.monster[i].worldX = gp.tileSize*30;
 		gp.monster[i].worldY = gp.tileSize*41;
 		i++;
+	}
+	
+	public void setInteractiveTile() {
+		
+		int i = 0;
+		gp.iTile[i] = new IT_DryTree(gp, 22, 20);
+		i++;
+		gp.iTile[i] = new IT_DryTree(gp, 22, 21);
+		i++;
+		gp.iTile[i] = new IT_DryTree(gp, 22, 22);
+		i++;
+		gp.iTile[i] = new IT_DryTree(gp, 21, 20);
+		i++;
+		gp.iTile[i] = new IT_DryTree(gp, 21, 22);
+		i++;
+		gp.iTile[i] = new IT_DryTree(gp, 20, 20);
+		i++;
+		gp.iTile[i] = new IT_DryTree(gp, 20, 21);
+		i++;
+		gp.iTile[i] = new IT_DryTree(gp, 20, 22);
+		i++;	
 	}
 	
 }
