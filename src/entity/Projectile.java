@@ -7,7 +7,6 @@ public class Projectile extends Entity {
 	Entity user;
 	public Projectile(GamePanel gp) {
 		super(gp);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void set(int worldX, int worldY, String direction, boolean alive,Entity user){
@@ -29,6 +28,7 @@ public class Projectile extends Entity {
 			if(monsterIndex != -1) {
 				
 				gp.player.damageMonster(monsterIndex,attack);
+				generateParticle(user.pro, gp.monster[monsterIndex]);
 				alive = false;
 			}
 			
@@ -37,6 +37,7 @@ public class Projectile extends Entity {
 			boolean contactPlayer = gp.cChecker.checkPlayer(this);
 			if(gp.player.invincible == false && contactPlayer == true) {
 				damagePlayer(attack);
+				generateParticle(user.pro, gp.player);
 				alive = false;
 			}
 		}
