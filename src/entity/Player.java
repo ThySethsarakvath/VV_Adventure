@@ -218,6 +218,8 @@ public class Player extends Entity {
 
 			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 			interactNpc(npcIndex);
+			
+			gp.eHandler.checkEvent();
 
 			int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
 			interactNpc(monsterIndex);
