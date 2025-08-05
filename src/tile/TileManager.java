@@ -27,6 +27,7 @@ public class TileManager {
 		
 		getTileImage();
 		loadMap("/maps/world01.txt");
+//		loadMap("/maps/home.txt");
 	}
 	
 	public void getTileImage() {
@@ -55,7 +56,7 @@ public class TileManager {
 		setup(18,"tree_snow",true);
 		setup(19,"snow",false);
 		setup(20,"lava",true);
-		setup(21,"brick",true);
+		setup(21,"brick",false);
 		setup(22,"down_corner_outlier1",true);
 		setup(23,"down_corner_outlier2",true);
 		setup(24,"down_middle_outlier",true);
@@ -80,6 +81,7 @@ public class TileManager {
 		setup(43,"dirt_path10",false);
 		setup(44,"dirt_path11",false);
 		setup(45,"dirt_path12",false);
+		setup(46,"door",false);
 		
 	}
 	
