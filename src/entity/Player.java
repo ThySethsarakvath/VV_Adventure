@@ -69,6 +69,12 @@ public class Player extends Entity {
 		worldY = gp.tileSize * 18;
 		speed = 4;
 		direction = "down";
+		
+		// TEST FOR HOME MAP
+//		worldX = gp.tileSize * 16;
+//		worldY = gp.tileSize * 20;
+//		speed = 4;
+//		direction = "up";
 
 		// Player state
 		// 2 lives = full heart
