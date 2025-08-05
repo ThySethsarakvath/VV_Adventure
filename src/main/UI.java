@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import object.OBJ_Door;
 import object.OBJ_Heart;
 import entity.Entity;
 
