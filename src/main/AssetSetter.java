@@ -4,7 +4,6 @@ import entity.Npc;
 import monster.Skeleton;
 import monster.Zombie;
 import object.OBJ_Axe;
-import object.OBJ_Door;
 import object.OBJ_Firecharge;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
@@ -26,10 +25,6 @@ public class AssetSetter {
 		int i = 0 ;
 		// This is where you can set position of the object
 		// for example here door located at (30, 21)
-//		gp.obj[i] = new OBJ_Door(gp);
-//		gp.obj[i].worldX = 30 * gp.tileSize;
-//		gp.obj[i].worldY = 24 * gp.tileSize;
-//		i++;
 		
 		// Set speed boot to the world
 		gp.obj[i] = new OBJ_speedBoot(gp);
