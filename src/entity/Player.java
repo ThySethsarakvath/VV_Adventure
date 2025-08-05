@@ -375,29 +375,23 @@ public class Player extends Entity {
 			
 			if(inventory.size() != maxinventorySize) {
 				gp.playSE(8);
-				inventory.add(gp.obj[i]);
+				inventory.add(gp.obj[gp.currentMap][i]); // FIXED
 			}
-			// gp.obj[i] = null; // delete object that player touched
-			String objectName = gp.obj[i].name;
+			// gp.obj[gp.currentMap][i] = null; // delete object that player touched
+			String objectName = gp.obj[gp.currentMap][i].name; // FIXED
 
 			switch (objectName) {
-//			case "Door":
-//				openDoor++;
-//				gp.obj[i] = null;
-//				gp.ui.showMessage("The door opened!");
-//
-//				break;
 //			case "speed_boot":
 //				if (!speedBoosted) {
 //					gp.playSE(1);
 //					speedBoosted = true;
 //					speed += 2;
 //					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
-//					gp.obj[i] = null;
+//					gp.obj[gp.currentMap][i] = null;
 //				}
 //				break;
 			}
-			gp.obj[i] = null;
+			gp.obj[gp.currentMap][i] = null; // FIXED Important
 		}
 	}
 
@@ -407,7 +401,7 @@ public class Player extends Entity {
 	    if (gp.keyH.enterPressed == true) {
 	        if (i != -1) {
 	            gp.gameState = gp.dialogueState;
-	            gp.npc[i].speak();
+	            gp.npc[gp.currentMap][i].speak(); // FIXED
 	        }
 	        gp.keyH.enterPressed = false;
 	    }
@@ -424,7 +418,7 @@ public class Player extends Entity {
 	public void contactMonster(int i) {
 
 		if (i != -1) {
-			if (invincible == false && gp.monster[i].die == false) {
+			if (invincible == false && gp.monster[gp.currentMap][i].die == false) { // FIXED
 				gp.playSE(2);
 				life -= 1;
 				invincible = true;
@@ -436,7 +430,7 @@ public class Player extends Entity {
 	public void damageMonster(int i, int attack) {
 		
 		if(i != -1) {
-		    Entity monster = gp.monster[i];
+		    Entity monster = gp.monster[gp.currentMap][i]; // FIXED
 		    
 		    if(!monster.invincible) {
 		        int hurtSound;
@@ -474,19 +468,19 @@ public class Player extends Entity {
 	
 	public void damageInteractiveTile(int i) {
 		
-		if(i != -1 && gp.iTile[i].destructible == true 
-			&& gp.iTile[i].isCorrectItem(this) == true
-			&& gp.iTile[i].invincible == false) {
+		if(i != -1 && gp.iTile[gp.currentMap][i].destructible == true // FIXED
+			&& gp.iTile[gp.currentMap][i].isCorrectItem(this) == true // FIXED
+			&& gp.iTile[gp.currentMap][i].invincible == false) { // FIXED
 			
 //			gp.iTile[i].playSE();
-			gp.iTile[i].life--;
-			gp.iTile[i].invincible = true;
+			gp.iTile[gp.currentMap][i].life--; // FIXED
+			gp.iTile[gp.currentMap][i].invincible = true; // FIXED
 			
 			// Generate particle
-			generateParticle(gp.iTile[i], gp.iTile[i]);
+			generateParticle(gp.iTile[gp.currentMap][i], gp.iTile[gp.currentMap][i]); // FIXED
 			
-			if(gp.iTile[i].life == 0) {	
-				gp.iTile[i] = gp.iTile[i].getDestroyedForm();
+			if(gp.iTile[gp.currentMap][i].life == 0) {	// FIXED
+				gp.iTile[gp.currentMap][i] = gp.iTile[gp.currentMap][i].getDestroyedForm(); // FIXED
 			}	
 		}	
 	}
