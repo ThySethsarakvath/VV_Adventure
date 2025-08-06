@@ -253,6 +253,7 @@ public class Entity {
 	}
 
 	public void draw(Graphics2D g2) {
+		if(!alive) return;
 	    BufferedImage image = null;
 	    int screenX = worldX - gp.player.worldX + gp.player.screenX;
 	    int screenY = worldY - gp.player.worldY + gp.player.screenY;

@@ -7,6 +7,7 @@ public class EventHandler {
 	
 	int previousEventX, previousEventY;
 	boolean canTouchEvent = false;
+	int tempMap , tempCol,tempRow;
 
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
@@ -55,11 +56,13 @@ public class EventHandler {
 			if (hit(0, 28, 17, "any") == true) {
 				damagePit();
 			}
-			else if (hit(0, 16, 21, "any") == true) {
-				teleport(1, 16, 20);
+			else if (hit(0, 21, 35, "any") == true) {
+				teleport(1, 25, 29);
+				
 			}
-			else if (hit(1, 16, 21, "any") == true) {
-				teleport(0, 16, 21);
+			else if (hit(1, 25, 29, "any") == true) {
+				teleport(0, 21, 35);
+				
 			}
 		}		
 	}
@@ -94,13 +97,13 @@ public class EventHandler {
 	}
 
 	public void teleport(int map, int col, int row) {
-		gp.currentMap = map;
-		gp.player.worldX = gp.tileSize * col;
-		gp.player.worldY = gp.tileSize * row;
-		previousEventX = gp.player.worldX;
-		previousEventY = gp.player.worldY;
+		gp.gameState = gp.transitionState;
+		tempMap = map;
+		tempCol =col;
+		tempRow = row;
 		canTouchEvent = false;
-//		gp.playSE();
+//		gp.playSE(16);
+		gp.playSE(17);
 	}
 
 	public void damagePit() {

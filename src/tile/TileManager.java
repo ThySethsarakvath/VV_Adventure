@@ -22,7 +22,7 @@ public class TileManager {
 		
 		this.gp = gp;
 		
-		tile = new Tile[50];
+		tile = new Tile[100];
 		mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
@@ -82,6 +82,12 @@ public class TileManager {
 		setup(44,"dirt_path11",false);
 		setup(45,"dirt_path12",false);
 		setup(46,"door",false);
+		setup(47,"blank",true);
+		setup(48,"birch_log1",true);
+		setup(49,"birch_log2",true);
+		setup(50,"birch_plank",false);
+		setup(51,"table",true);
+		setup(52,"house",false);
 		
 	}
 	
@@ -100,40 +106,6 @@ public class TileManager {
 		}
 	}
 	
-//	public void loadMap(String filePath) {
-//		
-//		try {
-//			
-//			InputStream is = getClass().getResourceAsStream(filePath);
-//			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-//			
-//			int col = 0;
-//			int row = 0;
-//			
-//			while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
-//				
-//				String line = br.readLine();
-//				
-//				while(col < gp.maxWorldCol) {
-//					String numbers[] = line.split(" ");
-//					
-//					int num = Integer.parseInt(numbers[col]);
-//					
-//					mapTileNum[col][row] =num;
-//					col++;
-//				}
-//				
-//				if(col == gp.maxWorldCol) {
-//					col =0;
-//					row++;
-//				}
-//			}
-//			
-//		}catch(Exception e){
-//			
-//		}
-//	}
-	
 	public void loadMap(String filePath, int map) {
 	    try {
 	        InputStream is = getClass().getResourceAsStream(filePath);
@@ -148,9 +120,15 @@ public class TileManager {
 	            String numbers[] = line.split(" ");
 
 	            for (int col = 0; col < gp.maxWorldCol; col++) {
-	                int num = Integer.parseInt(numbers[col]);
-	                mapTileNum[map][col][row] = num;
+	                if (col < numbers.length) {
+	                    int num = Integer.parseInt(numbers[col]);
+	                    mapTileNum[map][col][row] = num;
+	                } else {
+	                    // Optional: fill with default tile if missing
+	                    mapTileNum[map][col][row] = 0; // or any safe default
+	                }
 	            }
+
 	            row++;
 	        }
 
@@ -162,10 +140,7 @@ public class TileManager {
 
 	
 	public void draw(Graphics2D g2) { // Draw world map, camera setting
-		
-//		g2.drawImage(tile[0].image,0,0,gp.tileSize,gp.tileSize,null);
-//		g2.drawImage(tile[1].image,48,0,gp.tileSize,gp.tileSize,null);
-//		g2.drawImage(tile[2].image,96,0,gp.tileSize,gp.tileSize,null);
+	
 		
 		int worldCol = 0;
 		int worldRow = 0;

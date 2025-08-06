@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Entity and Object
 	public Player player = new Player(this, keyH);
-	public Entity obj[][] = new Entity[maxMap][10];// object array
+	public Entity obj[][] = new Entity[maxMap][30];// object array
 	public Entity npc[][] = new Entity[maxMap][10];
 	public Entity monster[][] = new Entity[maxMap][20];
 	public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
@@ -85,6 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int dialogueState = 3;
 	public final int optionsState = 5;
 	public final int gameOverState = 6;
+	public final int transitionState = 7;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -214,16 +215,20 @@ public class GamePanel extends JPanel implements Runnable {
 					npc[currentMap][i].update();
 				}
 			}
-			for (int i = 0; i < monster[1].length; i++) {
-				if (monster[currentMap][i] != null) {
-					if(monster[currentMap][i].alive == true && monster[currentMap][i].die  == false ) {
-						monster[currentMap][i].update();
-					}
-					if(monster[currentMap][i].alive == false) {
-						monster[i] = null;
-					}
-				}
+			
+			if (monster[currentMap] != null) {
+			    for (int i = 0; i < monster[currentMap].length; i++) {
+			        if (monster[currentMap][i] != null) {
+			            if (monster[currentMap][i].alive == true && monster[currentMap][i].die == false) {
+			                monster[currentMap][i].update();
+			            }
+			            if (monster[currentMap][i].alive == false) {
+			                monster[currentMap][i] = null;
+			            }
+			        }
+			    }
 			}
+
 			// projectile
 			for (int i = 0; i < projectileList.size(); i++) {
 				if (projectileList.get(i) != null) {
@@ -346,84 +351,6 @@ public class GamePanel extends JPanel implements Runnable {
 			ui.draw(g2);
 		}
 	}
-
-//	public void paintComponent(Graphics g) {
-//
-//		super.paintComponent(g);
-//
-//		Graphics2D g2 = (Graphics2D) g;
-//		
-//		// TITLE SCREEN
-//		if(gameState == titleState) {
-//			ui.draw(g2);
-//		}
-//		
-//		// OTHERS
-//		else {
-//			
-//			// TILE
-//			tileM.draw(g2); // draw the world before player !!
-//
-//			// OBJECT
-////			for (int i = 0; i < obj.length; i++) {
-////				if (obj[i] != null) { // to avoid null pointer errors
-////					obj[i].draw(g2, this);
-////				}
-////			}
-//	//
-////			// Npc
-////			for (int i = 0; i < npc.length; i++) {
-////				if (npc[i] != null) {
-////					npc[i].draw(g2);
-////				}
-////			}
-//
-//			// add entity to the list
-//			entityList.add(player);
-//
-//			for (int i = 0; i < npc.length; i++) {
-//				if (npc[i] != null) {
-//					entityList.add(npc[i]);
-//				}
-//			}
-//			for (int i = 0; i < obj.length; i++) {
-//				if (obj[i] != null) { // to avoid null pointer errors
-//					entityList.add(obj[i]);
-//				}
-//			}
-//			
-//			//Sort the entity to check their coordinate
-//			Collections.sort(entityList, new Comparator<Entity>() {
-//
-//				@Override
-//				public int compare(Entity e1, Entity e2) {
-//					// TODO Auto-generated method stub
-//					
-//					int result = Integer.compare(e1.worldY, e2.worldY);
-//					return result;
-//				}
-//				
-//			});
-//			
-//			// draw entities
-//			for(int i = 0 ; i<entityList.size();i++) {
-//				entityList.get(i).draw(g2);
-//			}
-//			
-//			// draw entities list
-//			for(int i = 0 ; i<entityList.size();i++) {
-//				entityList.remove(i);
-//			}
-//			// PLAYER
-////			player.draw(g2);
-//
-//			// UI
-//			ui.draw(g2);
-//			
-//		}
-//		
-//		g2.dispose();
-//	}
 
 	public void drawToScreen() {
 

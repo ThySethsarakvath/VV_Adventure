@@ -27,6 +27,7 @@ public class UI {
 	public boolean messageOn = false;
 	public String message = "";
 	int messageCounter = 0;
+	int counter = 0;
 	
 	// For dialogue attributes
 	public String currentDialogue = "";
@@ -182,6 +183,10 @@ public class UI {
 		if(gp.gameState == gp.characterState) {
 			drawCharacterScreen(); // for character state if want in the future
 			drawInventory();
+		}
+		// transition state
+		if(gp.gameState ==  gp.transitionState) {
+			drawTransition();
 		}
 	}
 	
@@ -738,6 +743,24 @@ public class UI {
 		}
 
 		
+	}
+	
+	public void drawTransition() {
+		
+		counter++;
+		g2.setColor(new Color(0,0,0,counter*5));
+		g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+		
+		if(counter == 50) {
+			counter = 0;
+			gp.gameState = gp.playState;
+			gp.currentMap = gp.eHandler.tempMap;
+			gp.player.worldX = gp.tileSize*gp.eHandler.tempCol;
+			gp.player.worldY = gp.tileSize*gp.eHandler.tempRow;
+			gp.eHandler.previousEventX = gp.player.worldX;
+			gp.eHandler.previousEventY = gp.player.worldY;
+
+		}
 	}
 	
 	public int getItemIndexOnSlot() {
