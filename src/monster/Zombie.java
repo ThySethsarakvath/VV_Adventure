@@ -20,9 +20,9 @@ public class Zombie extends Entity {
 		life = maxLife;
 //		pro = new OBJ_Fireball(gp);
 		
-		solidArea.x = 0; // X-offset within zombie sprite
+		solidArea.x = 8; // X-offset within zombie sprite
 	    solidArea.y = 16; // Y-offset
-	    solidArea.width = 48; // Hitbox width
+	    solidArea.width = 32; // Hitbox width
 	    solidArea.height = 32; // Hitbox height
 
 	    solidAreaDefaultX = solidArea.x;
