@@ -296,11 +296,11 @@ public class Player extends Entity {
 
 		// 🛡️ Invincibility frames
 		if (invincible) {
-			invinCounter++;
-			if (invinCounter > 60) {
-				invincible = false;
-				invinCounter = 0;
-			}
+		    invinCounter++;
+		    if (invinCounter > 60) { // 60 frames = 1 second at 60 FPS
+		        invincible = false;
+		        invinCounter = 0;
+		    }
 		}
 		if(life <= 0) {
 			gp.gameState = gp.gameOverState;

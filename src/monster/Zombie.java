@@ -48,42 +48,78 @@ public class Zombie extends Entity {
 		
 	}
 	
-	public void setAction() {
+	public void update() {
+		
+		super.update();
+		
+		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-		actionLockCounter++;
-
-		if (actionLockCounter == 120) {
-			Random rand = new Random();
-			int i = rand.nextInt(100) + 1; // number from 1 to 100
-
-			if (i <= 20) {
-				// Do nothing — keeps current direction and "stands" still
-			} else if (i <= 40) {
-				direction = "up";
-			} else if (i <= 60) {
-				direction = "down";
-			} else if (i <= 80) {
-				direction = "left";
-			} else {
-				direction = "right";
-			}
-
-			actionLockCounter = 0;
+		if (contactPlayer && shotCounter >= 30 && !gp.player.invincible) {
+		    damagePlayer(attack);
+		    shotCounter = 0;
 		}
 		
-		// add this for new projectile moster
-//		int i = new Random().nextInt(100)+1;
-//		if(i > 99 && pro.alive == false && shotCounter == 30) {
-//			pro.set(worldX, worldY, direction, true, this);
-//			gp.projectileList.add(pro);
-//			shotCounter=0;
-//		}
+		int xDist = Math.abs(worldX - gp.player.worldX);
+		int yDist = Math.abs(worldY - gp.player.worldY);
+		int tileDist = (xDist + yDist)/gp.tileSize;
+		
+		if(onPath == false && tileDist < 5) {
+			
+			int i =  new Random().nextInt(100)+1;
+			if(i > 50) {
+				onPath = true;
+			}
+		}
+		// stop chasing
+		if(onPath == true && tileDist > 15) {
+			onPath = false;
+		}
+	}
+	
+	public void setAction() {
+
+		if (onPath == true) {
+
+			// goal position
+			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
+			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
+
+			checkCollision();
+			if (collisionOn) {
+				gp.pFinder.pathList.clear();
+				searchPath(goalCol, goalRow);
+			} else {
+				searchPath(goalCol, goalRow);
+			}
+
+		} else {
+			actionLockCounter++;
+
+			if (actionLockCounter == 120) {
+				Random rand = new Random();
+				int i = rand.nextInt(100) + 1; // number from 1 to 100
+
+				if (i <= 20) {
+					// Do nothing — keeps current direction and "stands" still
+				} else if (i <= 40) {
+					direction = "up";
+				} else if (i <= 60) {
+					direction = "down";
+				} else if (i <= 80) {
+					direction = "left";
+				} else {
+					direction = "right";
+				}
+
+				actionLockCounter = 0;
+			}
+		}
 		
 	}
 	
 	public void damageReaction() {
 		
 		actionLockCounter = 0;
-		direction = gp.player.direction;
+		onPath = true;
 	}
 }

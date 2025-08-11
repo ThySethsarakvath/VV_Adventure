@@ -243,20 +243,13 @@ public class Entity {
 	}
 
 	public void damagePlayer(int attack) {
-
-		if (gp.player.invincible == false) {
-			// recieve damage
-			gp.playSE(2);
-
-			int damage = attack - gp.player.defense;
-			if (damage < 0) {
-				damage = 0;
-			}
-
-			gp.player.life -= damage;
-			gp.player.invincible = true;
-		}
-
+	    if (!gp.player.invincible) {
+	        gp.playSE(2);
+	        int damage = attack - gp.player.defense;
+	        if (damage < 1) damage = 1; // Ensure minimum damage
+	        gp.player.life -= damage;
+	        gp.player.invincible = true;
+	    }
 	}
 
 	public void draw(Graphics2D g2) {
@@ -439,79 +432,6 @@ public class Entity {
 
 		return image;
 	}
-
-//	public void searchPath(int goalCol, int goalRow) {
-//
-//		int startCol = (worldX + solidArea.x) / gp.tileSize;
-//		int startRow = (worldY + solidArea.y) / gp.tileSize;
-//
-//		gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
-//
-//		if (gp.pFinder.search() == true) {
-//
-//			// next world x and y
-//			int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
-//			int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
-//
-//			// entity solid area position
-//			int enLeftX = worldX + solidArea.x;
-//			int enRightX = worldX + solidArea.x + solidArea.width;
-//			int enTopY = worldY + solidArea.y;
-//			int enBottomY = worldY + solidArea.y + solidArea.height;
-//
-//			if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
-//				direction = "up";
-//			} else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
-//				direction = "down";
-//			} else if (enTopY >= nextY && enBottomY < nextY + gp.tileSize) {
-//				// left or right
-//				if (enLeftX > nextX) {
-//					direction = "left";
-//				}
-//				if (enLeftX < nextX) {
-//					direction = "right";
-//				}
-//			} else if (enTopY > nextY && enLeftX > nextX) {
-//				// up or left
-//				direction = "up";
-//				checkCollision();
-//				if (collision == true) {
-//					direction = "left";
-//				}
-//			} else if (enTopY > nextY && enLeftX < nextX) {
-//				// up or right
-//				direction = "up";
-//				checkCollision();
-//				if (collision == true) {
-//					direction = "right";
-//				}
-//			} else if (enTopY < nextY && enLeftX > nextX) {
-//				// down or left
-//				direction = "down";
-//				checkCollision();
-//
-//				if (collision == true) {
-//					direction = "left";
-//				}
-//			} else if (enTopY < nextY && enLeftX < nextX) {
-//				// down or right
-//				direction = "down";
-//				checkCollision();
-//
-//				if (collision == true) {
-//					direction = "right";
-//				}
-//			}
-//
-//			int nextCol = gp.pFinder.pathList.get(0).col;
-//			int nextRow = gp.pFinder.pathList.get(0).row;
-//
-//			if (nextCol == goalCol && nextRow == goalRow) {
-//				onPath = false;
-//			}
-//
-//		}
-//	}
 	
 	public void searchPath(int goalCol, int goalRow) {
 	    int startCol = (worldX + solidArea.x) / gp.tileSize;
