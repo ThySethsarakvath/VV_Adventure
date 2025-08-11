@@ -379,18 +379,6 @@ public class Player extends Entity {
 			}
 			// gp.obj[gp.currentMap][i] = null; // delete object that player touched
 			String objectName = gp.obj[gp.currentMap][i].name; // FIXED
-
-			switch (objectName) {
-//			case "speed_boot":
-//				if (!speedBoosted) {
-//					gp.playSE(1);
-//					speedBoosted = true;
-//					speed += 2;
-//					speedTimer = 180; // 180 frames = 3 seconds, since our FPS = 60
-//					gp.obj[gp.currentMap][i] = null;
-//				}
-//				break;
-			}
 			gp.obj[gp.currentMap][i] = null; // FIXED Important
 		}
 	}

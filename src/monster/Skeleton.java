@@ -5,6 +5,9 @@ import java.util.Random;
 import entity.Entity;
 import main.GamePanel;
 import object.OBJ_Arrow;
+import object.OBJ_Emerald;
+import object.OBJ_Firecharge;
+import object.OBJ_healingP;
 
 public class Skeleton extends Entity {
 
@@ -182,6 +185,22 @@ public class Skeleton extends Entity {
 	public void damageReaction() {
 
 		actionLockCounter = 0;
-		direction = gp.player.direction;
+		onPath = true;
+	}
+	
+	public void checkDrop() {
+		// cast a die
+		int i = new Random().nextInt(100)+1;
+		
+		// set dropping
+		if(i<50) {
+			dropItem(new OBJ_Emerald(gp));
+		}
+		if(i >= 50 && i< 75) {
+			dropItem(new OBJ_Firecharge(gp));
+		}
+		if(i >= 75 && i< 100) {
+			dropItem(new OBJ_healingP(gp));
+		}
 	}
 }

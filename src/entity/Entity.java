@@ -87,6 +87,7 @@ public class Entity {
 	public final int type_firecharge = 7;
 	public final int type_skeleton = 8;
 	public final int type_axe = 9;
+	public final int type_pickup = 10;
 
 	public Entity(GamePanel gp) {
 		this.gp = gp;
@@ -165,10 +166,10 @@ public class Entity {
 		int speed = generator.getParticleSpeed();
 		int maxLife = generator.getParticleMaxLife();
 
-		Particle p1 = new Particle(gp, generator, color, size, speed, maxLife, -2, -1);
-		Particle p2 = new Particle(gp, generator, color, size, speed, maxLife, 2, -1);
-		Particle p3 = new Particle(gp, generator, color, size, speed, maxLife, -2, 1);
-		Particle p4 = new Particle(gp, generator, color, size, speed, maxLife, 2, 1);
+		Particle p1 = new Particle(gp, target, color, size, speed, maxLife, -2, -1);
+		Particle p2 = new Particle(gp, target, color, size, speed, maxLife, 2, -1);
+		Particle p3 = new Particle(gp, target, color, size, speed, maxLife, -2, 1);
+		Particle p4 = new Particle(gp, target, color, size, speed, maxLife, 2, 1);
 		gp.particleList.add(p1);
 		gp.particleList.add(p2);
 		gp.particleList.add(p3);
@@ -190,6 +191,22 @@ public class Entity {
 		}
 	}
 
+	public void checkDrop() {
+		
+	}
+	
+	public void dropItem(Entity droppedItem) {
+		
+		for(int i = 0; i< gp.obj[1].length;i++) {
+			if(gp.obj[gp.currentMap][i] == null) {
+				gp.obj[gp.currentMap][i] = droppedItem;
+				gp.obj[gp.currentMap][i].worldX = worldX;
+				gp.obj[gp.currentMap][i].worldY = worldY;
+				break;
+			}
+		}
+	}
+	
 	public void update() {
 		setAction();
 		checkCollision();
@@ -475,31 +492,5 @@ public class Entity {
 	        onPath = false; // No path found
 	    }
 	}
-	
-//	public void followPath() {
-//	    if (gp.pFinder.pathList.size() > 0) {
-//	        Node nextNode = gp.pFinder.pathList.get(0);
-//	        int nextX = nextNode.col * gp.tileSize;
-//	        int nextY = nextNode.row * gp.tileSize;
-//
-//	        if (worldX < nextX) {
-//	            direction = "right";
-//	        } else if (worldX > nextX) {
-//	            direction = "left";
-//	        } else if (worldY < nextY) {
-//	            direction = "down";
-//	        } else if (worldY > nextY) {
-//	            direction = "up";
-//	        }
-//
-//	        // Remove node if reached
-//	        if (worldX == nextX && worldY == nextY) {
-//	            gp.pFinder.pathList.remove(0);
-//	        }
-//	    } else {
-//	        onPath = false; // Finished
-//	    }
-//	}
-
 
 }

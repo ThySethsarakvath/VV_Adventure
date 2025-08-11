@@ -4,6 +4,7 @@ import entity.Npc;
 import monster.Skeleton;
 import monster.Zombie;
 import object.OBJ_Axe;
+import object.OBJ_Emerald;
 import object.OBJ_Firecharge;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
@@ -24,8 +25,6 @@ public class AssetSetter {
 		
 		int mapNum = 0;
 		int i = 0 ;
-		// This is where you can set position of the object
-		// for example here door located at (30, 21)
 		
 		// Set speed boot to the world
 		gp.obj[mapNum][i] = new OBJ_speedBoot(gp);
@@ -68,10 +67,30 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldY = 26 * gp.tileSize;
 		i++;
 		
-//		gp.obj[i] = new OBJ_Firecharge(gp);
-//		gp.obj[i].worldX = 39 * gp.tileSize;
-//		gp.obj[i].worldY = 26 * gp.tileSize;
-//		i++;
+		gp.obj[mapNum][i] = new OBJ_Emerald(gp);
+		gp.obj[mapNum][i].worldX = 29 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 17 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Emerald(gp);
+		gp.obj[mapNum][i].worldX = 30 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 17 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Emerald(gp);
+		gp.obj[mapNum][i].worldX = 31 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 17 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Emerald(gp);
+		gp.obj[mapNum][i].worldX = 32 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 17 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Emerald(gp);
+		gp.obj[mapNum][i].worldX = 33 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 17 * gp.tileSize;
+		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Axe(gp);
 		gp.obj[mapNum][i].worldX = 28 * gp.tileSize;
@@ -124,11 +143,11 @@ public class AssetSetter {
 		gp.monster[mapNum][i].worldY = gp.tileSize*41;
 		i++;
 		
-//		mapNum = 1;
-//		gp.monster[mapNum][i] = new Zombie(gp);
-//		gp.monster[mapNum][i].worldX = gp.tileSize*29;
-//		gp.monster[mapNum][i].worldY = gp.tileSize*29;
-//		i++;
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*30;
+		gp.monster[mapNum][i].worldY = gp.tileSize*40;
+		i++;
+		
 	}
 	
 	public void setInteractiveTile() {
