@@ -80,10 +80,15 @@ public class OBJ_Fireball extends Projectile {
 	    Player player = (Player)user;
 	    // Find and remove one firecharge
 	    for(int i = 0; i < player.inventory.size(); i++) {
-	        if(player.inventory.get(i) != null && 
-	           player.inventory.get(i).type == type_firecharge) {
-	            player.inventory.remove(i);
-	            break; // Remove just one
+	    	Entity item = player.inventory.get(i);
+	        if(item != null && item.type == type_firecharge) {
+	        	if(item.amount >1) {
+	        		item.amount--;
+	        	}
+	        	else {
+	        		player.inventory.remove(i);
+	        	}
+	            break;
 	        }
 	    }
 	}

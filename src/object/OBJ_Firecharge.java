@@ -15,6 +15,7 @@ public class OBJ_Firecharge extends Entity {
 		defenseValue =1;
 		description = "[" + name + "]\nA Contain this to shoot the fire ball.";
 		price = 3;
+		stackable = true;
 	}
 
 }

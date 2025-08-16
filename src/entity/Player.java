@@ -376,12 +376,10 @@ public class Player extends Entity {
 	public void pickUpObject(int i) {
 
 		if (i != -1) {
-			
-			if(inventory.size() != maxinventorySize) {
+			// will be fix in future!! (check stackable vdo)
+			if(canObtainItem(gp.obj[gp.currentMap][i]) == true) {
 				gp.playSE(8);
-				inventory.add(gp.obj[gp.currentMap][i]); // FIXED
 			}
-			// gp.obj[gp.currentMap][i] = null; // delete object that player touched
 			String objectName = gp.obj[gp.currentMap][i].name; // FIXED
 			gp.obj[gp.currentMap][i] = null; // FIXED Important
 		}
@@ -518,10 +516,57 @@ public class Player extends Entity {
 			}
 			if(selectedItem.type == type_consumable) {
 				selectedItem.use(this);
-				inventory.remove(itemIndex);
+				if(selectedItem.amount >1) {
+					selectedItem.amount --;
+				}
+				else {
+					inventory.remove(itemIndex);
+				}
 			}
 		}
 		
+	}
+	
+	public int searchItemInInventory(String itemName) {
+		
+		int itemIndex = 999;
+		
+		for(int i=0;i<inventory.size();i++) {
+			if(inventory.get(i).name.equals(itemName)) {
+				itemIndex = i;
+				break;
+			}
+		}
+		return itemIndex;
+	}
+	
+	public boolean canObtainItem(Entity item) {
+		
+		boolean canObtain = false;
+		
+		// check if item is stackable
+		if(item.stackable == true) {
+			
+			int index = searchItemInInventory(item.name);
+			// if have the same item that can be stack, then stack it
+			if(index != 999) {
+				inventory.get(index).amount++;
+				canObtain = true;
+			}
+			else { // new item so need to check vacancy
+				if(inventory.size() != maxinventorySize) {
+					inventory.add(item);
+					canObtain = true;
+				}
+			}
+		}
+		else { // not stackable
+			if(inventory.size() != maxinventorySize) {
+				inventory.add(item);
+				canObtain = true;
+			}
+		}
+		return canObtain;
 	}
 	
 	public void draw(Graphics2D g2) {

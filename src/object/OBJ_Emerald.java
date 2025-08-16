@@ -14,6 +14,7 @@ public class OBJ_Emerald extends Entity{
 		name = "Emerald";
 		down1 = setup("/objects/emerald",gp.tileSize,gp.tileSize);
 		description = "["+ name +"]\nValuable Item for Trading!";
+		stackable = true;
 	}
 	
 }

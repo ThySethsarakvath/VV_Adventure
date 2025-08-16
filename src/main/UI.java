@@ -719,6 +719,29 @@ public class UI {
 			}
 			g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
 
+			// display amount
+			if (entity == gp.player && entity.inventory.get(i).amount > 1) {
+				g2.setFont(g2.getFont().deriveFont(14f));
+				FontMetrics fm = g2.getFontMetrics();
+				String s = String.valueOf(entity.inventory.get(i).amount);
+				int textWidth = fm.stringWidth(s);
+				int textHeight = fm.getHeight();
+
+				int amountX = slotX + gp.tileSize - textWidth - 4; // 4px padding from right
+				int amountY = slotY + gp.tileSize - 4; // 4px padding from bottom
+
+//				String s = "" + entity.inventory.get(i).amount;
+//				amountX = getXforAlignToRightText(s,slotX+44);
+//				amountY = slotY +gp.tileSize;
+
+				// Shadow
+				g2.setColor(new Color(60, 60, 60));
+				g2.drawString(s, amountX + 1, amountY + 1);
+				// NUmber
+				g2.setColor(Color.white);
+				g2.drawString(s, amountX, amountY);
+			}
+
 			slotX += slotSize;
 
 			if (i == 6 || i == 13 || i == 20) {
@@ -876,7 +899,7 @@ public class UI {
 			height = gp.tileSize;
 			x = gp.screenWidth / 2 - (gp.tileSize * 9) / 2 - gp.tileSize * 2 + gp.tileSize * 9 + 16 + 30;
 			y = (int) ((gp.screenHeight / 2 + gp.tileSize + 8) - gp.tileSize * 3);
-			g2.drawImage(DeImage, x-5, y, width, height, null);
+			g2.drawImage(DeImage, x - 5, y, width, height, null);
 			g2.drawImage(emeral, x + 20, y + 0, 48, 48, null);
 
 			int price = wander.inventory.get(itemIndex).price;
@@ -886,45 +909,47 @@ public class UI {
 			// buy Items
 			if (gp.keyH.enterPressed == true) {
 				gp.keyH.enterPressed = false;
-				
+
 				int emeraldCount = 0;
-	            for (Entity item : gp.player.inventory) {
-	                if (item instanceof OBJ_Emerald) {
-	                    emeraldCount++;
-	                }
-	            }
-				
+				for (Entity item : gp.player.inventory) {
+					if (item instanceof OBJ_Emerald) {
+						emeraldCount += item.amount;
+					}
+				}
+
 				// logic condidtion to check whether player have enough emeral to buy or not
-				if(emeraldCount < price) {
+				if (emeraldCount < price) {
 					subState = 0;
 					currentDialogue = "You need more Emeral !!!";
 					gp.ui.displayedText = "";
-	                gp.ui.charIndex = 0;
-	                gp.ui.textCompleted = false;
-	                gp.gameState = gp.dialogueState;
-				}
-				else if(gp.player.inventory.size() == gp.player.maxinventorySize) {
-					subState = 0;
-					currentDialogue = "You cannot carry more !!!";
-					gp.ui.displayedText = "";
-	                gp.ui.charIndex = 0;
-	                gp.ui.textCompleted = false;
-	                gp.gameState = gp.dialogueState;
-				}
-				else {
-					// logic for substract the emeral object from player inventory and add that item to player inventory
-					
-					int emeraldsToRemove = price;
-	                for (int i = 0; i < gp.player.inventory.size() && emeraldsToRemove > 0; i++) {
-	                    if (gp.player.inventory.get(i) instanceof OBJ_Emerald) {
-	                        gp.player.inventory.remove(i);
-	                        i--; // Adjust index after removal
-	                        emeraldsToRemove--;
-	                    }
-	                }
-	                
-	                Entity purchasedItem = wander.inventory.get(itemIndex);
-	                gp.player.inventory.add(purchasedItem);
+					gp.ui.charIndex = 0;
+					gp.ui.textCompleted = false;
+					gp.gameState = gp.dialogueState;
+				} else {
+					if (gp.player.canObtainItem(wander.inventory.get(itemIndex)) == true) {
+						int emeraldsToRemove = price;
+						for (int i = 0; i < gp.player.inventory.size() && emeraldsToRemove > 0; i++) {
+							Entity item = gp.player.inventory.get(i);
+
+							if (item instanceof OBJ_Emerald) {
+								if (item.amount > emeraldsToRemove) {
+									item.amount -= emeraldsToRemove;
+									emeraldsToRemove = 0;
+								} else {
+									emeraldsToRemove -= item.amount;
+									gp.player.inventory.remove(i);
+									i--; // Adjust index after removal
+								}
+							}
+						}
+					} else {
+						subState = 0;
+						currentDialogue = "You cannot carry more !!!";
+						gp.ui.displayedText = "";
+						gp.ui.charIndex = 0;
+						gp.ui.textCompleted = false;
+						gp.gameState = gp.dialogueState;
+					}
 				}
 			}
 		}
@@ -958,7 +983,7 @@ public class UI {
 			height = gp.tileSize;
 			x = gp.screenWidth / 2 - (gp.tileSize * 9) / 2 - gp.tileSize * 2 + gp.tileSize * 9 + 16 + 30;
 			y = (int) ((gp.screenHeight / 2 + gp.tileSize + 8) - gp.tileSize * 0.5);
-			g2.drawImage(DeImage, x-5, y, width, height, null);
+			g2.drawImage(DeImage, x - 5, y, width, height, null);
 			g2.drawImage(emeral, x + 20, y + 0, 48, 48, null);
 
 			int price = gp.player.inventory.get(itemIndex).price;
@@ -968,41 +993,53 @@ public class UI {
 			// sell Items
 			if (gp.keyH.enterPressed == true) {
 				gp.keyH.enterPressed = false;
-				
+
 				Entity itemToSell = gp.player.inventory.get(itemIndex);
-				
-				if (itemToSell == gp.player.currentWeapon || 
-		                itemToSell == gp.player.currentShield || 
-		                itemToSell == gp.player.currentBall) {
-		                
-		                commandNum = 0;
-		                subState = 0;
-		                currentDialogue = "You can't sell equipped item!";
-		                gp.ui.displayedText = "";
-		                gp.ui.charIndex = 0;
-		                gp.ui.textCompleted = false;
-		                gp.gameState = gp.dialogueState;
-		            }
+
+				if (itemToSell == gp.player.currentWeapon || itemToSell == gp.player.currentShield
+						|| itemToSell == gp.player.currentBall) {
+
+					commandNum = 0;
+					subState = 0;
+					currentDialogue = "You can't sell equipped item!";
+					gp.ui.displayedText = "";
+					gp.ui.charIndex = 0;
+					gp.ui.textCompleted = false;
+					gp.gameState = gp.dialogueState;
+				}
 				// Check if trying to sell emerald
-	            else if (itemToSell instanceof OBJ_Emerald) {
-	                commandNum = 0;
-	                subState = 0;
-	                currentDialogue = "You can't sell emeralds!";
-	                gp.ui.displayedText = "";
-	                gp.ui.charIndex = 0;
-	                gp.ui.textCompleted = false;
-	                gp.gameState = gp.dialogueState;
-	            }
-				else {
+				else if (itemToSell instanceof OBJ_Emerald) {
+					commandNum = 0;
+					subState = 0;
+					currentDialogue = "You can't sell emeralds!";
+					gp.ui.displayedText = "";
+					gp.ui.charIndex = 0;
+					gp.ui.textCompleted = false;
+					gp.gameState = gp.dialogueState;
+				} else {
+					if (gp.player.inventory.get(itemIndex).amount > 1) {
+						gp.player.inventory.get(itemIndex).amount--;
+					} else {
+						gp.player.inventory.remove(itemIndex);
+					}
+
 					// Calculate sale price (half original, rounded up for odd numbers)
-	                int salePrice = (int) Math.ceil(itemToSell.price / 2.0);
-					gp.player.inventory.remove(itemIndex);
+					int salePrice = (int) Math.ceil(itemToSell.price / 2.0);
 					// Add emeralds to inventory
-	                for (int i = 0; i < salePrice; i++) {
-	                    if (gp.player.inventory.size() < gp.player.maxinventorySize) {
-	                        gp.player.inventory.add(new OBJ_Emerald(gp));
-	                    }
-	                }
+					boolean stacked = false;
+					for (Entity item : gp.player.inventory) {
+						if (item instanceof OBJ_Emerald) {
+							item.amount += salePrice;
+							stacked = true;
+							break;
+						}
+					}
+
+					if (!stacked && gp.player.inventory.size() < gp.player.maxinventorySize) {
+						OBJ_Emerald emerald = new OBJ_Emerald(gp);
+						emerald.amount = salePrice;
+						gp.player.inventory.add(emerald);
+					}
 				}
 			}
 		}
@@ -1054,4 +1091,9 @@ public class UI {
 		return x;
 	}
 
+	public int getXforAlignToRightText(String text, int tailX) {
+		int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+		int x = gp.screenWidth / 2 - length / 2;
+		return x;
+	}
 }
