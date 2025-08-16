@@ -18,7 +18,8 @@ public class Zombie extends Entity {
 		
 		type = type_zombie;
 		name = "Zombie";
-		speed = 1;
+		defaultSpeed = 1;
+		speed = defaultSpeed;
 		maxLife = 6;
 		life = maxLife;
 //		pro = new OBJ_Fireball(gp);

@@ -29,6 +29,7 @@ public class Entity {
 	public boolean collisionOn = false;
 	boolean attackSoundPlayed = false;
 	String dialogues[] = new String[20];
+	public Entity attacker;
 
 	// STATE
 	public int worldX, worldY;
@@ -42,6 +43,8 @@ public class Entity {
 	public boolean die = false;
 	boolean hpBarOn = false;
 	public boolean onPath = false;
+	public boolean knockBack = false;
+	public String knockBackDirection;
 
 	// COUNTER
 	public int actionLockCounter = 0;
@@ -50,9 +53,11 @@ public class Entity {
 	int dieCounter;
 	int hpBarCounter = 0;
 	public int shotCounter;
+	int knockBackCounter = 0;
 
 	// CHARACTER ATTRIBUTES
 	public String name;
+	public int defaultSpeed;
 	public int maxLife;
 	public int mana;
 	public int maxMana;
@@ -79,6 +84,7 @@ public class Entity {
 	public String description = "";
 	public int useCost;
 	public int price;
+	public int knockBackPower = 0;
 
 	public int type; // 0 = player , 1 = npc, 2 = monster
 	public final int type_player = 0;
@@ -212,26 +218,62 @@ public class Entity {
 	}
 	
 	public void update() {
-		setAction();
-		checkCollision();
-
-		if (!attacking && !collisionOn && !direction.equals("stand")) {
-			switch (direction) {
-			case "up":
-				worldY -= speed;
-				break;
-			case "down":
-				worldY += speed;
-				break;
-			case "left":
-				worldX -= speed;
-				break;
-			case "right":
-				worldX += speed;
-				break;
+		
+		if(knockBack == true) {
+			
+			checkCollision();
+			
+			if(collisionOn == true) {
+				knockBackCounter =0;
+				knockBack = false;
+				speed = defaultSpeed;
+			}
+			else if(collisionOn == false) {
+				switch(knockBackDirection) {
+				case "up":
+					worldY -= speed;
+					break;
+				case "down":
+					worldY += speed;
+					break;
+				case "left":
+					worldX -= speed;
+					break;
+				case "right":
+					worldX += speed;
+					break;
+				}
+			}
+			
+			knockBackCounter++;
+			if(knockBackCounter == 10) {
+				knockBackCounter =0;
+				knockBack = false;
+				speed = defaultSpeed;
 			}
 		}
+		else {
+			setAction();
+			checkCollision();
 
+			if (!attacking && !collisionOn && !direction.equals("stand")) {
+				switch (direction) {
+				case "up":
+					worldY -= speed;
+					break;
+				case "down":
+					worldY += speed;
+					break;
+				case "left":
+					worldX -= speed;
+					break;
+				case "right":
+					worldX += speed;
+					break;
+				}
+			}
+		}
+		
 		// Animate only if moving
 		if (!attacking) {
 			if (!direction.equals("stand") && !collisionOn) {
@@ -271,6 +313,14 @@ public class Entity {
 	        gp.player.life -= damage;
 	        gp.player.invincible = true;
 	    }
+	}
+	
+	public void setKnockBack(Entity target,Entity attacker, int knockBackPower) {
+		
+		this.attacker = attacker;
+		target.knockBackDirection = attacker.direction;
+		target.speed +=knockBackPower;
+		target.knockBack = true;
 	}
 
 	public void draw(Graphics2D g2) {

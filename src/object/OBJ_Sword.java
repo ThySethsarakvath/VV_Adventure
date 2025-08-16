@@ -17,6 +17,7 @@ public class OBJ_Sword extends Entity {
 		attackArea.height = 36;
 		description = "[" + name + "]\nA Diamond Sword.";
 		price =3;
+		knockBackPower = 3;
 	}
 
 }

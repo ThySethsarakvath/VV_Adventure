@@ -17,6 +17,7 @@ public class OBJ_WoodenSword extends Entity {
 		attackArea.height = 36;
 		description = "[Wooden Sword]\nMade out of wood\nTake less damage";
 		price = 1;
+		knockBackPower = 3;
 	}
 
 }

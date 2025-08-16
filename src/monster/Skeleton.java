@@ -147,7 +147,13 @@ public class Skeleton extends Entity {
 			// Fire arrow exactly once at frame 21
 			if (spriteCounter == 21 && !pro.alive && shotCounter >= 30) {
 				pro.set(worldX, worldY, direction, true, this);
-				gp.projectileList.add(pro);
+				
+				for(int i = 0; i<gp.projectile[1].length;i++) {
+					if(gp.projectile[gp.currentMap][i] == null) {
+						gp.projectile[gp.currentMap][i] = pro;
+						break;
+					}
+				}
 				shotCounter = 0;
 				gp.playSE(11); // Play arrow sound
 			}

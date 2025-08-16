@@ -65,14 +65,9 @@ public class Player extends Entity {
 
 		worldX = gp.tileSize * 21;
 		worldY = gp.tileSize * 36;
-		speed = 4;
+		defaultSpeed = 4;
+		speed = defaultSpeed;
 		direction = "down";
-		
-		// TEST FOR HOME MAP
-//		worldX = gp.tileSize * 16;
-//		worldY = gp.tileSize * 20;
-//		speed = 4;
-//		direction = "up";
 
 		// Player state
 		// 2 lives = full heart
@@ -109,8 +104,8 @@ public class Player extends Entity {
 	
 	public void setDefaultPositions() {
 		
-		worldX = gp.tileSize * 28;
-		worldY = gp.tileSize * 18;
+		worldX = gp.tileSize * 21;
+		worldY = gp.tileSize * 36;
 		direction = "down";
 		
 	}
@@ -274,7 +269,14 @@ public class Player extends Entity {
 		    if(pro.haveResource(this)) {
 		        pro.set(worldX,worldY,direction,true,this);
 		        pro.subtractResource(this);
-		        gp.projectileList.add(pro);
+		        
+		        //check vacancy
+		        for(int i = 0;i<gp.projectile[1].length;i++) {
+		        	if(gp.projectile[gp.currentMap][i] == null) {
+		        		gp.projectile[gp.currentMap][i] = pro;
+		        		break;
+		        	}
+		        }
 		        shotCounter = 0;
 		        gp.playSE(10);
 		    }
@@ -349,10 +351,13 @@ public class Player extends Entity {
 			
 			// Check monster collision with the attack area
 			int monsterIndex = gp.cChecker.checkEntity(this,gp.monster);
-			damageMonster(monsterIndex,attack);
+			damageMonster(monsterIndex,this,attack,currentWeapon.knockBackPower);
 			
 			int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
 			damageInteractiveTile(iTileIndex);
+			
+			int proIndex = gp.cChecker.checkEntity(this, gp.projectile);
+			damageProjectile(proIndex);
 			
 			worldX = currentX;
 			worldY = currentY;
@@ -413,7 +418,7 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void damageMonster(int i, int attack) {
+	public void damageMonster(int i,Entity attacker, int attack,int knockBackPower) {
 		
 		if(i != -1) {
 		    Entity monster = gp.monster[gp.currentMap][i]; // FIXED
@@ -437,6 +442,11 @@ public class Player extends Entity {
 		        }
 
 		        gp.playSE(hurtSound);
+		        
+		        if(knockBackPower >0) {
+		        	setKnockBack(monster,attacker,knockBackPower);
+		        }
+		        
 		        int damage = attack - monster.defense;
 		        if(damage < 0) damage = 0;
 
@@ -469,6 +479,15 @@ public class Player extends Entity {
 				gp.iTile[gp.currentMap][i] = gp.iTile[gp.currentMap][i].getDestroyedForm(); // FIXED
 			}	
 		}	
+	}
+	
+	public void damageProjectile(int i) {
+		
+		if(i != -1) {
+			Entity pro = gp.projectile[gp.currentMap][i];
+			pro.alive = false;
+			generateParticle(pro,pro);
+		}
 	}
 
 	public void selectItem() {
