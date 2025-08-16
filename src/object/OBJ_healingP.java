@@ -13,6 +13,7 @@ public class OBJ_healingP extends Entity {
 		name = "Healing Potion";
 		down1 = setup("/objects/healing_potion",gp.tileSize,gp.tileSize);
 		description ="[Healing Potion]\nInstantly max your health.";
+		price = 2;
 	}
 	
 	public void use(Entity entity) {

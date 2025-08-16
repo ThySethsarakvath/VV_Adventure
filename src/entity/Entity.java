@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Arc2D.Float;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -71,10 +72,13 @@ public class Entity {
 	public Projectile pro;
 
 	// Item Attributes
+	public ArrayList<Entity> inventory = new ArrayList<>();
+	public final int maxinventorySize = 21;
 	public int attackValue;
 	public int defenseValue;
 	public String description = "";
 	public int useCost;
+	public int price;
 
 	public int type; // 0 = player , 1 = npc, 2 = monster
 	public final int type_player = 0;

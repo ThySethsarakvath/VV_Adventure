@@ -32,8 +32,6 @@ public class Player extends Entity {
 	int getSpeedBoot = 0;
 	int speedTimer = 0;
 	boolean speedBoosted = false;
-	public ArrayList<Entity> inventory = new ArrayList<>();
-	public final int maxinventorySize = 21;
 
 	public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -65,8 +63,8 @@ public class Player extends Entity {
 	// Player coordinate
 	public void setDefaultValues() {
 
-		worldX = gp.tileSize * 28;
-		worldY = gp.tileSize * 18;
+		worldX = gp.tileSize * 21;
+		worldY = gp.tileSize * 36;
 		speed = 4;
 		direction = "down";
 		
@@ -226,6 +224,7 @@ public class Player extends Entity {
 			interactNpc(npcIndex);
 			
 			gp.eHandler.checkEvent();
+	        gp.keyH.enterPressed = false;
 
 			int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
 			interactNpc(monsterIndex);
@@ -391,7 +390,6 @@ public class Player extends Entity {
 	            gp.gameState = gp.dialogueState;
 	            gp.npc[gp.currentMap][i].speak(); // FIXED
 	        }
-	        gp.keyH.enterPressed = false;
 	    }
 
 	    // 🗡️ Attack using F key
@@ -475,7 +473,7 @@ public class Player extends Entity {
 
 	public void selectItem() {
 		
-		int itemIndex = gp.ui.getItemIndexOnSlot();
+		int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol,gp.ui.playerSlotRow);
 		
 		if(itemIndex < inventory.size()) {
 			Entity selectedItem = inventory.get(itemIndex);

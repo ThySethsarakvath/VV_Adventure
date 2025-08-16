@@ -1,6 +1,7 @@
 package main;
 
 import entity.Npc;
+import entity.Wander;
 import monster.Skeleton;
 import monster.Zombie;
 import object.OBJ_Axe;
@@ -106,6 +107,14 @@ public class AssetSetter {
 		gp.npc[mapNum][i] = new Npc(gp);
 		gp.npc[mapNum][i].worldX = gp.tileSize*21;
 		gp.npc[mapNum][i].worldY = gp.tileSize*21;
+		i++;
+		
+		mapNum =1;
+		i=0;
+		gp.npc[mapNum][i] = new Wander(gp);
+		gp.npc[mapNum][i].worldX = gp.tileSize*25;
+		gp.npc[mapNum][i].worldY = gp.tileSize*21;
+		i++;
 	}
 	
 	public void setMonster() {
