@@ -28,7 +28,7 @@ public class Entity {
 	public int solidAreaDefaultX, solidAreaDefaultY; // For Object interaction attributes
 	public boolean collisionOn = false;
 	boolean attackSoundPlayed = false;
-	String dialogues[] = new String[20];
+	String dialogues[] = new String[50];
 	public Entity attacker;
 
 	// STATE

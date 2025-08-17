@@ -32,8 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int screenHeight = tileSize * maxScreenRow; // 576 px
 
 	// WORLD SETTINGS
-	public final int maxWorldCol = 105; // Changeable depends on world01.txt
-	public final int maxWorldRow = 100;
+	public int maxWorldCol;
+	public int maxWorldRow ;
 
 	public final int maxMap = 10;
 	public int currentMap = 0;
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public Entity obj[][] = new Entity[maxMap][30];// object array
 	public Entity npc[][] = new Entity[maxMap][10];
 	public Entity monster[][] = new Entity[maxMap][20];
-	public InteractiveTile iTile[][] = new InteractiveTile[maxMap][50];
+	public InteractiveTile iTile[][] = new InteractiveTile[maxMap][300];
 	public Entity projectile[][] = new Entity[maxMap][20];
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	// This list store player npc obj

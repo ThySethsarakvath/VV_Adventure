@@ -58,14 +58,14 @@ public class EventHandler {
 			if (hit(0, 28, 17, "any") == true) {
 				damagePit();
 			}
-			else if (hit(0, 21, 35, "any") == true) {
-				teleport(1, 25, 29);
+			else if (hit(0, 110, 118, "any") == true) {
+				teleport(1, 30, 32);
 				
 			}
-			else if (hit(1, 25, 29, "any") == true) {
-				teleport(0, 21, 35);
+			else if (hit(1, 30, 32, "any") == true) {
+				teleport(0, 110, 118);
 			}
-			else if(hit(1,25,23,"up") == true) {
+			else if(hit(1,30,25,"up") == true) {
 				speak(gp.npc[1][0]);
 			}
 		}		
