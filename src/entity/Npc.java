@@ -55,7 +55,7 @@ public class Npc extends Entity {
 
 		if (onPath == true) {
 
-			// goal position
+//			 goal position
 			int goalCol = 32;
 			int goalRow = 61;
 //			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
@@ -99,6 +99,6 @@ public class Npc extends Entity {
 		// Do this character specific stuff
 
 		super.speak();
-		onPath = true;
+//		onPath = true;
 	}
 }
