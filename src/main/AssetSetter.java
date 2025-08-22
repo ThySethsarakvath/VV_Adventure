@@ -8,6 +8,7 @@ import object.OBJ_Axe;
 import object.OBJ_Emerald;
 import object.OBJ_Firecharge;
 import object.OBJ_Lantern;
+import object.OBJ_NightPoison;
 import object.OBJ_Portal;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
@@ -38,6 +39,11 @@ public class AssetSetter {
 		gp.obj[mapNum][i] = new OBJ_Lantern(gp);
 		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_NightPoison(gp);
+		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_WoodenSword(gp);

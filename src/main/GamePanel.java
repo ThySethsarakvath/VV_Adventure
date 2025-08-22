@@ -96,7 +96,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int optionsState = 5;
 	public final int gameOverState = 6;
 	public final int transitionState = 7;
-	public final int tradeState =8;
+	public final int tradeState = 8;
+	public final int sleepState = 9;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -278,7 +279,6 @@ public class GamePanel extends JPanel implements Runnable {
 	                iTile[currentMap][i].update();
 	            }
 	        }
-	        eManager.update();
 	        
 	        // SNOW PARTICLES - Add this section
 	        if (snowEffectActive && currentMap == 2) { // Map 2 is frozen map
@@ -293,6 +293,8 @@ public class GamePanel extends JPanel implements Runnable {
 	                snowParticles.add(new SnowParticle(this));
 	            }
 	        }
+	        
+	        eManager.update();
 	    }
 
 	    if (gameState == pauseState) {
@@ -378,7 +380,8 @@ public class GamePanel extends JPanel implements Runnable {
 	            }
 	        }
 	        
-//	        eManager.draw(g2);
+	        // ENVIRONMENT
+	        eManager.draw(g2);
 
 	        // UI
 	        ui.draw(g2);
