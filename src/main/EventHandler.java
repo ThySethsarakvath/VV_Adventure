@@ -59,14 +59,32 @@ public class EventHandler {
 				damagePit();
 			}
 			else if (hit(0, 110, 118, "any") == true) {
+				gp.playSE(17);
 				teleport(1, 30, 32);
 				
 			}
 			else if (hit(1, 30, 32, "any") == true) {
+				gp.playSE(17);
 				teleport(0, 110, 118);
 			}
 			else if(hit(1,30,25,"up") == true) {
 				speak(gp.npc[1][0]);
+			}
+			else if (hit(0, 33, 91, "any") == true) {
+				gp.playSE(18);
+				teleport(2, 83, 50);
+			}
+			else if(hit(2,83,50,"any") == true) {
+				gp.playSE(18);
+				teleport(0,33,91);
+			}
+			else if (hit(0, 153, 117, "any") == true) {
+				gp.playSE(18);
+				teleport(3, 15, 50);
+			}
+			else if (hit(3, 15, 50, "any") == true) {
+				gp.playSE(18);
+				teleport(0, 153, 117);
 			}
 		}		
 	}
@@ -107,7 +125,7 @@ public class EventHandler {
 		tempRow = row;
 		canTouchEvent = false;
 //		gp.playSE(16);
-		gp.playSE(17);
+		
 	}
 
 	public void damagePit() {

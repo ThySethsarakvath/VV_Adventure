@@ -85,16 +85,16 @@ public class Zombie extends Entity {
 		if (onPath == true) {
 
 			// goal position
-			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
-			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
-
-			checkCollision();
-			if (collisionOn) {
-				gp.pFinder.pathList.clear();
-				searchPath(goalCol, goalRow);
-			} else {
-				searchPath(goalCol, goalRow);
-			}
+//			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
+//			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
+//
+//			checkCollision();
+//			if (collisionOn) {
+//				gp.pFinder.pathList.clear();
+//				searchPath(goalCol, goalRow);
+//			} else {
+//				searchPath(goalCol, goalRow);
+//			}
 
 		} else {
 			actionLockCounter++;

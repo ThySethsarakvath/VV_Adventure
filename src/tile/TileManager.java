@@ -66,6 +66,8 @@ public class TileManager {
 		
 		loadMap("/maps/world02.txt",0);
 		loadMap("/maps/wander_house.txt",1);
+		loadMap("/maps/frozen.txt",2);
+		loadMap("/maps/fire.txt",3);
 	}
 	
 	public void getTileImage() {

@@ -181,11 +181,11 @@ public class Skeleton extends Entity {
 			return; // Don't move while shooting
 		}
 
-		if (onPath) {
-			int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-			int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
-			searchPath(goalCol, goalRow);
-		}
+//		if (onPath) {
+//			int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
+//			int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+//			searchPath(goalCol, goalRow);
+//		}
 	}
 
 	public void damageReaction() {

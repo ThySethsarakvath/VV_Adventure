@@ -34,7 +34,12 @@ public class AssetSetter {
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Lantern(gp);
-		gp.obj[mapNum][i].worldX = 32 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_WoodenSword(gp);
+		gp.obj[mapNum][i].worldX = 30 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
 		i++;
 	}
@@ -63,38 +68,33 @@ public class AssetSetter {
 		int i =0;
 		
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*29;
-		gp.monster[mapNum][i].worldY = gp.tileSize*29;
+		gp.monster[mapNum][i].worldX = gp.tileSize*42;
+		gp.monster[mapNum][i].worldY = gp.tileSize*65;
 		i++;
 		
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*30;
-		gp.monster[mapNum][i].worldY = gp.tileSize*30;
+		gp.monster[mapNum][i].worldX = gp.tileSize*43;
+		gp.monster[mapNum][i].worldY = gp.tileSize*65;
 		i++;
 		
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*28;
-		gp.monster[mapNum][i].worldY = gp.tileSize*28;
-		i++;
-		
-		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*31;
-		gp.monster[mapNum][i].worldY = gp.tileSize*31;
+		gp.monster[mapNum][i].worldX = gp.tileSize*44;
+		gp.monster[mapNum][i].worldY = gp.tileSize*65;
 		i++;
 		
 		gp.monster[mapNum][i] = new Skeleton(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*31;
-		gp.monster[mapNum][i].worldY = gp.tileSize*41;
+		gp.monster[mapNum][i].worldX = gp.tileSize*42;
+		gp.monster[mapNum][i].worldY = gp.tileSize*66;
 		i++;
 		
 		gp.monster[mapNum][i] = new Skeleton(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*30;
-		gp.monster[mapNum][i].worldY = gp.tileSize*41;
+		gp.monster[mapNum][i].worldX = gp.tileSize*43;
+		gp.monster[mapNum][i].worldY = gp.tileSize*66;
 		i++;
 		
 		gp.monster[mapNum][i] = new Skeleton(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*30;
-		gp.monster[mapNum][i].worldY = gp.tileSize*40;
+		gp.monster[mapNum][i].worldX = gp.tileSize*44;
+		gp.monster[mapNum][i].worldY = gp.tileSize*66;
 		i++;
 		
 	}
