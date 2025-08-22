@@ -70,21 +70,23 @@ public class EventHandler {
 			else if(hit(1,30,25,"up") == true) {
 				speak(gp.npc[1][0]);
 			}
-			else if (hit(0, 33, 91, "any") == true) {
+			else if (hit(0, 34, 91, "any") == true) {
 				gp.playSE(18);
-				teleport(2, 83, 50);
+				gp.startSnowEffect();
+				teleport(2, 82, 50);
 			}
-			else if(hit(2,83,50,"any") == true) {
+			else if(hit(2,82,50,"any") == true) {
 				gp.playSE(18);
-				teleport(0,33,91);
+				gp.stopSnowEffect();
+				teleport(0,34,91);
 			}
-			else if (hit(0, 153, 117, "any") == true) {
+			else if (hit(0, 152,117, "any") == true) {
 				gp.playSE(18);
-				teleport(3, 15, 50);
+				teleport(3, 16, 50);
 			}
-			else if (hit(3, 15, 50, "any") == true) {
+			else if (hit(3, 16, 50, "any") == true) {
 				gp.playSE(18);
-				teleport(0, 153, 117);
+				teleport(0, 152,117);
 			}
 		}		
 	}

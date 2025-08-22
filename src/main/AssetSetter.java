@@ -8,6 +8,7 @@ import object.OBJ_Axe;
 import object.OBJ_Emerald;
 import object.OBJ_Firecharge;
 import object.OBJ_Lantern;
+import object.OBJ_Portal;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
 import object.OBJ_WoodenSword;
@@ -28,6 +29,7 @@ public class AssetSetter {
 		int mapNum = 0;
 		int i = 0 ;
 		
+		// Over world
 		gp.obj[mapNum][i] = new OBJ_Axe(gp);
 		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
@@ -41,6 +43,33 @@ public class AssetSetter {
 		gp.obj[mapNum][i] = new OBJ_WoodenSword(gp);
 		gp.obj[mapNum][i].worldX = 30 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Portal(gp);
+		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 91 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Portal(gp);
+		gp.obj[mapNum][i].worldX = 152 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
+		i++;
+		
+		// Ice Map
+		mapNum = 2;
+		i=0;
+		
+		gp.obj[mapNum][i] = new OBJ_Portal(gp);
+		gp.obj[mapNum][i].worldX = 82 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
+		i++;
+		
+		// Nether Map
+		mapNum = 3;
+		i=0;
+		gp.obj[mapNum][i] = new OBJ_Portal(gp);
+		gp.obj[mapNum][i].worldX = 16 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
 	}
 	
@@ -121,14 +150,6 @@ public class AssetSetter {
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 52, 55);
 		i++;
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 53, 54);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 33, 90);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 90);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 33, 92);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 92);
 		i++;
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 40, 133);
 		i++;

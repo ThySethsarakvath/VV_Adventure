@@ -10,18 +10,21 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import java.util.Random;
 import javax.swing.JPanel;
 
 import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import entity.SnowParticle;
 import environment.EnvironmentManager;
+import object.OBJ_Portal;
 import tile.TileManager;
 import tile_interactive.InteractiveTile;
 
 public class GamePanel extends JPanel implements Runnable {
 
+	private Random random = new Random();
 	// Screen Panel
 	final int originalTileSize = 16; // 16x 16
 	final int scale = 3;
@@ -78,7 +81,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	// This list store player npc obj
 	ArrayList<Entity> entityList = new ArrayList<>();
-
+	
+	public ArrayList<SnowParticle> snowParticles = new ArrayList<>();
+	private final int MAX_SNOW_PARTICLES = 200;
+	private boolean snowEffectActive = false;
 	// GAME STATE
 	public int gameState;
 	public final int titleState = 0;
@@ -211,155 +217,172 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
+	    if (gameState == playState) {
+	        // Player
+	        player.update();
+	        
+	     // OBJECT - Update only portal objects (to avoid blinking other objects)
+	        for (int i = 0; i < obj[1].length; i++) {
+	            if (obj[currentMap][i] != null && obj[currentMap][i] instanceof OBJ_Portal) {
+	                obj[currentMap][i].update();  // Only portals get updated
+	            }
+	        }
+	        
+	        // Npc
+	        for (int i = 0; i < npc[1].length; i++) {
+	            if (npc[currentMap][i] != null) {
+	                npc[currentMap][i].update();
+	            }
+	        }
 
-		if (gameState == playState) {
+	        if (monster[currentMap] != null) {
+	            for (int i = 0; i < monster[currentMap].length; i++) {
+	                if (monster[currentMap][i] != null) {
+	                    if (monster[currentMap][i].alive == true && monster[currentMap][i].die == false) {
+	                        monster[currentMap][i].update();
+	                    }
+	                    if (monster[currentMap][i].alive == false) {
+	                        monster[currentMap][i].checkDrop();
+	                        monster[currentMap][i] = null;
+	                    }
+	                }
+	            }
+	        }
 
-			// Player
-			player.update();
-			
-			// Npc
-			for (int i = 0; i < npc[1].length; i++) {
-				if (npc[currentMap][i] != null) {
-					npc[currentMap][i].update();
-				}
-			}
+	        // projectile
+	        for (int i = 0; i < projectile[1].length; i++) {
+	            if (projectile[currentMap][i] != null) {
+	                if (projectile[currentMap][i].alive == true) {
+	                    projectile[currentMap][i].update();
+	                }
+	                if (projectile[currentMap][i].alive == false) {
+	                    projectile[currentMap][i] = null;
+	                }
+	            }
+	        }
 
-			if (monster[currentMap] != null) {
-				for (int i = 0; i < monster[currentMap].length; i++) {
-					if (monster[currentMap][i] != null) {
-						if (monster[currentMap][i].alive == true && monster[currentMap][i].die == false) {
-							monster[currentMap][i].update();
-						}
-						if (monster[currentMap][i].alive == false) {
-							monster[currentMap][i].checkDrop();
-							monster[currentMap][i] = null;
-						}
-					}
-				}
-			}
+	        // Particle
+	        for (int i = 0; i < particleList.size(); i++) {
+	            if (particleList.get(i) != null) {
+	                if (particleList.get(i).alive == true) {
+	                    particleList.get(i).update();
+	                }
+	                if (particleList.get(i).alive == false) {
+	                    particleList.remove(i);
+	                }
+	            }
+	        }
 
-			// projectile
-			for (int i = 0; i < projectile[1].length; i++) {
-				if (projectile[currentMap][i] != null) {
-					if (projectile[currentMap][i].alive == true) {
-						projectile[currentMap][i].update();
-					}
-					if (projectile[currentMap][i].alive == false) {
-						projectile[currentMap][i] = null;
-					}
-				}
-			}
+	        for (int i = 0; i < iTile[1].length; i++) {
+	            if (iTile[currentMap][i] != null) {
+	                iTile[currentMap][i].update();
+	            }
+	        }
+	        eManager.update();
+	        
+	        // SNOW PARTICLES - Add this section
+	        if (snowEffectActive && currentMap == 2) { // Map 2 is frozen map
+	            for (int i = 0; i < snowParticles.size(); i++) {
+	                if (snowParticles.get(i) != null) {
+	                    snowParticles.get(i).update();
+	                }
+	            }
+	            
+	            // Add new particles occasionally
+	            if (snowParticles.size() < MAX_SNOW_PARTICLES && random.nextInt(100) < 10) {
+	                snowParticles.add(new SnowParticle(this));
+	            }
+	        }
+	    }
 
-			// Particle
-			for (int i = 0; i < particleList.size(); i++) {
-				if (particleList.get(i) != null) {
-					if (particleList.get(i).alive == true) {
-						particleList.get(i).update();
-					}
-					if (particleList.get(i).alive == false) {
-						particleList.remove(i);
-					}
-				}
-			}
-
-			for (int i = 0; i < iTile[1].length; i++) {
-				if (iTile[currentMap][i] != null) {
-					iTile[currentMap][i].update();
-				}
-			}
-			eManager.update();
-		}
-
-		if (gameState == pauseState) {
-
-		}
+	    if (gameState == pauseState) {
+	        // Pause state logic
+	    }
 	}
 
-	// For activate full screen
 	public void drawToTempScreen() {
+	    // TITLE SCREEN
+	    if (gameState == titleState) {
+	        ui.draw(g2);
+	    }
+	    // OTHERS
+	    else {
+	        tileM.draw(g2); // draw the world before player !!
 
-		// TITLE SCREEN
-		if (gameState == titleState) {
-			ui.draw(g2);
-		}
+	        // INTERACTIVE TILE
+	        for (int i = 0; i < iTile[1].length; i++) {
+	            if (iTile[currentMap][i] != null) {
+	                iTile[currentMap][i].draw(g2);
+	            }
+	        }
+	        
+	        // OBJECTS - Draw FIRST (always behind entities)
+	        for (int i = 0; i < obj[1].length; i++) {
+	            if (obj[currentMap][i] != null) {
+	                obj[currentMap][i].draw(g2); // Draw objects directly here
+	            }
+	        }
 
-		// OTHERS
-		else {
+	        // Now add ONLY entities (player, NPCs, monsters) to the list for sorting
+	        entityList.add(player);
 
-			tileM.draw(g2); // draw the world before player !!
+	        // NPC
+	        for (int i = 0; i < npc[1].length; i++) {
+	            if (npc[currentMap][i] != null) {
+	                entityList.add(npc[currentMap][i]);
+	            }
+	        }
 
-			// INTERACTIVE TILE
-			for (int i = 0; i < iTile[1].length; i++) {
-				if (iTile[currentMap][i] != null) {
-					iTile[currentMap][i].draw(g2);
-				}
-			}
+	        // MONSTER
+	        for (int i = 0; i < monster[1].length; i++) {
+	            if (monster[currentMap][i] != null) {
+	                entityList.add(monster[currentMap][i]);
+	            }
+	        }
 
-			// add entity to the list
-			entityList.add(player);
+	        for (int i = 0; i < projectile[1].length; i++) {
+	            if (projectile[currentMap][i] != null) {
+	                entityList.add(projectile[currentMap][i]);
+	            }
+	        }
 
-			// NPC
-			for (int i = 0; i < npc[1].length; i++) {
-				if (npc[currentMap][i] != null) {
-					entityList.add(npc[currentMap][i]);
-				}
-			}
+	        for (int i = 0; i < particleList.size(); i++) {
+	            if (particleList.get(i) != null) {
+	                entityList.add(particleList.get(i));
+	            }
+	        }
 
-			// OBJECT
-			for (int i = 0; i < obj[1].length; i++) {
-				if (obj[currentMap][i] != null) { // to avoid null pointer errors
-					entityList.add(obj[currentMap][i]);
-				}
-			}
+	        // Sort the entity to check their coordinate
+	        Collections.sort(entityList, new Comparator<Entity>() {
+	            @Override
+	            public int compare(Entity e1, Entity e2) {
+	                int result = Integer.compare(e1.worldY, e2.worldY);
+	                return result;
+	            }
+	        });
 
-			// MONSTER
-			for (int i = 0; i < monster[1].length; i++) {
-				if (monster[currentMap][i] != null) {
-					entityList.add(monster[currentMap][i]);
-				}
-			}
+	        // draw entities (player, NPCs, monsters - these will be on TOP of objects)
+	        for (int i = 0; i < entityList.size(); i++) {
+	            entityList.get(i).draw(g2);
+	        }
 
-			for (int i = 0; i < projectile[1].length; i++) {
-				if (projectile[currentMap][i] != null) {
-					entityList.add(projectile[currentMap][i]);
-				}
-			}
+	        // empty entities list
+	        entityList.clear();
 
-			for (int i = 0; i < particleList.size(); i++) {
-				if (particleList.get(i) != null) {
-					entityList.add(particleList.get(i));
-				}
-			}
+	        // SNOW PARTICLES - Add this section (draw on top of everything)
+	        if (snowEffectActive && currentMap == 2) {
+	            for (int i = 0; i < snowParticles.size(); i++) {
+	                if (snowParticles.get(i) != null) {
+	                    snowParticles.get(i).draw(g2);
+	                }
+	            }
+	        }
+	        
+//	        eManager.draw(g2);
 
-			// Sort the entity to check their coordinate
-			Collections.sort(entityList, new Comparator<Entity>() {
-
-				@Override
-				public int compare(Entity e1, Entity e2) {
-
-					int result = Integer.compare(e1.worldY, e2.worldY);
-
-					return result;
-				}
-			});
-
-			// draw entities
-			for (int i = 0; i < entityList.size(); i++) {
-				entityList.get(i).draw(g2);
-			}
-
-			// empty entities list
-			entityList.clear();
-
-			// PLAYER
-//			player.draw(g2);
-			
-			// ENVIRONMENT
-//			eManager.draw(g2);
-
-			// UI
-			ui.draw(g2);
-		}
+	        // UI
+	        ui.draw(g2);
+	    }
 	}
 
 	public void drawToScreen() {
@@ -387,5 +410,19 @@ public class GamePanel extends JPanel implements Runnable {
 
 		se.setFile(i);
 		se.play();
+	}
+	
+	public void startSnowEffect() {
+	    snowEffectActive = true;
+	    snowParticles.clear();
+	    // Pre-populate with some particles
+	    for (int i = 0; i < MAX_SNOW_PARTICLES / 2; i++) {
+	        snowParticles.add(new SnowParticle(this));
+	    }
+	}
+
+	public void stopSnowEffect() {
+	    snowEffectActive = false;
+	    snowParticles.clear();
 	}
 }

@@ -85,59 +85,64 @@ public class CollisionChecker {
 
 	public int checkObject(Entity entity, boolean player) { // Check entity is player or not
 
-		int index = -1;
+	    int index = -1;
 
-		for (int i = 0; i < gp.obj[1].length; i++) { // FIXED
+	    for (int i = 0; i < gp.obj[1].length; i++) { // FIXED
 
-			if (gp.obj[gp.currentMap][i] != null) { // FIXED
+	        if (gp.obj[gp.currentMap][i] != null) { // FIXED
+	            
+	            // ADD THIS CHECK: Skip decorative objects entirely
+	            if (gp.obj[gp.currentMap][i].type == entity.type_portal) {
+	                continue; // Skip to next object
+	            }
 
-				// Get entity's solid area position
-				entity.solidArea.x = entity.worldX + entity.solidArea.x;
-				entity.solidArea.y = entity.worldY + entity.solidArea.y;
-				// Get the object's solid area position
-				gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].worldX + gp.obj[gp.currentMap][i].solidArea.x; // FIXED
-				gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY + gp.obj[gp.currentMap][i].solidArea.y; // FIXED
+	            // Get entity's solid area position
+	            entity.solidArea.x = entity.worldX + entity.solidArea.x;
+	            entity.solidArea.y = entity.worldY + entity.solidArea.y;
+	            // Get the object's solid area position
+	            gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].worldX + gp.obj[gp.currentMap][i].solidArea.x; // FIXED
+	            gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].worldY + gp.obj[gp.currentMap][i].solidArea.y; // FIXED
 
-				switch (entity.direction) {
+	            switch (entity.direction) {
 
-				case "up":
-					entity.solidArea.y -= entity.speed;
-					break;
+	            case "up":
+	                entity.solidArea.y -= entity.speed;
+	                break;
 
-				case "down":
-					entity.solidArea.y += entity.speed;
-					break;
+	            case "down":
+	                entity.solidArea.y += entity.speed;
+	                break;
 
-				case "left":
-					entity.solidArea.x -= entity.speed;
-					break;
+	            case "left":
+	                entity.solidArea.x -= entity.speed;
+	                break;
 
-				case "right":
-					entity.solidArea.x += entity.speed;
-					break;
+	            case "right":
+	                entity.solidArea.x += entity.speed;
+	                break;
 
-				}
+	            }
 
-				// Auto checks if 2 rectangles are colliding or not
-				if (entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) { // entity pas object ort? // FIXED
-					if (gp.obj[gp.currentMap][i].collision == true) { // FIXED
-						entity.collisionOn = true;
-					}
-					if (player == true) { // NPC or monster can't pick objects
-						index = i;
-					}
-				}
+	            // Auto checks if 2 rectangles are colliding or not
+	            if (entity.solidArea.intersects(gp.obj[gp.currentMap][i].solidArea)) { // entity pas object ort? // FIXED
+	                if (gp.obj[gp.currentMap][i].collision == true) { // FIXED
+	                    entity.collisionOn = true;
+	                }
+	                if (player == true) { // NPC or monster can't pick objects
+	                    index = i;
+	                }
+	            }
 
-				// Reset solidArea.x/y to prevent keep increasing value
-				entity.solidArea.x = entity.solidAreaDefaultX;
-				entity.solidArea.y = entity.solidAreaDefaultY;
-				gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].solidAreaDefaultX; // FIXED
-				gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].solidAreaDefaultY; // FIXED
-			}
+	            // Reset solidArea.x/y to prevent keep increasing value
+	            entity.solidArea.x = entity.solidAreaDefaultX;
+	            entity.solidArea.y = entity.solidAreaDefaultY;
+	            gp.obj[gp.currentMap][i].solidArea.x = gp.obj[gp.currentMap][i].solidAreaDefaultX; // FIXED
+	            gp.obj[gp.currentMap][i].solidArea.y = gp.obj[gp.currentMap][i].solidAreaDefaultY; // FIXED
+	        }
 
-		}
+	    }
 
-		return index;
+	    return index;
 
 	}
 

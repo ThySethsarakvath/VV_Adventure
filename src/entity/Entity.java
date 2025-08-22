@@ -103,6 +103,7 @@ public class Entity {
 	public final int type_axe = 9;
 	public final int type_pickup = 10;
 	public final int type_light = 11;
+	public final int type_portal = 12;
 
 	public Entity(GamePanel gp) {
 		this.gp = gp;
