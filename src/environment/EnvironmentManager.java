@@ -15,9 +15,12 @@ public class EnvironmentManager {
 	
 	public void setup() {
 		
-		// param 2: shouldn't be greater than our screen width or height
-		lighting = new Lighting(gp, 576);
+		lighting = new Lighting(gp);
 		
+	}
+	
+	public void update() {
+		lighting.update();
 	}
 	
 	public void draw(Graphics2D g2) {
