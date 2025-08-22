@@ -32,6 +32,9 @@ public class Player extends Entity {
 	int getSpeedBoot = 0;
 	int speedTimer = 0;
 	boolean speedBoosted = false;
+	
+	// For Lantern
+	public boolean lightUpdated = false;
 
 	public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -514,6 +517,17 @@ public class Player extends Entity {
 				currentShield = selectedItem;
 				defense = getDefense();
 			}
+			
+			if(selectedItem.type == type_light) {
+				
+				if(currentLight == selectedItem) {
+					currentLight = null;
+				} else {
+					currentLight = selectedItem;
+				}
+				lightUpdated = true;		
+			}
+			
 			if(selectedItem.type == type_consumable) {
 				selectedItem.use(this);
 				if(selectedItem.amount >1) {
