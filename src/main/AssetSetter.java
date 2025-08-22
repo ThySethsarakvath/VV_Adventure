@@ -7,6 +7,7 @@ import monster.Zombie;
 import object.OBJ_Axe;
 import object.OBJ_Emerald;
 import object.OBJ_Firecharge;
+import object.OBJ_Lantern;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
 import object.OBJ_WoodenSword;
@@ -30,6 +31,11 @@ public class AssetSetter {
 		gp.obj[mapNum][i] = new OBJ_Axe(gp);
 		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Lantern(gp);
+		gp.obj[mapNum][i].worldX = 32 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
 		i++;
 	}
 	
