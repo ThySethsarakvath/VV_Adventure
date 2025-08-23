@@ -22,14 +22,18 @@ public class Map extends TileManager {
 	public void createWorldMap() {
 		
 		worldMap = new BufferedImage[gp.maxMap];
-		int worldMapWidth = gp.tileSize * gp.maxWorldCol;
-		int worldMapHeight = gp.tileSize * gp.maxWorldRow;
+		int miniMapWidth = 200;  // Fixed smaller size
+        int miniMapHeight = 200;
 		
 		for(int i = 0; i < gp.maxMap; i++) {
 			
-			worldMap[i] = new BufferedImage(worldMapWidth, worldMapHeight, BufferedImage.TYPE_INT_ARGB);
+			worldMap[i] = new BufferedImage(miniMapWidth, miniMapHeight, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g2 = (Graphics2D)worldMap[i].createGraphics();
 			
+			double scaleX = (double)miniMapWidth / (gp.maxWorldCol * gp.tileSize);
+            double scaleY = (double)miniMapHeight / (gp.maxWorldRow * gp.tileSize);
+            
+            g2.scale(scaleX, scaleY);
 			int col = 0;
 			int row = 0;
 			
@@ -46,6 +50,7 @@ public class Map extends TileManager {
 					row++;
 				}
 			}
+			g2.dispose();
 		}
 	}
 	

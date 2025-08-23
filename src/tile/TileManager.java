@@ -47,22 +47,37 @@ public class TileManager {
 		tile = new Tile[fileNames.size()];
 		getTileImage();
 		
-		is = getClass().getResourceAsStream("/maps/world02.txt");
-		br = new BufferedReader(new InputStreamReader(is));
-		
 		try {
-			String line2 = br.readLine();
-			String maxTile[] = line2.split(" ");
-			
-			gp.maxWorldCol = maxTile.length;
-			gp.maxWorldRow = maxTile.length;
-			mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
-			
-			br.close();
-		}
-		catch(IOException e) {
-			System.out.println("Exception !");
-		}
+	        is = getClass().getResourceAsStream("/maps/world02.txt");
+	        br = new BufferedReader(new InputStreamReader(is));
+	        
+	        // Read first line to get column count
+	        String firstLine = br.readLine();
+	        if (firstLine != null) {
+	            String maxTile[] = firstLine.split(" ");
+	            gp.maxWorldCol = maxTile.length;
+	            
+	            // Count rows
+	            int rowCount = 1;
+	            while (br.readLine() != null) {
+	                rowCount++;
+	            }
+	            gp.maxWorldRow = rowCount;
+	            
+	            br.close();
+	        }
+	        
+	        // Initialize map array with proper dimensions
+	        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+	        
+	    } catch(IOException e) {
+	        System.out.println("Exception reading map dimensions!");
+	        e.printStackTrace();
+	        // Set safe default dimensions
+	        gp.maxWorldCol = 50;
+	        gp.maxWorldRow = 50;
+	        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+	    }
 		
 		loadMap("/maps/world02.txt",0);
 		loadMap("/maps/wander_house.txt",1);
