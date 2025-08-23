@@ -185,6 +185,21 @@ public class Player extends Entity {
 //		}
 
 	}
+	
+	public void getSleepImage(BufferedImage image) {
+		up1 = image;
+		up2 = image;
+		upStand = image;
+		down1 = image;
+		down2 = image;
+		downStand = image;
+		left1 = image;
+		left2 = image;
+		leftStand = image;
+		right1 = image;
+		right2 = image;
+		rightStand = image;
+	}
 
 	public void update() {
 

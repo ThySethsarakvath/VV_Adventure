@@ -12,7 +12,7 @@ import object.OBJ_GateFire;
 import object.OBJ_GateIce;
 import object.OBJ_Icekey;
 import object.OBJ_Lantern;
-import object.OBJ_NightPoison;
+import object.OBJ_Tent;
 import object.OBJ_Portal;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
@@ -45,8 +45,13 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
 		i++;
 		
-		gp.obj[mapNum][i] = new OBJ_NightPoison(gp);
+		gp.obj[mapNum][i] = new OBJ_Tent(gp);
 		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Tent(gp);
+		gp.obj[mapNum][i].worldX = 33 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
 		i++;
 		
