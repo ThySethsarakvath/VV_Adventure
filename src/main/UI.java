@@ -23,7 +23,7 @@ public class UI {
 
 	GamePanel gp;
 	Graphics2D g2;
-	Font PressStart2P;
+	public Font PressStart2P;
 	BufferedImage full_heart, half_heart, empty_heart, emeral;
 	public boolean messageOn = false;
 	public String message = "";
