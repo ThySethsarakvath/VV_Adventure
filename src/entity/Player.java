@@ -15,6 +15,8 @@ import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
 import object.OBJ_Fireball;
+import object.OBJ_Firekey;
+import object.OBJ_Icekey;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
 
@@ -92,6 +94,8 @@ public class Player extends Entity {
 	public void setItems() {
 		inventory.add(currentShield);
 		inventory.add(currentWeapon);
+		inventory.add(new OBJ_Icekey(gp));
+		inventory.add(new OBJ_Firekey(gp));
 	}
 
 	public int getAttack() {
@@ -105,8 +109,8 @@ public class Player extends Entity {
 
 	public void setDefaultPositions() {
 
-		worldX = gp.tileSize * 21;
-		worldY = gp.tileSize * 36;
+		worldX = gp.tileSize * 32;
+		worldY = gp.tileSize * 61;
 		direction = "down";
 
 	}
@@ -379,12 +383,22 @@ public class Player extends Entity {
 			if (gp.obj[gp.currentMap][i].type == type_portal) {
 	            return;  // Skip decorative objects entirely
 	        }
-			// will be fix in future!! (check stackable vdo)
-			if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
-				gp.playSE(8);
+			else if(gp.obj[gp.currentMap][i].type == type_pickup) {
+				gp.obj[gp.currentMap][i].use(this);
+				gp.obj[gp.currentMap][i] = null;
+				}
+			else if(gp.obj[gp.currentMap][i].type == type_obstacle) {
+				if(keyH.enterPressed == true) {
+					gp.obj[gp.currentMap][i].interact();
+				}
 			}
-			String objectName = gp.obj[gp.currentMap][i].name; // FIXED
-			gp.obj[gp.currentMap][i] = null; // FIXED Important
+			else {
+				if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
+					gp.playSE(8);
+				}
+				String objectName = gp.obj[gp.currentMap][i].name; // FIXED
+				gp.obj[gp.currentMap][i] = null; // FIXED Important
+			}
 		}
 	}
 
@@ -531,11 +545,12 @@ public class Player extends Entity {
 			}
 
 			if (selectedItem.type == type_consumable) {
-				selectedItem.use(this);
-				if (selectedItem.amount > 1) {
-					selectedItem.amount--;
-				} else {
-					inventory.remove(itemIndex);
+				if(selectedItem.use(this) == true) {
+					if (selectedItem.amount > 1) {
+						selectedItem.amount--;
+					} else {
+						inventory.remove(itemIndex);
+					}
 				}
 			}
 		}

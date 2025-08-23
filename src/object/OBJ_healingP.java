@@ -17,13 +17,14 @@ public class OBJ_healingP extends Entity {
 		stackable = true;
 	}
 	
-	public void use(Entity entity) {
+	public boolean use(Entity entity) {
 		entity.life = entity.maxLife;
 		
 		if(gp.player.life > gp.player.maxLife) {
 			gp.player.life = gp.player.maxLife;
 		}
 		gp.playSE(9);
+		return true;
 	}
 
 }

@@ -1126,4 +1126,11 @@ public class UI {
 		int x = gp.screenWidth / 2 - length / 2;
 		return x;
 	}
+	
+	public void resetDialogueState() {
+	    displayedText = "";
+	    charIndex = 0;
+	    textTimer = 0;
+	    textCompleted = false;
+	}
 }

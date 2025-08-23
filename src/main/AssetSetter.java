@@ -5,8 +5,12 @@ import entity.Wander;
 import monster.Skeleton;
 import monster.Zombie;
 import object.OBJ_Axe;
+import object.OBJ_Chest;
 import object.OBJ_Emerald;
 import object.OBJ_Firecharge;
+import object.OBJ_GateFire;
+import object.OBJ_GateIce;
+import object.OBJ_Icekey;
 import object.OBJ_Lantern;
 import object.OBJ_NightPoison;
 import object.OBJ_Portal;
@@ -33,7 +37,7 @@ public class AssetSetter {
 		// Over world
 		gp.obj[mapNum][i] = new OBJ_Axe(gp);
 		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 64 * gp.tileSize;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Lantern(gp);
@@ -60,6 +64,22 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldX = 152 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
 		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_GateIce(gp);
+		gp.obj[mapNum][i].worldX = 36 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 91 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_GateFire(gp);
+		gp.obj[mapNum][i].worldX = 150 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp,new OBJ_Icekey(gp));
+		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
+		i++;
+		
 		
 		// Ice Map
 		mapNum = 2;
@@ -318,8 +338,6 @@ public class AssetSetter {
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 130, 93);
 		i++;
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 129, 93);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 150, 117);
 		i++;
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 128, 121);
 		i++;
