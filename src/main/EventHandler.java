@@ -97,7 +97,7 @@ public class EventHandler {
 			
 			else if (hit(4, 13, 97, "any") == true) {
 				gp.playSE(18);
-				teleport(0, 89, 96, gp.dungeon);
+				teleport(0, 89, 96, gp.outside);
 			}
 		}		
 	}
