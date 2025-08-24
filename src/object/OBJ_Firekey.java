@@ -12,7 +12,7 @@ public class OBJ_Firekey extends Entity{
 		type = type_consumable;
 		name = "Fire_trailKey";
 		down1 = setup("/objects/fire_trailkey",gp.tileSize,gp.tileSize);
-		description = "[Fire Trail Key]\nKey to open gate for\n Fire Iceland.";
+		description = "[Fire Trail Key]\nKey to open gate for\n Fire Island.";
 	}
 	
 	public boolean use(Entity entity) {

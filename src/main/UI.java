@@ -1006,7 +1006,7 @@ public class UI {
 				Entity itemToSell = gp.player.inventory.get(itemIndex);
 
 				if (itemToSell == gp.player.currentWeapon || itemToSell == gp.player.currentShield
-						|| itemToSell == gp.player.currentBall) {
+						|| itemToSell == gp.player.currentBall || itemToSell == gp.player.currentLight) {
 
 					commandNum = 0;
 					subState = 0;
@@ -1093,7 +1093,7 @@ public class UI {
 				gp.eManager.lighting.dayState = gp.eManager.lighting.day;
 				gp.eManager.lighting.dayCounter = 0;
 				gp.gameState = gp.playState;
-				// gp.player.getImage();
+				gp.player.getImage();
 			}
 		}
 	}
