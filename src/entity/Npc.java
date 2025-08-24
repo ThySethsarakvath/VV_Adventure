@@ -94,6 +94,7 @@ public class Npc extends Entity {
 
 	}
 
+	@Override
 	public void speak() {
 
 		// Do this character specific stuff
