@@ -10,7 +10,9 @@ public class PathFinder {
 	Node[][] node;
 	ArrayList<Node> openList = new ArrayList<>();
 	public ArrayList<Node> pathList = new ArrayList<>();
-	Node startNode, goalNode,currentNode;
+	Node startNode;
+	public Node goalNode;
+	Node currentNode;
 	boolean goalReached = false;
 	int step = 0;
 	

@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, fPressed,jPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, fPressed,jPressed,shiftPressed;
 
 	GamePanel gp;
 
@@ -125,6 +125,9 @@ public class KeyHandler implements KeyListener {
 		}
 		if (code == KeyEvent.VK_C) {
 			gp.gameState = gp.characterState;
+		}
+		if (code == KeyEvent.VK_SHIFT) {
+			shiftPressed = true;
 		}
 		
 		if (code == KeyEvent.VK_ESCAPE) {
@@ -419,6 +422,12 @@ public void npcInventory(int code) {
 		}
 		if (code == KeyEvent.VK_J) {
 			jPressed = false;
+		}
+		if (code == KeyEvent.VK_ENTER) {
+			enterPressed = false;
+		}
+		if (code == KeyEvent.VK_SHIFT) {
+			shiftPressed = false;
 		}
 	}
 }

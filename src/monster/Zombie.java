@@ -16,6 +16,7 @@ public class Zombie extends Entity {
 	public Zombie(GamePanel gp) {
 		super(gp);
 		this.gp = gp;
+		
 
 		type = type_zombie;
 		name = "Zombie";
@@ -23,6 +24,7 @@ public class Zombie extends Entity {
 		speed = defaultSpeed;
 		maxLife = 6;
 		life = maxLife;
+		attack = 2;
 //		pro = new OBJ_Fireball(gp);
 
 		solidArea.x = 8; // X-offset within zombie sprite

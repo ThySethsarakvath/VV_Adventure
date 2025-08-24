@@ -22,7 +22,7 @@ public class Entity {
 
 	public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, upStand, downStand, leftStand,
 			rightStand;
-	public BufferedImage aUp1, aUp2, aDown1, aDown2, aRight1, aRight2, aLeft1, aLeft2;
+	public BufferedImage aUp1, aUp2, aDown1, aDown2, aRight1, aRight2, aLeft1, aLeft2,gUp,gDown,gLeft,gRight;
 	public BufferedImage image, image2, image3;
 	public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 	public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
@@ -46,6 +46,9 @@ public class Entity {
 	public boolean onPath = false;
 	public boolean knockBack = false;
 	public String knockBackDirection;
+	public boolean guarding = false;
+	public boolean transparent = false;
+	public boolean offBalance = false;
 
 	// COUNTER
 	public int actionLockCounter = 0;
@@ -55,6 +58,10 @@ public class Entity {
 	int hpBarCounter = 0;
 	public int shotCounter;
 	int knockBackCounter = 0;
+	public int guardCounter = 0;
+	int offBalanceCounter = 0;
+	public int pathRecalcCounter = 0;
+    public final int PATH_RECALC_COOLDOWN = 20;
 
 	// CHARACTER ATTRIBUTES
 	public String name;
@@ -370,6 +377,20 @@ public class Entity {
 		}
 	}
 	
+	public String getOppositeDirection(String direction) {
+		
+		String oppositeDir = " ";
+		
+		switch(direction) {
+		
+		case "up": oppositeDir = "down"; break;
+		case "down": oppositeDir = "up"; break;
+		case "left": oppositeDir = "right"; break;
+		case "right": oppositeDir = "left"; break;
+		}
+		return oppositeDir;
+	}
+	
 	public void attacking() {
 		if (spriteNum == 2 && !attackSoundPlayed) {
 			gp.playSE(3);
@@ -533,13 +554,48 @@ public class Entity {
 		if (shotCounter < 30) {
 			shotCounter++;
 		}
+		
+		if(offBalance ==  true) {
+			offBalanceCounter++;
+			if(offBalanceCounter > 60) {
+				offBalance = false;
+				offBalanceCounter = 0;
+			}
+		}
 	}
 
 	public void damagePlayer(int attack) {
 	    if (!gp.player.invincible) {
-	        gp.playSE(2);
+	        
 	        int damage = attack - gp.player.defense;
-	        if (damage < 1) damage = 1; // Ensure minimum damage
+	        
+	        // get opposite direction
+	        String canGuard = getOppositeDirection(direction);
+	        if(gp.player.guarding == true && gp.player.direction.equals(canGuard)) {
+	        	
+	        	// parry
+	        	if(gp.player.guardCounter <10) {
+	        		damage = 0;
+//		        	gp.playeSE();
+	        		setKnockBack(this,gp.player,knockBackPower);
+	        		offBalance = true;
+	        		spriteCounter =- 60;
+	        	}
+	        	else {
+	        		damage /= 3;
+//		        	gp.playeSE();
+	        	}
+	        	
+	        }
+	        else {
+	        	gp.playSE(2);
+	        	if (damage < 0) damage = 0;// Ensure minimum damage
+	        }
+	        
+	        if(damage != 0) {
+	        	gp.player.transparent = true;
+	        	setKnockBack(gp.player,this,knockBackPower);
+	        }
 	        gp.player.life -= damage;
 	        gp.player.invincible = true;
 	    }
@@ -758,46 +814,85 @@ public class Entity {
 	}
 	
 	public void searchPath(int goalCol, int goalRow) {
-	    int startCol = (worldX + solidArea.x) / gp.tileSize;
-	    int startRow = (worldY + solidArea.y) / gp.tileSize;
+		
+		
 
-	    gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
+		int startCol = (worldX + solidArea.x) / gp.tileSize;
+		int startRow = (worldY + solidArea.y) / gp.tileSize;
+		
+		if (gp.pFinder.pathList.size() > 0 && 
+		        gp.pFinder.goalNode != null && 
+		        gp.pFinder.goalNode.col == goalCol && 
+		        gp.pFinder.goalNode.row == goalRow) {
+		        return; // Keep using the existing path
+		    }
 
-	    if (gp.pFinder.search()) {
-	        // Follow exact path coordinates
-	        int nextCol = gp.pFinder.pathList.get(0).col;
-	        int nextRow = gp.pFinder.pathList.get(0).row;
-	        
-	        // Calculate exact target position
-	        int nextX = nextCol * gp.tileSize;
-	        int nextY = nextRow * gp.tileSize;
-	        
-	        // Check if we've reached the current path node
-	        if (Math.abs(worldX - nextX) < speed && Math.abs(worldY - nextY) < speed) {
-	            // Remove reached node from path
-	            if (!gp.pFinder.pathList.isEmpty()) {
-	                gp.pFinder.pathList.remove(0);
-	            }
-	        }
-	        
-	        // Direct movement toward exact path coordinates
-	        if (worldX < nextX) {
-	            direction = "right";
-	        } else if (worldX > nextX) {
-	            direction = "left";
-	        } else if (worldY < nextY) {
-	            direction = "down";
-	        } else if (worldY > nextY) {
-	            direction = "up";
-	        }
-	        
-	        // If path is empty, we've reached the goal
-	        if (gp.pFinder.pathList.isEmpty()) {
-	            onPath = false;
-	        }
-	    } else {
-	        onPath = false; // No path found
-	    }
+		gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
+
+		if (gp.pFinder.search() == true) {
+
+			// next world x and y
+			int nextX = gp.pFinder.pathList.get(0).col * gp.tileSize;
+			int nextY = gp.pFinder.pathList.get(0).row * gp.tileSize;
+
+			// entity solid area position
+			int enLeftX = worldX + solidArea.x;
+			int enRightX = worldX + solidArea.x + solidArea.width;
+			int enTopY = worldY + solidArea.y;
+			int enBottomY = worldY + solidArea.y + solidArea.height;
+
+			if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
+				direction = "up";
+			} else if (enTopY < nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
+				direction = "down";
+			} else if (enTopY >= nextY && enBottomY < nextY + gp.tileSize) {
+				// left or right
+				if (enLeftX > nextX) {
+					direction = "left";
+				}
+				if (enLeftX < nextX) {
+					direction = "right";
+				}
+			} else if (enTopY > nextY && enLeftX > nextX) {
+				// up or left
+				direction = "up";
+				checkCollision();
+				if (collision == true) {
+					direction = "left";
+				}
+			} else if (enTopY > nextY && enLeftX < nextX) {
+				// up or right
+				direction = "up";
+				checkCollision();
+				if (collision == true) {
+					direction = "right";
+				}
+			} else if (enTopY < nextY && enLeftX > nextX) {
+				// down or left
+				direction = "down";
+				checkCollision();
+
+				if (collision == true) {
+					direction = "left";
+				}
+			} else if (enTopY < nextY && enLeftX < nextX) {
+				// down or right
+				direction = "down";
+				checkCollision();
+
+				if (collision == true) {
+					direction = "right";
+				}
+			}
+
+			int nextCol = gp.pFinder.pathList.get(0).col;
+			int nextRow = gp.pFinder.pathList.get(0).row;
+
+			if (nextCol == goalCol && nextRow == goalRow) {
+				onPath = false;
+			}
+
+		}
 	}
 	
 	public int getDetected(Entity user, Entity target[][], String targetName) {

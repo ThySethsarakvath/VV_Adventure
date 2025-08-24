@@ -23,7 +23,8 @@ public class Skeleton_Wither extends Entity {
 		speed = defaultSpeed;
 		maxLife = 6;
 		life = maxLife;
-		attack = 0;
+		attack = 5;
+		knockBackPower = 5;
 //		pro = new OBJ_Fireball(gp);
 
 		solidArea.x = 8; // X-offset within zombie sprite
