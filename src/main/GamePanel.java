@@ -72,6 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
 	EnvironmentManager eManager = new EnvironmentManager(this);
 	Map map = new Map(this);
 	Thread gameThread; // to start and to stop
+	public CutscenceManager csManager = new CutscenceManager(this);
 
 	// Entity and Object
 	public Player player = new Player(this, keyH);
@@ -101,6 +102,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int tradeState = 8;
 	public final int sleepState = 9;
 	public final int mapState = 10;
+	public final int cutscenceState = 11;
+	public boolean bossBattleOn = false;
 	
 	// AREA
 	public int currentArea;
@@ -154,6 +157,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void restart() {
 
+		removeTempEntity();
+		bossBattleOn = false;
 		player.setDefaultValues();
 		player.setDefaultPositions();
 		player.restoreLife();
@@ -311,6 +316,9 @@ public class GamePanel extends JPanel implements Runnable {
 	    if (gameState == pauseState) {
 	        // Pause state logic
 	    }
+	    if(gameState == cutscenceState) {
+//	    	csManager.u
+	    }
 	}
 
 	public void drawToTempScreen() {
@@ -402,6 +410,9 @@ public class GamePanel extends JPanel implements Runnable {
 	        
 	        // MINI MAP
 	        map.drawMiniMap(g2);
+	        
+	        // cut scence
+	        csManager.draw(g2);
 
 	        // UI
 	        ui.draw(g2);
@@ -472,5 +483,16 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		currentArea = nextArea;
 		aSetter.setMonster();
+	}
+	
+	public void removeTempEntity() {
+		
+		for(int mapNum = 0; mapNum < maxMap;mapNum++) {
+			for(int i =0; i<obj[1].length;i++) {
+				if(obj[mapNum][i] != null && obj[mapNum][i].temp == true) {
+					obj[mapNum][i] = null;
+				}
+			}
+		}
 	}
 }

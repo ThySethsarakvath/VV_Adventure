@@ -27,6 +27,10 @@ public class KeyHandler implements KeyListener {
 		if (gp.gameState == gp.titleState) {
 			titleState(code);
 		}
+		
+		else if(gp.gameState == gp.cutscenceState) {
+			cutsceneState(code);
+		}
 
 		// PLAY STATE
 		if (gp.gameState == gp.playState) {
@@ -330,6 +334,12 @@ public class KeyHandler implements KeyListener {
 				return;
 			}
 		}
+	}
+	
+	public void cutsceneState(int code) {
+	    if (code == KeyEvent.VK_ENTER) {
+	        enterPressed = true;
+	    }
 	}
 	
 	public void mapState(int code) {

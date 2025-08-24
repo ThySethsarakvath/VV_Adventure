@@ -29,14 +29,14 @@ public class Entity {
 	public int solidAreaDefaultX, solidAreaDefaultY; // For Object interaction attributes
 	public boolean collisionOn = false;
 	boolean attackSoundPlayed = false;
-	String dialogues[] = new String[50];
+	public String dialogues[] = new String[50];
 	public Entity attacker;
 
 	// STATE
 	public int worldX, worldY;
 	public String direction = "down";
 	public int spriteNum = 1;
-	int dialogueIndex = 0;
+	public int dialogueIndex = 0;
 	public boolean invincible = false;
 	public boolean collision = false;
 	public boolean attacking = false;
@@ -51,7 +51,11 @@ public class Entity {
 	public boolean offBalance = false;
 	public boolean inRange = false;
 	public boolean boss ;
+	public boolean sleep = false;
+	public boolean temp = false;
 
+	public boolean drawing =true;
+	
 	// COUNTER
 	public int actionLockCounter = 0;
 	public int invinCounter = 0;
@@ -519,103 +523,107 @@ public class Entity {
 	
 	public void update() {
 		
-		if(knockBack == true) {
-			
-			checkCollision();
-			
-			if(collisionOn == true) {
-				knockBackCounter =0;
-				knockBack = false;
-				speed = defaultSpeed;
-			}
-			else if(collisionOn == false) {
-				switch(knockBackDirection) {
-				case "up":
-					worldY -= speed;
-					break;
-				case "down":
-					worldY += speed;
-					break;
-				case "left":
-					worldX -= speed;
-					break;
-				case "right":
-					worldX += speed;
-					break;
+		if(sleep == false) {
+			if(knockBack == true) {
+				
+				checkCollision();
+				
+				if(collisionOn == true) {
+					knockBackCounter =0;
+					knockBack = false;
+					speed = defaultSpeed;
 				}
-			}
-			
-			knockBackCounter++;
-			if(knockBackCounter == 10) {
-				knockBackCounter =0;
-				knockBack = false;
-				speed = defaultSpeed;
-			}
-		}
-		else if(attacking == true) {
-			attacking();
-		}
-		else {
-			setAction();
-			checkCollision();
-
-			if (!attacking && !collisionOn && !direction.equals("stand")) {
-				switch (direction) {
-				case "up":
-					worldY -= speed;
-					break;
-				case "down":
-					worldY += speed;
-					break;
-				case "left":
-					worldX -= speed;
-					break;
-				case "right":
-					worldX += speed;
-					break;
-				}
-			}
-			
-			// Animate only if moving
-			if (!attacking) {
-				if (!direction.equals("stand") && !collisionOn) {
-					spriteCounter++;
-					if (spriteCounter > 10) {
-						if (spriteNum == 1)
-							spriteNum = 3;
-						else if (spriteNum == 3)
-							spriteNum = 2;
-						else if (spriteNum == 2)
-							spriteNum = 1;
-						spriteCounter = 0;
+				else if(collisionOn == false) {
+					switch(knockBackDirection) {
+					case "up":
+						worldY -= speed;
+						break;
+					case "down":
+						worldY += speed;
+						break;
+					case "left":
+						worldX -= speed;
+						break;
+					case "right":
+						worldX += speed;
+						break;
 					}
-				} else {
-					// Set to standing frame
-					spriteNum = 3;
+				}
+				
+				knockBackCounter++;
+				if(knockBackCounter == 10) {
+					knockBackCounter =0;
+					knockBack = false;
+					speed = defaultSpeed;
+				}
+			}
+			else if(attacking == true) {
+				attacking();
+			}
+			else {
+				setAction();
+				checkCollision();
+
+				if (!attacking && !collisionOn && !direction.equals("stand")) {
+					switch (direction) {
+					case "up":
+						worldY -= speed;
+						break;
+					case "down":
+						worldY += speed;
+						break;
+					case "left":
+						worldX -= speed;
+						break;
+					case "right":
+						worldX += speed;
+						break;
+					}
+				}
+				
+				// Animate only if moving
+				if (!attacking) {
+					if (!direction.equals("stand") && !collisionOn) {
+						spriteCounter++;
+						if (spriteCounter > 10) {
+							if (spriteNum == 1)
+								spriteNum = 3;
+							else if (spriteNum == 3)
+								spriteNum = 2;
+							else if (spriteNum == 2)
+								spriteNum = 1;
+							spriteCounter = 0;
+						}
+					} else {
+						// Set to standing frame
+						spriteNum = 3;
+					}
+				}
+			}
+			
+			
+
+			if (invincible == true) {
+				invinCounter++;
+				if (invinCounter > 40) {
+					invincible = false;
+					invinCounter = 0;
+				}
+			}
+			if (shotCounter < 30) {
+				shotCounter++;
+			}
+			
+			if(offBalance ==  true) {
+				offBalanceCounter++;
+				if(offBalanceCounter > 60) {
+					offBalance = false;
+					offBalanceCounter = 0;
 				}
 			}
 		}
 		
 		
-
-		if (invincible == true) {
-			invinCounter++;
-			if (invinCounter > 40) {
-				invincible = false;
-				invinCounter = 0;
-			}
-		}
-		if (shotCounter < 30) {
-			shotCounter++;
-		}
-		
-		if(offBalance ==  true) {
-			offBalanceCounter++;
-			if(offBalanceCounter > 60) {
-				offBalance = false;
-				offBalanceCounter = 0;
-			}
-		}
 	}
 
 	public void damagePlayer(int attack) {

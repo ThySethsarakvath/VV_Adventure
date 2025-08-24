@@ -99,6 +99,12 @@ public class EventHandler {
 				gp.playSE(18);
 				teleport(0, 89, 96, gp.outside);
 			}
+			else if (hit(4, 38, 76, "any") == true) {
+				Golem();
+			}
+			else if (hit(4, 38, 57, "any") == true) {
+				Ending();
+			}
 		}		
 	}
 
@@ -159,5 +165,21 @@ public class EventHandler {
 			entity.speak();
 		}
 	}
+	
+	public void Golem() {
+		
+		if(gp.bossBattleOn == false && Progress.GolemDefeated == false) {
+			gp.gameState = gp.cutscenceState;
+			gp.csManager.scenceNum = gp.csManager.Golem;
+		}
+	}
+	public void Ending() {
+	    if (Progress.GolemDefeated) { // Optional: only trigger if boss is defeated
+	        gp.gameState = gp.cutscenceState;
+	        gp.csManager.scenceNum = gp.csManager.ending;
+	        canTouchEvent = false;
+	    }
+	}
+
 
 }

@@ -4,6 +4,8 @@ import java.util.Random;
 
 import entity.Entity;
 import main.GamePanel;
+import main.Progress;
+import object.OBJ_Door;
 import object.OBJ_Emerald;
 import object.OBJ_Fireball;
 import object.OBJ_Firecharge;
@@ -26,6 +28,7 @@ public class Ice_Golem extends Entity {
 		life = maxLife;
 		attack = 10;
 		boss = true;
+		sleep = true;
 		
 		knockBackPower = 15;
 //		pro = new OBJ_Fireball(gp);
@@ -44,6 +47,7 @@ public class Ice_Golem extends Entity {
 		motion2_duration = 50;
 		getImage();
 		getAttackImage();
+		setDialogue();
 	}
 
 	public void getImage() {
@@ -136,6 +140,19 @@ public class Ice_Golem extends Entity {
 	}
 
 	public void checkDrop() {
+		
+		gp.bossBattleOn = false;
+		Progress.GolemDefeated = true;
+//		gp.playMusic(0);
+		
+		// remove door
+		for(int i=0;i<gp.obj[1].length;i++) {
+			if(gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals(OBJ_Door.objName)) {
+				
+//				gp.playSE();
+				gp.obj[gp.currentMap][i] = null;
+			}
+		}
 		// cast a die
 		int i = new Random().nextInt(100) + 1;
 
@@ -149,5 +166,10 @@ public class Ice_Golem extends Entity {
 		if (i >= 75 && i < 100) {
 			dropItem(new OBJ_healingP(gp));
 		}
+	}
+	public void setDialogue() {
+		dialogues[0] = "You have come so far huh?";
+		dialogues[1] = "HEHEHE.....";
+		dialogues[2] = "WELOCOME TO YOUR DOOM !!!";
 	}
 }

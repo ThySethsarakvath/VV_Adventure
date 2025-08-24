@@ -180,10 +180,12 @@ public class AssetSetter {
 		mapNum = 4;
 		i = 0;
 		gp.monster[mapNum][i] = new Ice_Golem(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*38;
-		gp.monster[mapNum][i].worldY = gp.tileSize*64;
+		gp.monster[mapNum][i].worldX = gp.tileSize*36;
+		gp.monster[mapNum][i].worldY = gp.tileSize*57;
 		i++;
-		
+		if(Progress.GolemDefeated) {
+			
+		}
 	}
 	
 	public void setInteractiveTile() {

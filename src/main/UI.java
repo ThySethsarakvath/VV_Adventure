@@ -369,7 +369,7 @@ public class UI {
 	}
 
 	public void drawDialogueScreen() {
-
+		if (currentDialogue == null) return;
 		// WINDOW
 		int boxX = gp.tileSize * 2;
 		int boxY = (gp.tileSize * 8);
