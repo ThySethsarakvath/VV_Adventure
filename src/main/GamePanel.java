@@ -279,16 +279,27 @@ public class GamePanel extends JPanel implements Runnable {
 	        }
 
 	        // Particle
-	        for (int i = 0; i < particleList.size(); i++) {
-	            if (particleList.get(i) != null) {
-	                if (particleList.get(i).alive == true) {
-	                    particleList.get(i).update();
-	                }
-	                if (particleList.get(i).alive == false) {
-	                    particleList.remove(i);
-	                }
-	            }
-	        }
+	        // for (int i = 0; i < particleList.size(); i++) {
+	        //     if (particleList.get(i) != null) {
+	        //         if (particleList.get(i).alive == true) {
+	        //             particleList.get(i).update();
+	        //         }
+	        //         if (particleList.get(i).alive == false) {
+	        //             particleList.remove(i);
+	        //         }
+	        //     }
+	        // }
+			// Particle Improvement
+			for (int i = particleList.size() - 1; i >= 0; i--) {
+				Entity particle = particleList.get(i);
+				if (particle != null) {
+					if (particle.alive) {
+						particle.update();
+					} else {
+						particleList.remove(i);
+					}
+				}
+			}
 
 	        for (int i = 0; i < iTile[1].length; i++) {
 	            if (iTile[currentMap][i] != null) {
@@ -297,12 +308,20 @@ public class GamePanel extends JPanel implements Runnable {
 	        }
 	        
 	        // SNOW PARTICLES - Add this section
-	        if (snowEffectActive && currentMap == 2) { // Map 2 is frozen map
-	            for (int i = 0; i < snowParticles.size(); i++) {
-	                if (snowParticles.get(i) != null) {
-	                    snowParticles.get(i).update();
-	                }
-	            }
+	        // if (snowEffectActive && currentMap == 2) { // Map 2 is frozen map
+	        //     for (int i = 0; i < snowParticles.size(); i++) {
+	        //         if (snowParticles.get(i) != null) {
+	        //             snowParticles.get(i).update();
+	        //         }
+	        //     }
+			// SNOW PARTICLES Improvement
+			if (snowEffectActive && currentMap == 2) { // Map 2 is the frozen map
+				for (int i = snowParticles.size() - 1; i >= 0; i--) {
+					SnowParticle sp = snowParticles.get(i);
+					if (sp != null) {
+						sp.update();
+					}
+				}
 	            
 	            // Add new particles occasionally
 	            if (snowParticles.size() < MAX_SNOW_PARTICLES && random.nextInt(100) < 10) {
@@ -336,14 +355,14 @@ public class GamePanel extends JPanel implements Runnable {
 	    else {
 	        tileM.draw(g2); // draw the world before player !!
 
-	        // INTERACTIVE TILE
+	        // Draw INTERACTIVE TILE
 	        for (int i = 0; i < iTile[1].length; i++) {
 	            if (iTile[currentMap][i] != null) {
 	                iTile[currentMap][i].draw(g2);
 	            }
 	        }
 	        
-	        // OBJECTS - Draw FIRST (always behind entities)
+	        // Draw OBJECTS - Draw FIRST (always behind entities)
 	        for (int i = 0; i < obj[1].length; i++) {
 	            if (obj[currentMap][i] != null) {
 	                obj[currentMap][i].draw(g2); // Draw objects directly here
@@ -351,6 +370,7 @@ public class GamePanel extends JPanel implements Runnable {
 	        }
 
 	        // Now add ONLY entities (player, NPCs, monsters) to the list for sorting
+			entityList.clear(); // Clear the list before adding entities
 	        entityList.add(player);
 
 	        // NPC
@@ -367,12 +387,14 @@ public class GamePanel extends JPanel implements Runnable {
 	            }
 	        }
 
+			// PROJECTILES
 	        for (int i = 0; i < projectile[1].length; i++) {
 	            if (projectile[currentMap][i] != null) {
 	                entityList.add(projectile[currentMap][i]);
 	            }
 	        }
 
+			// PARTICLES
 	        for (int i = 0; i < particleList.size(); i++) {
 	            if (particleList.get(i) != null) {
 	                entityList.add(particleList.get(i));
@@ -389,21 +411,33 @@ public class GamePanel extends JPanel implements Runnable {
 	        });
 
 	        // draw entities (player, NPCs, monsters - these will be on TOP of objects)
-	        for (int i = 0; i < entityList.size(); i++) {
-	            entityList.get(i).draw(g2);
-	        }
+	        // for (int i = 0; i < entityList.size(); i++) {
+	        //     entityList.get(i).draw(g2);
+	        // }
+			for(Entity entity : entityList) {
+				entity.draw(g2);
+			}
 
 	        // empty entities list
-	        entityList.clear();
+	        // entityList.clear();
 
 	        // SNOW PARTICLES - Add this section (draw on top of everything)
-	        if (snowEffectActive && currentMap == 2) {
-	            for (int i = 0; i < snowParticles.size(); i++) {
-	                if (snowParticles.get(i) != null) {
-	                    snowParticles.get(i).draw(g2);
-	                }
-	            }
-	        }
+	        // if (snowEffectActive && currentMap == 2) {
+	        //     for (int i = 0; i < snowParticles.size(); i++) {
+	        //         if (snowParticles.get(i) != null) {
+	        //             snowParticles.get(i).draw(g2);
+	        //         }
+	        //     }
+	        // }
+			// SNOW PARTICLES Improvement
+			if (snowEffectActive && currentMap == 2) {
+				for (int i = snowParticles.size() - 1; i >= 0; i--) {
+					SnowParticle sp = snowParticles.get(i);
+					if (sp != null) {
+						sp.draw(g2);
+					}
+				}
+			}
 	        
 	        // ENVIRONMENT
 	        eManager.draw(g2);

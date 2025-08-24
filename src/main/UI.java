@@ -1033,7 +1033,9 @@ public class UI {
 					}
 
 					// Calculate sale price (half original, rounded up for odd numbers)
-					int salePrice = (int) Math.ceil(itemToSell.price / 2.0);
+					// int salePrice = (int) Math.ceil(itemToSell.price / 2.0);
+					// Fix: refund full item price instead of half.
+                	int salePrice = itemToSell.price;
 					// Add emeralds to inventory
 					boolean stacked = false;
 					for (Entity item : gp.player.inventory) {

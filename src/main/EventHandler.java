@@ -145,7 +145,6 @@ public class EventHandler {
 		tempRow = row;
 		canTouchEvent = false;
 //		gp.playSE(16);
-		
 	}
 
 	public void damagePit() {
