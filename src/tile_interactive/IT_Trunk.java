@@ -10,10 +10,10 @@ public class IT_Trunk extends InteractiveTile {
 		super(gp, col, row);
 		this.gp = gp;
 		
-		this.worldX = gp.TILE_SIZE * col;
-		this.worldY = gp.TILE_SIZE * row;
+		this.worldX = gp.tileSize * col;
+		this.worldY = gp.tileSize * row;
 		
-		down1 = setup("/tiles_interactive/Tree_trunk", gp.TILE_SIZE, gp.TILE_SIZE);
+		down1 = setup("/tiles_interactive/Tree_trunk", gp.tileSize, gp.tileSize);
 		
 		solidArea.x = 0;
 		solidArea.y = 0;

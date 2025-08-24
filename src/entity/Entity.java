@@ -154,10 +154,10 @@ public class Entity {
 	}
 	
 	public int getCol() {
-		return (worldX + solidArea.x)/gp.TILE_SIZE;
+		return (worldX + solidArea.x)/gp.tileSize;
 	}
 	public int getRow() {
-		return (worldY + solidArea.y)/gp.TILE_SIZE;
+		return (worldY + solidArea.y)/gp.tileSize;
 	}
 	
 	public int getXdistance(Entity target) {
@@ -689,19 +689,12 @@ public class Entity {
 		
 		BufferedImage image = null;
 
-<<<<<<< Updated upstream
 		if (inCamera() == true) {
 
 			int tempScreenX = getScreenX();
 			int tempScreenY = getScreenY();
 			
 //			boolean moving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
-=======
-		if (worldX + gp.TILE_SIZE > gp.player.worldX - gp.player.screenX
-				&& worldX - gp.TILE_SIZE < gp.player.worldX + gp.player.screenX
-				&& worldY + gp.TILE_SIZE > gp.player.worldY - gp.player.screenY
-				&& worldY - gp.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
->>>>>>> Stashed changes
 
 			switch (direction) {
 			case "up":
@@ -792,28 +785,6 @@ public class Entity {
 				break;
 			}
 
-<<<<<<< Updated upstream
-=======
-			// Monster HP bar
-			if ((type == type_zombie || type == type_skeleton) && hpBarOn == true) {
-				double oneScale = (double) gp.TILE_SIZE / maxLife;
-				double hpBarValue = oneScale * life;
-
-				g2.setColor(new Color(35, 35, 35));
-				g2.fillRect(screenX - 1, screenY - 16, gp.TILE_SIZE, 10);
-
-				g2.setColor(new Color(255, 0, 0));
-				g2.fillRect(screenX, screenY - 15, (int) hpBarValue, 10);
-
-				hpBarCounter++;
-
-				if (hpBarCounter > 600) {
-					hpBarCounter = 0;
-					hpBarOn = false;
-				}
-			}
-
->>>>>>> Stashed changes
 			// Image transparent when receive damage
 			if (invincible == true) {
 				hpBarOn = true;
@@ -893,13 +864,8 @@ public class Entity {
 	}
 	
 	public void searchPath(int goalCol, int goalRow) {
-<<<<<<< Updated upstream
 		
 		
-=======
-	    int startCol = (worldX + solidArea.x) / gp.TILE_SIZE;
-	    int startRow = (worldY + solidArea.y) / gp.TILE_SIZE;
->>>>>>> Stashed changes
 
 		int startCol = (worldX + solidArea.x) / gp.tileSize;
 		int startRow = (worldY + solidArea.y) / gp.tileSize;
@@ -911,7 +877,6 @@ public class Entity {
 		        return; // Keep using the existing path
 		    }
 
-<<<<<<< Updated upstream
 		gp.pFinder.setNodes(startCol, startRow, goalCol, goalRow, this);
 
 		if (gp.pFinder.search() == true) {
@@ -978,43 +943,6 @@ public class Entity {
 			}
 
 		}
-=======
-	    if (gp.pFinder.search()) {
-	        // Follow exact path coordinates
-	        int nextCol = gp.pFinder.pathList.get(0).col;
-	        int nextRow = gp.pFinder.pathList.get(0).row;
-	        
-	        // Calculate exact target position
-	        int nextX = nextCol * gp.TILE_SIZE;
-	        int nextY = nextRow * gp.TILE_SIZE;
-	        
-	        // Check if we've reached the current path node
-	        if (Math.abs(worldX - nextX) < speed && Math.abs(worldY - nextY) < speed) {
-	            // Remove reached node from path
-	            if (!gp.pFinder.pathList.isEmpty()) {
-	                gp.pFinder.pathList.remove(0);
-	            }
-	        }
-	        
-	        // Direct movement toward exact path coordinates
-	        if (worldX < nextX) {
-	            direction = "right";
-	        } else if (worldX > nextX) {
-	            direction = "left";
-	        } else if (worldY < nextY) {
-	            direction = "down";
-	        } else if (worldY > nextY) {
-	            direction = "up";
-	        }
-	        
-	        // If path is empty, we've reached the goal
-	        if (gp.pFinder.pathList.isEmpty()) {
-	            onPath = false;
-	        }
-	    } else {
-	        onPath = false; // No path found
-	    }
->>>>>>> Stashed changes
 	}
 	
 	public int getDetected(Entity user, Entity target[][], String targetName) {
@@ -1032,8 +960,8 @@ public class Entity {
 		case "right": nextWorldX = user.getRightX()+1; break;
 		}
 		
-		int col = nextWorldX/gp.TILE_SIZE;
-		int row = nextWorldY/gp.TILE_SIZE;
+		int col = nextWorldX/gp.tileSize;
+		int row = nextWorldY/gp.tileSize;
 		
 		for(int i = 0; i< target[1].length;i++) {
 			if(target[gp.currentMap][i] != null) {

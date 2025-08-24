@@ -27,28 +27,28 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private Random random = new Random();
 	// Screen Panel
-	final int ORIGINAL_TILE_SIZE = 16; // 16x 16
-	final int SCALE = 3;
+	final int originalTileSize = 16; // 16x 16
+	final int scale = 3;
 
-	public final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE; // make element 48x48
-	public final int MAX_SCREEN_ROW = 12;
-	public final int MAX_SCREEN_COL = 16;
-	public final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COL; // 768 px of screen
-	public final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW; // 576 px
+	public final int tileSize = originalTileSize * scale; // make element 48x48
+	public final int maxScreenRow = 12;
+	public final int maxScreenCol = 16;
+	public final int screenWidth = tileSize * maxScreenCol; // 768 px of screen
+	public final int screenHeight = tileSize * maxScreenRow; // 576 px
 
 	// WORLD SETTINGS
 	public int maxWorldCol;
 	public int maxWorldRow ;
 
-	public final int MAX_MAP = 10;
+	public final int maxMap = 10;
 	public int currentMap = 0;
 
-	public final int WORLD_WIDTH = TILE_SIZE * maxWorldCol; // Can be deleted
-	public final int WORLD_HEIGHT = TILE_SIZE * maxWorldRow;// Can be deleted
+	public final int worldWidth = tileSize * maxWorldCol; // Can be deleted
+	public final int worldHeight = tileSize * maxWorldRow;// Can be deleted
 
 	// Full Screen
-	int screenWidth2 = SCREEN_WIDTH;
-	int screenHeight2 = SCREEN_HEIGHT;
+	int screenWidth2 = screenWidth;
+	int screenHeight2 = screenHeight;
 	BufferedImage tempScreen;
 	Graphics2D g2;
 	// FOR MENU ACTION
@@ -76,11 +76,11 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// Entity and Object
 	public Player player = new Player(this, keyH);
-	public Entity obj[][] = new Entity[MAX_MAP][30];// object array
-	public Entity npc[][] = new Entity[MAX_MAP][10];
-	public Entity monster[][] = new Entity[MAX_MAP][20];
-	public InteractiveTile iTile[][] = new InteractiveTile[MAX_MAP][300];
-	public Entity projectile[][] = new Entity[MAX_MAP][20];
+	public Entity obj[][] = new Entity[maxMap][30];// object array
+	public Entity npc[][] = new Entity[maxMap][10];
+	public Entity monster[][] = new Entity[maxMap][20];
+	public InteractiveTile iTile[][] = new InteractiveTile[maxMap][300];
+	public Entity projectile[][] = new Entity[maxMap][20];
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	// This list store player npc obj
 	ArrayList<Entity> entityList = new ArrayList<>();
@@ -90,12 +90,11 @@ public class GamePanel extends JPanel implements Runnable {
 	private boolean snowEffectActive = false;
 	// GAME STATE
 	public int gameState;
-	public final int TITLE_STATE = 0;
-	public final int PLAY_STATE = 1;
-	public final int PAUSE_STATE = 2;
-	public final int CHARACTER_STATE = 4;
+	public final int titleState = 0;
+	public final int playState = 1;
+	public final int pauseState = 2;
+	public final int characterState = 4;
 	// For dialogues
-<<<<<<< Updated upstream
 	public final int dialogueState = 3;
 	public final int optionsState = 5;
 	public final int gameOverState = 6;
@@ -105,25 +104,16 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int mapState = 10;
 	public final int cutscenceState = 11;
 	public boolean bossBattleOn = false;
-=======
-	public final int DIALOGUE_STATE = 3;
-	public final int OPTION_STATE = 5;
-	public final int GAME_OVER_STATE = 6;
-	public final int TRANSITION_STATE = 7;
-	public final int TRADE_STATE = 8;
-	public final int SLEEP_STATE = 9;
-	public final int MAP_STATE = 10;
->>>>>>> Stashed changes
 	
 	// AREA
 	public int currentArea;
 	public int nextArea;
-	public final int OUTSIDE = 50;
-	public final int INDOOR = 51;
-	public final int DUNGEON = 52;
+	public final int outside = 50;
+	public final int indoor = 51;
+	public final int dungeon = 52;
 
 	public GamePanel() {
-		this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 
 		/*
@@ -144,10 +134,10 @@ public class GamePanel extends JPanel implements Runnable {
 //		playMusic(0);
 		eManager.setup();
 
-		gameState = TITLE_STATE;
-		currentArea = OUTSIDE;
+		gameState = titleState;
+		currentArea = outside;
 
-		tempScreen = new BufferedImage(SCREEN_WIDTH, SCREEN_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
 
 		if (fullScreenOn == true) {
@@ -189,7 +179,7 @@ public class GamePanel extends JPanel implements Runnable {
 		} else {
 			// Otherwise, stay windowed
 			gd.setFullScreenWindow(null);
-			Main.window.setSize(SCREEN_WIDTH, SCREEN_HEIGHT); // Restore to windowed size
+			Main.window.setSize(screenWidth, screenHeight); // Restore to windowed size
 			Main.window.setLocationRelativeTo(null);
 		}
 
@@ -244,7 +234,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
-	    if (gameState == PLAY_STATE) {
+	    if (gameState == playState) {
 	        // Player
 	        player.update();
 	        
@@ -323,7 +313,7 @@ public class GamePanel extends JPanel implements Runnable {
 	        eManager.update();
 	    }
 
-	    if (gameState == PAUSE_STATE) {
+	    if (gameState == pauseState) {
 	        // Pause state logic
 	    }
 	    if(gameState == cutscenceState) {
@@ -333,12 +323,12 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void drawToTempScreen() {
 	    // TITLE SCREEN
-	    if (gameState == TITLE_STATE) {
+	    if (gameState == titleState) {
 	        ui.draw(g2);
 	    }
 	    
 	    // MAP SCREEN
-	    else if(gameState == MAP_STATE) {
+	    else if(gameState == mapState) {
 	    	map.drawFullMapScreen(g2);
 	    }
 	    
@@ -476,17 +466,17 @@ public class GamePanel extends JPanel implements Runnable {
 			
 			stopMusic();
 			
-			if(nextArea == OUTSIDE) {
+			if(nextArea == outside) {
 				// Outside music
 //				playMusic(0);
 			}
 			
-			if(nextArea == INDOOR) {
+			if(nextArea == indoor) {
 				// Indoor music
 //				playMusic(0);
 			}
 			
-			if(nextArea == DUNGEON) {
+			if(nextArea == dungeon) {
 				// Dungeon music
 //				playMusic(0);
 			}

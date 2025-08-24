@@ -43,8 +43,8 @@ public class Player extends Entity {
 		super(gp);
 		this.keyH = keyH;
 
-		screenX = gp.SCREEN_WIDTH / 2 - (gp.TILE_SIZE / 2);
-		screenY = gp.SCREEN_HEIGHT / 2 - (gp.TILE_SIZE / 2);
+		screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+		screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
 		solidArea = new Rectangle();
 		solidArea.x = 8;
@@ -58,16 +58,17 @@ public class Player extends Entity {
 		solidArea.height = 32;
 
 		setDefaultValues();
-		getPlayerImage();
-		getPlayerAttackImage();
+		getImage();
+		getAttackImage();
+		getGuardImage();
 		setItems();
 	}
 
 	// Player coordinate
 	public void setDefaultValues() {
 
-		worldX = gp.TILE_SIZE * 32;
-		worldY = gp.TILE_SIZE * 61;
+		worldX = gp.tileSize * 32;
+		worldY = gp.tileSize * 61;
 		defaultSpeed = 4;
 		speed = defaultSpeed;
 		direction = "down";
@@ -111,8 +112,8 @@ public class Player extends Entity {
 
 	public void setDefaultPositions() {
 
-		worldX = gp.TILE_SIZE * 32;
-		worldY = gp.TILE_SIZE * 61;
+		worldX = gp.tileSize * 32;
+		worldY = gp.tileSize * 61;
 		direction = "down";
 
 	}
@@ -123,57 +124,58 @@ public class Player extends Entity {
 
 		life = maxLife;
 		invincible = false;
+		transparent = false;
 
 	}
 
-	public void getPlayerImage() {
+	public void getImage() {
 
-		up1 = setup("/player/Steve_up1", gp.TILE_SIZE, gp.TILE_SIZE);
-		up2 = setup("/player/Steve_up2", gp.TILE_SIZE, gp.TILE_SIZE);
-		down1 = setup("/player/Steve_down1", gp.TILE_SIZE, gp.TILE_SIZE);
-		down2 = setup("/player/Steve_down2", gp.TILE_SIZE, gp.TILE_SIZE);
-		left1 = setup("/player/Steve_left1", gp.TILE_SIZE, gp.TILE_SIZE);
-		left2 = setup("/player/Steve_left2", gp.TILE_SIZE, gp.TILE_SIZE);
-		right1 = setup("/player/Steve_right1", gp.TILE_SIZE, gp.TILE_SIZE);
-		right2 = setup("/player/Steve_right2", gp.TILE_SIZE, gp.TILE_SIZE);
-		upStand = setup("/player/Steve_up_stand", gp.TILE_SIZE, gp.TILE_SIZE);
-		downStand = setup("/player/Steve_down_stand", gp.TILE_SIZE, gp.TILE_SIZE);
-		leftStand = setup("/player/Steve_left_stand", gp.TILE_SIZE, gp.TILE_SIZE);
-		rightStand = setup("/player/Steve_right_stand", gp.TILE_SIZE, gp.TILE_SIZE);
+		up1 = setup("/player/Steve_up1", gp.tileSize, gp.tileSize);
+		up2 = setup("/player/Steve_up2", gp.tileSize, gp.tileSize);
+		down1 = setup("/player/Steve_down1", gp.tileSize, gp.tileSize);
+		down2 = setup("/player/Steve_down2", gp.tileSize, gp.tileSize);
+		left1 = setup("/player/Steve_left1", gp.tileSize, gp.tileSize);
+		left2 = setup("/player/Steve_left2", gp.tileSize, gp.tileSize);
+		right1 = setup("/player/Steve_right1", gp.tileSize, gp.tileSize);
+		right2 = setup("/player/Steve_right2", gp.tileSize, gp.tileSize);
+		upStand = setup("/player/Steve_up_stand", gp.tileSize, gp.tileSize);
+		downStand = setup("/player/Steve_down_stand", gp.tileSize, gp.tileSize);
+		leftStand = setup("/player/Steve_left_stand", gp.tileSize, gp.tileSize);
+		rightStand = setup("/player/Steve_right_stand", gp.tileSize, gp.tileSize);
 	}
 
-	public void getPlayerAttackImage() {
+	public void getAttackImage() {
 
 		if (currentWeapon.type == type_dsword) {
-			aUp1 = setup("/player/Steve_up_a1", gp.TILE_SIZE, gp.TILE_SIZE * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_up_a2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aDown1 = setup("/player/Steve_down_a1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aDown2 = setup("/player/Steve_down_a2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aRight1 = setup("/player/Steve_right_a1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aRight2 = setup("/player/Steve_right_a2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aLeft1 = setup("/player/Steve_left_a1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aLeft2 = setup("/player/Steve_left_a2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aUp1 = setup("/player/Steve_up_a1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_up_a2", gp.tileSize, gp.tileSize * 2);
+			aDown1 = setup("/player/Steve_down_a1", gp.tileSize, gp.tileSize * 2);
+			aDown2 = setup("/player/Steve_down_a2", gp.tileSize, gp.tileSize * 2);
+			aRight1 = setup("/player/Steve_right_a1", gp.tileSize * 2, gp.tileSize);
+			aRight2 = setup("/player/Steve_right_a2", gp.tileSize * 2, gp.tileSize);
+			aLeft1 = setup("/player/Steve_left_a1", gp.tileSize * 2, gp.tileSize);
+			aLeft2 = setup("/player/Steve_left_a2", gp.tileSize * 2, gp.tileSize);
 		}
 		if (currentWeapon.type == type_wsword) {
-			aUp1 = setup("/player/Steve_wood_up1", gp.TILE_SIZE, gp.TILE_SIZE * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_wood_up2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aDown1 = setup("/player/Steve_wood_down1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aDown2 = setup("/player/Steve_wood_down2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aRight1 = setup("/player/Steve_wood_right2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aRight2 = setup("/player/Steve_wood_right1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aLeft1 = setup("/player/Steve_wood_left1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aLeft2 = setup("/player/Steve_wood_left2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aUp1 = setup("/player/Steve_wood_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_wood_up2", gp.tileSize, gp.tileSize * 2);
+			aDown1 = setup("/player/Steve_wood_down1", gp.tileSize, gp.tileSize * 2);
+			aDown2 = setup("/player/Steve_wood_down2", gp.tileSize, gp.tileSize * 2);
+			aRight1 = setup("/player/Steve_wood_right2", gp.tileSize * 2, gp.tileSize);
+			aRight2 = setup("/player/Steve_wood_right1", gp.tileSize * 2, gp.tileSize);
+			aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
+			aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
 		}
 
 		if (currentWeapon.type == type_axe) {
-			aUp1 = setup("/player/Steve_axe_u1", gp.TILE_SIZE, gp.TILE_SIZE * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_axe_u2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aDown1 = setup("/player/Steve_axe_d1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aDown2 = setup("/player/Steve_axe_d2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
-			aRight1 = setup("/player/Steve_axe_r1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aRight2 = setup("/player/Steve_axe_r2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aLeft1 = setup("/player/Steve_axe_l1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
-			aLeft2 = setup("/player/Steve_axe_l2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aUp1 = setup("/player/Steve_axe_u1", gp.tileSize, gp.tileSize * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_axe_u2", gp.tileSize, gp.tileSize * 2);
+			aDown1 = setup("/player/Steve_axe_d1", gp.tileSize, gp.tileSize * 2);
+			aDown2 = setup("/player/Steve_axe_d2", gp.tileSize, gp.tileSize * 2);
+			aRight1 = setup("/player/Steve_axe_r1", gp.tileSize * 2, gp.tileSize);
+			aRight2 = setup("/player/Steve_axe_r2", gp.tileSize * 2, gp.tileSize);
+			aLeft1 = setup("/player/Steve_axe_l1", gp.tileSize * 2, gp.tileSize);
+			aLeft2 = setup("/player/Steve_axe_l2", gp.tileSize * 2, gp.tileSize);
 		}
 //		if(currentBall.type == type_firecharge) {
 //			aUp1 = setup("/player/Steve_fire_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
@@ -185,6 +187,15 @@ public class Player extends Entity {
 //			aLeft1 = setup("/player/Steve_fire_left1", gp.tileSize * 2, gp.tileSize);
 //			aLeft2 = setup("/player/Steve_fire_left2", gp.tileSize * 2, gp.tileSize);
 //		}
+
+	}
+
+	public void getGuardImage() {
+
+		gUp = setup("/player/Steve_up_guard", gp.tileSize, gp.tileSize);
+		gDown = setup("/player/Steve_down_guard", gp.tileSize, gp.tileSize);
+		gLeft = setup("/player/Steve_left_guard", gp.tileSize, gp.tileSize);
+		gRight = setup("/player/Steve_right_guard", gp.tileSize, gp.tileSize);
 
 	}
 	
@@ -206,17 +217,64 @@ public class Player extends Entity {
 	@Override
 	public void update() {
 
-		if (gp.keyH.fPressed) {
+		if (knockBack == true) {
+			collisionOn = false;
+			gp.cChecker.checkTile(this);
+			gp.cChecker.checkObject(this, true);
+			gp.cChecker.checkEntity(this, gp.npc);
+			gp.cChecker.checkEntity(this, gp.monster);
+			gp.cChecker.checkEntity(this, gp.iTile);
+
+			if (collisionOn == true) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
+			} else if (collisionOn == false) {
+				switch (knockBackDirection) {
+					case "up":
+						worldY -= speed;
+						break;
+					case "down":
+						worldY += speed;
+						break;
+					case "left":
+						worldX -= speed;
+						break;
+					case "right":
+						worldX += speed;
+						break;
+				}
+			}
+
+			knockBackCounter++;
+
+			if (knockBackCounter == 10) {
+				knockBackCounter = 0;
+				knockBack = false;
+				speed = defaultSpeed;
+			}
+		}
+
+		// Handle guarding state first
+		if (keyH.shiftPressed && !attacking) { // Can only guard if not attacking
+			guarding = true;
+			guardCounter ++;
+		} else {
+			guarding = false;
+		}
+
+		// Can only attack if not currently guarding
+		if (gp.keyH.fPressed && !guarding) {
 			attacking = true;
 			gp.keyH.fPressed = false;
 		}
 		// 🗡️ Priority: Attack Mode
-		if (attacking == true) {
+		else if (attacking == true) {
 			attacking(); // handles its own spriteNum logic
 //			return; // skip movement and other updates during attack
 		}
 
-		// 🎮 Movement Input Handling
+		// 🎮 Movement Input Handling - Only if not attacking
 		else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
 			// Update direction
@@ -239,15 +297,15 @@ public class Player extends Entity {
 			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 			interactNpc(npcIndex);
 
-			gp.eHandler.checkEvent();
-			gp.keyH.enterPressed = false;
-
 			int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
 			interactNpc(monsterIndex);
 			contactMonster(monsterIndex);
 
 			// CHECK INTERACTIVE TILE COLLISION
 			int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+
+			gp.eHandler.checkEvent();
+			gp.keyH.enterPressed = false;
 
 			// Only move if no collision
 			if (!collisionOn && keyH.enterPressed == false) {
@@ -268,6 +326,7 @@ public class Player extends Entity {
 			}
 
 			gp.keyH.enterPressed = false;
+			guardCounter = 0;
 
 			// Animate walking frames
 			spriteCounter++;
@@ -285,7 +344,8 @@ public class Player extends Entity {
 			spriteNum = 3;
 		}
 
-		if (gp.keyH.jPressed == true && pro.alive == false && shotCounter == 30) {
+		// Can only shoot if not guarding
+		if (gp.keyH.jPressed == true && pro.alive == false && shotCounter == 30 && !guarding) {
 			// Only shoot if have resource
 			if (pro.haveResource(this)) {
 				pro.set(worldX, worldY, direction, true, this);
@@ -321,17 +381,16 @@ public class Player extends Entity {
 			invinCounter++;
 			if (invinCounter > 60) { // 60 frames = 1 second at 60 FPS
 				invincible = false;
+				transparent = false;
 				invinCounter = 0;
 			}
 		}
-		if (life <= 0) {
-			gp.gameState = gp.GAME_OVER_STATE;
-			gp.music.stop();
-//			gp.playSE(); For game over sound
-		}
+// 		if (life <= 0) {
+// 			gp.gameState = gp.gameOverState;
+// 			gp.music.stop();
+//  		gp.playSE(); For game over sound
+// 		}
 	}
-
-	
 
 	public void pickUpObject(int i) {
 
@@ -339,17 +398,14 @@ public class Player extends Entity {
 			
 			if (gp.obj[gp.currentMap][i].type == type_portal) {
 	            return;  // Skip decorative objects entirely
-	        }
-			else if(gp.obj[gp.currentMap][i].type == type_pickup) {
+	        } else if(gp.obj[gp.currentMap][i].type == type_pickup) {
 				gp.obj[gp.currentMap][i].use(this);
 				gp.obj[gp.currentMap][i] = null;
-				}
-			else if(gp.obj[gp.currentMap][i].type == type_obstacle) {
+				} else if(gp.obj[gp.currentMap][i].type == type_obstacle) {
 				if(keyH.enterPressed == true) {
 					gp.obj[gp.currentMap][i].interact();
 				}
-			}
-			else {
+			} else {
 				if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
 					gp.playSE(8);
 				}
@@ -364,7 +420,7 @@ public class Player extends Entity {
 		// 🗣️ Talk using Enter key
 		if (gp.keyH.enterPressed == true) {
 			if (i != -1) {
-				gp.gameState = gp.DIALOGUE_STATE;
+				gp.gameState = gp.dialogueState;
 				gp.npc[gp.currentMap][i].speak(); // FIXED
 			}
 		}
@@ -383,8 +439,13 @@ public class Player extends Entity {
 		if (i != -1) {
 			if (invincible == false && gp.monster[gp.currentMap][i].die == false) { // FIXED
 				gp.playSE(2);
-				life -= 1;
+				int damage = gp.monster[gp.currentMap][i].attack - defense;
+				if (damage < 0) {
+					damage = 0;
+				}
+				life -= damage;
 				invincible = true;
+				transparent = true;
 			}
 
 		}
@@ -408,6 +469,10 @@ public class Player extends Entity {
 					hurtSound = new java.util.Random().nextInt(2) + 12; // 12 or 13
 					deathSound = 14;
 					break;
+				case type_boss:
+					hurtSound = new java.util.Random().nextInt(2) + 20; 
+					deathSound = 22;
+					break;
 				default:
 					hurtSound = 2; // Fallback sound
 					deathSound = -1;
@@ -417,6 +482,10 @@ public class Player extends Entity {
 
 				if (knockBackPower > 0) {
 					setKnockBack(monster, attacker, knockBackPower);
+				}
+
+				if(gp.monster[gp.currentMap][i].offBalance == true) {
+					attack *= 5;
 				}
 
 				int damage = attack - monster.defense;
@@ -479,7 +548,7 @@ public class Player extends Entity {
 			if (selectedItem.type == type_dsword || selectedItem.type == type_wsword || selectedItem.type == type_axe) {
 				currentWeapon = selectedItem;
 				attack = getAttack();
-				getPlayerAttackImage();
+				getAttackImage();
 			}
 
 			if (selectedItem.type == type_firecharge) {
@@ -582,13 +651,16 @@ public class Player extends Entity {
 				}
 			}
 			if (attacking == true) {
-				tempScreenY = screenY - gp.TILE_SIZE; // adjust y when attack upward
+				tempScreenY = screenY - gp.tileSize; // adjust y when attack upward
 				if (spriteNum == 1) {
 					image = aUp1;
 				}
 				if (spriteNum == 2) {
 					image = aUp2;
 				}
+			}
+			if (guarding == true) {
+				image = gUp;
 			}
 			break;
 		case "down":
@@ -611,6 +683,9 @@ public class Player extends Entity {
 					image = aDown2;
 				}
 			}
+			if (guarding == true) {
+				image = gDown;
+			}
 			break;
 		case "left":
 			if (attacking == false) {
@@ -625,13 +700,16 @@ public class Player extends Entity {
 				}
 			}
 			if (attacking == true) {
-				tempScreenX = screenX - gp.TILE_SIZE;
+				tempScreenX = screenX - gp.tileSize;
 				if (spriteNum == 1) {
 					image = aLeft1;
 				}
 				if (spriteNum == 2) {
 					image = aLeft2;
 				}
+			}
+			if (guarding == true) {
+				image = gLeft;
 			}
 			break;
 		case "right":
@@ -654,11 +732,14 @@ public class Player extends Entity {
 					image = aRight2;
 				}
 			}
+			if (guarding == true) {
+				image = gRight;
+			}
 			break;
 		}
 
 		// Image transparent when receive damage
-		if (invincible == true) {
+		if (transparent == true) {
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
 		}
 		

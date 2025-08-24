@@ -11,7 +11,7 @@ public class OBJ_healingP extends Entity {
 		
 		type = type_consumable;
 		name = "Healing Potion";
-		down1 = setup("/objects/healing_potion",gp.TILE_SIZE,gp.TILE_SIZE);
+		down1 = setup("/objects/healing_potion",gp.tileSize,gp.tileSize);
 		description ="[Healing Potion]\nInstantly max your health.";
 		price = 2;
 		stackable = true;

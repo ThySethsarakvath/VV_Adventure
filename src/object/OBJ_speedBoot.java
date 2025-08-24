@@ -13,9 +13,8 @@ public class OBJ_speedBoot extends Entity {
 		super(gp);
 		
 		name = "speed_boot";
-		down1 = setup("/objects/speed_boot",gp.TILE_SIZE,gp.TILE_SIZE);
+		down1 = setup("/objects/speed_boot",gp.tileSize,gp.tileSize);
 
 	}
 	
 }
-

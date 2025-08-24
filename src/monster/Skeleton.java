@@ -38,31 +38,31 @@ public class Skeleton extends Entity {
 
 	public void getImage() {
 
-		up1 = setup("/monster/su1", gp.TILE_SIZE, gp.TILE_SIZE);
-		up2 = setup("/monster/su2", gp.TILE_SIZE, gp.TILE_SIZE);
-		down1 = setup("/monster/sd1", gp.TILE_SIZE, gp.TILE_SIZE);
-		down2 = setup("/monster/sd2", gp.TILE_SIZE, gp.TILE_SIZE);
-		left1 = setup("/monster/sl1", gp.TILE_SIZE, gp.TILE_SIZE);
-		left2 = setup("/monster/sl2", gp.TILE_SIZE, gp.TILE_SIZE);
-		right1 = setup("/monster/sr1", gp.TILE_SIZE, gp.TILE_SIZE);
-		right2 = setup("/monster/sr2", gp.TILE_SIZE, gp.TILE_SIZE);
-		upStand = setup("/monster/su", gp.TILE_SIZE, gp.TILE_SIZE);
-		downStand = setup("/monster/sd", gp.TILE_SIZE, gp.TILE_SIZE);
-		leftStand = setup("/monster/sl", gp.TILE_SIZE, gp.TILE_SIZE);
-		rightStand = setup("/monster/sr", gp.TILE_SIZE, gp.TILE_SIZE);
+		up1 = setup("/monster/su1", gp.tileSize, gp.tileSize);
+		up2 = setup("/monster/su2", gp.tileSize, gp.tileSize);
+		down1 = setup("/monster/sd1", gp.tileSize, gp.tileSize);
+		down2 = setup("/monster/sd2", gp.tileSize, gp.tileSize);
+		left1 = setup("/monster/sl1", gp.tileSize, gp.tileSize);
+		left2 = setup("/monster/sl2", gp.tileSize, gp.tileSize);
+		right1 = setup("/monster/sr1", gp.tileSize, gp.tileSize);
+		right2 = setup("/monster/sr2", gp.tileSize, gp.tileSize);
+		upStand = setup("/monster/su", gp.tileSize, gp.tileSize);
+		downStand = setup("/monster/sd", gp.tileSize, gp.tileSize);
+		leftStand = setup("/monster/sl", gp.tileSize, gp.tileSize);
+		rightStand = setup("/monster/sr", gp.tileSize, gp.tileSize);
 
 	}
 
 	public void getAttackImage() {
 
-		aUp1 = setup("/monster/sua1", gp.TILE_SIZE, gp.TILE_SIZE);
-		aUp2 = setup("/monster/sua2", gp.TILE_SIZE, gp.TILE_SIZE);
-		aDown1 = setup("/monster/sda1", gp.TILE_SIZE, gp.TILE_SIZE);
-		aDown2 = setup("/monster/sda2", gp.TILE_SIZE, gp.TILE_SIZE);
-		aLeft1 = setup("/monster/sla1", gp.TILE_SIZE, gp.TILE_SIZE);
-		aLeft2 = setup("/monster/sla2", gp.TILE_SIZE, gp.TILE_SIZE);
-		aRight1 = setup("/monster/sra1", gp.TILE_SIZE, gp.TILE_SIZE);
-		aRight2 = setup("/monster/sra2", gp.TILE_SIZE, gp.TILE_SIZE);
+		aUp1 = setup("/monster/sua1", gp.tileSize, gp.tileSize);
+		aUp2 = setup("/monster/sua2", gp.tileSize, gp.tileSize);
+		aDown1 = setup("/monster/sda1", gp.tileSize, gp.tileSize);
+		aDown2 = setup("/monster/sda2", gp.tileSize, gp.tileSize);
+		aLeft1 = setup("/monster/sla1", gp.tileSize, gp.tileSize);
+		aLeft2 = setup("/monster/sla2", gp.tileSize, gp.tileSize);
+		aRight1 = setup("/monster/sra1", gp.tileSize, gp.tileSize);
+		aRight2 = setup("/monster/sra2", gp.tileSize, gp.tileSize);
 
 	}
 
@@ -83,7 +83,7 @@ public class Skeleton extends Entity {
 
 	    int xDist = gp.player.worldX - worldX;
 	    int yDist = gp.player.worldY - worldY;
-	    int tileDist = (Math.abs(xDist) + Math.abs(yDist)) / gp.TILE_SIZE;
+	    int tileDist = (Math.abs(xDist) + Math.abs(yDist)) / gp.tileSize;
 
 	    // Stop shooting if player is too far
 	    if (tileDist > 15) {

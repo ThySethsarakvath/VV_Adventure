@@ -27,14 +27,14 @@ public class OBJ_Fireball extends Projectile {
 	}
 	
 	public void getImage() {
-		up1 = setup("/projectile/fireball_up1",gp.TILE_SIZE,gp.TILE_SIZE);
-		up2 = setup("/projectile/fireball_up2",gp.TILE_SIZE,gp.TILE_SIZE);
-		down1 = setup("/projectile/fireball_down1",gp.TILE_SIZE,gp.TILE_SIZE);
-		down2 = setup("/projectile/fireball_down2",gp.TILE_SIZE,gp.TILE_SIZE);
-		left1 = setup("/projectile/fireball_left1",gp.TILE_SIZE,gp.TILE_SIZE);
-		left2 = setup("/projectile/fireball_left2",gp.TILE_SIZE,gp.TILE_SIZE);
-		right1 = setup("/projectile/fireball_right1",gp.TILE_SIZE,gp.TILE_SIZE);
-		right2 = setup("/projectile/fireball_right2",gp.TILE_SIZE,gp.TILE_SIZE);
+		up1 = setup("/projectile/fireball_up1",gp.tileSize,gp.tileSize);
+		up2 = setup("/projectile/fireball_up2",gp.tileSize,gp.tileSize);
+		down1 = setup("/projectile/fireball_down1",gp.tileSize,gp.tileSize);
+		down2 = setup("/projectile/fireball_down2",gp.tileSize,gp.tileSize);
+		left1 = setup("/projectile/fireball_left1",gp.tileSize,gp.tileSize);
+		left2 = setup("/projectile/fireball_left2",gp.tileSize,gp.tileSize);
+		right1 = setup("/projectile/fireball_right1",gp.tileSize,gp.tileSize);
+		right2 = setup("/projectile/fireball_right2",gp.tileSize,gp.tileSize);
 
 	}
 	

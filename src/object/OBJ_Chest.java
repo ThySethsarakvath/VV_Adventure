@@ -16,8 +16,8 @@ public class OBJ_Chest extends Entity{
 		
 		type = type_obstacle;
 		name = "Chest";
-		image = setup("/objects/chest1",gp.TILE_SIZE,gp.TILE_SIZE);
-		image2 = setup("/objects/chest2",gp.TILE_SIZE,gp.TILE_SIZE);
+		image = setup("/objects/chest1",gp.tileSize,gp.tileSize);
+		image2 = setup("/objects/chest2",gp.tileSize,gp.tileSize);
 		down1 = image;
 		collision = true;
 		
@@ -31,7 +31,7 @@ public class OBJ_Chest extends Entity{
 	}
 	
 	public void interact() {
-		gp.gameState = gp.DIALOGUE_STATE;
+		gp.gameState = gp.dialogueState;
 		gp.ui.resetDialogueState();
 		if(opened == false) {
 			StringBuilder sb = new StringBuilder();

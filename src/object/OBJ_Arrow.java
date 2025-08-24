@@ -25,14 +25,14 @@ public class OBJ_Arrow extends Projectile {
 	
 	public void getImage() {
 		
-		up1 = setup("/projectile/arrow_up",gp.TILE_SIZE,gp.TILE_SIZE);
-		up2 = setup("/projectile/arrow_up",gp.TILE_SIZE,gp.TILE_SIZE);
-		down1 = setup("/projectile/arrow_down",gp.TILE_SIZE,gp.TILE_SIZE);
-		down2 = setup("/projectile/arrow_down",gp.TILE_SIZE,gp.TILE_SIZE);
-		left1 = setup("/projectile/arrow_left",gp.TILE_SIZE,gp.TILE_SIZE);
-		left2 = setup("/projectile/arrow_left",gp.TILE_SIZE,gp.TILE_SIZE);
-		right1 = setup("/projectile/arrow_right",gp.TILE_SIZE,gp.TILE_SIZE);
-		right2 = setup("/projectile/arrow_right",gp.TILE_SIZE,gp.TILE_SIZE);
+		up1 = setup("/projectile/arrow_up",gp.tileSize,gp.tileSize);
+		up2 = setup("/projectile/arrow_up",gp.tileSize,gp.tileSize);
+		down1 = setup("/projectile/arrow_down",gp.tileSize,gp.tileSize);
+		down2 = setup("/projectile/arrow_down",gp.tileSize,gp.tileSize);
+		left1 = setup("/projectile/arrow_left",gp.tileSize,gp.tileSize);
+		left2 = setup("/projectile/arrow_left",gp.tileSize,gp.tileSize);
+		right1 = setup("/projectile/arrow_right",gp.tileSize,gp.tileSize);
+		right2 = setup("/projectile/arrow_right",gp.tileSize,gp.tileSize);
 
 	}
 	
