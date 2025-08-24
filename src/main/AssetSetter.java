@@ -101,6 +101,11 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldX = 82 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
+
+		gp.obj[mapNum][i] = new OBJ_Chest(gp,new OBJ_Icekey(gp));
+		gp.obj[mapNum][i].worldX = 14 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
+		i++;
 		
 		// Nether Map
 		mapNum = 3;
@@ -171,6 +176,25 @@ public class AssetSetter {
 //		gp.monster[mapNum][i].worldX = gp.tileSize*44;
 //		gp.monster[mapNum][i].worldY = gp.tileSize*66;
 //		i++;
+
+		// ICE MAP
+		mapNum = 2;
+		i = 0;
+
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*44;
+		gp.monster[mapNum][i].worldY = gp.tileSize*50;
+		i++;
+
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*50;
+		gp.monster[mapNum][i].worldY = gp.tileSize*50;
+		i++;
+
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*55;
+		gp.monster[mapNum][i].worldY = gp.tileSize*50;
+		i++;
 		
 		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
 		gp.monster[mapNum][i].worldX = gp.tileSize*45;
@@ -418,6 +442,95 @@ public class AssetSetter {
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 119, 119);
 		i++;
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 119, 120);
+		i++;
+
+		mapNum = 2;
+		i = 0;
+
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 43);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 33, 43);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 32, 42);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 41);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 40);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 39);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 30, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 29, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 28, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 27, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 26, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 25, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 24, 38);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 44);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 45);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 46);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 47);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 48);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 49);
+		i++;
+
+		// Centre 
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 50);
+		i++;
+
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 51);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 52);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 53);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 54);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 55);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 56);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 57);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 33, 57);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 32, 58);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 59);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 60);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 61);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 62);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 30, 62);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 29, 62);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 28, 62);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 27, 62);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 26, 62);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 25, 62);
+		i++;
+		gp.iTile[mapNum][i] = new IT_DryTree(gp, 24, 62);
 		i++;
 	}
 	
