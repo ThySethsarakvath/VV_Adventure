@@ -60,12 +60,12 @@ public class EventHandler {
 			}
 			else if (hit(0, 110, 118, "any") == true) {
 				gp.playSE(17);
-				teleport(1, 30, 32);
+				teleport(1, 30, 32, gp.indoor);
 				
 			}
 			else if (hit(1, 30, 32, "any") == true) {
 				gp.playSE(17);
-				teleport(0, 110, 118);
+				teleport(0, 110, 118, gp.outside);
 			}
 			else if(hit(1,30,25,"up") == true) {
 				speak(gp.npc[1][0]);
@@ -73,20 +73,31 @@ public class EventHandler {
 			else if (hit(0, 34, 91, "any") == true) {
 				gp.playSE(18);
 				gp.startSnowEffect();
-				teleport(2, 82, 50);
+				teleport(2, 82, 50, gp.outside);
 			}
 			else if(hit(2,82,50,"any") == true) {
 				gp.playSE(18);
 				gp.stopSnowEffect();
-				teleport(0,34,91);
+				teleport(0,34,91, gp.outside);
 			}
 			else if (hit(0, 152,117, "any") == true) {
 				gp.playSE(18);
-				teleport(3, 16, 50);
+				teleport(3, 16, 50, gp.outside);
 			}
 			else if (hit(3, 16, 50, "any") == true) {
 				gp.playSE(18);
-				teleport(0, 152,117);
+				teleport(0, 152,117, gp.outside);
+			}
+			
+			// Enter Final
+			else if (hit(0, 89, 96, "any") == true) {
+				gp.playSE(18);
+				teleport(4, 13, 97, gp.dungeon);
+			}
+			
+			else if (hit(4, 13, 97, "any") == true) {
+				gp.playSE(18);
+				teleport(0, 89, 96, gp.dungeon);
 			}
 		}		
 	}
@@ -120,8 +131,9 @@ public class EventHandler {
 		return hit;
 	}
 
-	public void teleport(int map, int col, int row) {
+	public void teleport(int map, int col, int row, int area) {
 		gp.gameState = gp.transitionState;
+		gp.nextArea = area;
 		tempMap = map;
 		tempCol =col;
 		tempRow = row;

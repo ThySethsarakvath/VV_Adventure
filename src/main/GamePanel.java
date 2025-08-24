@@ -101,6 +101,13 @@ public class GamePanel extends JPanel implements Runnable {
 	public final int tradeState = 8;
 	public final int sleepState = 9;
 	public final int mapState = 10;
+	
+	// AREA
+	public int currentArea;
+	public int nextArea;
+	public final int outside = 50;
+	public final int indoor = 51;
+	public final int dungeon = 52;
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -125,6 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
 		eManager.setup();
 
 		gameState = titleState;
+		currentArea = outside;
 
 		tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
 		g2 = (Graphics2D) tempScreen.getGraphics();
@@ -439,5 +447,30 @@ public class GamePanel extends JPanel implements Runnable {
 	public void stopSnowEffect() {
 	    snowEffectActive = false;
 	    snowParticles.clear();
+	}
+	
+	public void changeArea() {
+		
+		if(nextArea != currentArea) {
+			
+			stopMusic();
+			
+			if(nextArea == outside) {
+				// Outside music
+//				playMusic(0);
+			}
+			
+			if(nextArea == indoor) {
+				// Indoor music
+//				playMusic(0);
+			}
+			
+			if(nextArea == dungeon) {
+				// Dungeon music
+//				playMusic(0);
+			}
+		}
+		currentArea = nextArea;
+		aSetter.setMonster();
 	}
 }

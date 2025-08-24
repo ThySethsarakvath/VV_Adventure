@@ -79,10 +79,11 @@ public class TileManager {
 	        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 	    }
 		
-		loadMap("/maps/world02.txt",0);
-		loadMap("/maps/wander_house.txt",1);
-		loadMap("/maps/frozen.txt",2);
-		loadMap("/maps/fire.txt",3);
+		loadMap("/maps/world02.txt", 0);
+		loadMap("/maps/wander_house.txt", 1);
+		loadMap("/maps/frozen.txt", 2);
+		loadMap("/maps/fire.txt", 3);
+		loadMap("/maps/final.txt", 4);
 	}
 	
 	public void getTileImage() {

@@ -70,6 +70,12 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
 		i++;
 		
+		// Final Boss Portal
+		gp.obj[mapNum][i] = new OBJ_Portal(gp);
+		gp.obj[mapNum][i].worldX = 89 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 96 * gp.tileSize;
+		i++;
+		
 		gp.obj[mapNum][i] = new OBJ_GateIce(gp);
 		gp.obj[mapNum][i].worldX = 36 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 91 * gp.tileSize;
@@ -84,7 +90,6 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
 		i++;
-		
 		
 		// Ice Map
 		mapNum = 2;
@@ -101,6 +106,14 @@ public class AssetSetter {
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 16 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
+		i++;
+		
+		// Final Map
+		mapNum = 4;
+		i= 0;
+		gp.obj[mapNum][i] = new OBJ_Portal(gp);
+		gp.obj[mapNum][i].worldX = 13 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 97 * gp.tileSize;
 		i++;
 	}
 	
