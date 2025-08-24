@@ -17,6 +17,8 @@ public class OBJ_Axe extends Entity {
 		description = "[Diamond Axe]\nHigh Damage Weapon";
 		price = 4;
 		knockBackPower = 10;
+		motion1_duration = 20;
+		motion2_duration = 40;
 	}
 
 }

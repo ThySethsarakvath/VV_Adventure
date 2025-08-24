@@ -18,6 +18,8 @@ public class OBJ_WoodenSword extends Entity {
 		description = "[Wooden Sword]\nMade out of wood\nTake less damage";
 		price = 1;
 		knockBackPower = 3;
+		motion1_duration = 5;
+		motion2_duration = 25;
 	}
 
 }

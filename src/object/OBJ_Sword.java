@@ -18,6 +18,8 @@ public class OBJ_Sword extends Entity {
 		description = "[" + name + "]\nA Diamond Sword.";
 		price =3;
 		knockBackPower = 3;
+		motion1_duration = 5;
+		motion2_duration = 25;
 	}
 
 }
