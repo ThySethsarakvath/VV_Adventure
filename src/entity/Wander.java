@@ -33,8 +33,8 @@ public class Wander extends Entity {
 
     public void getImage() {
         // Only need two frames since he's standing still
-        down1 = setup("/npc/Wander1", gp.tileSize, gp.tileSize);
-        down2 = setup("/npc/Wander2", gp.tileSize, gp.tileSize);
+        down1 = setup("/npc/Wander1", gp.TILE_SIZE, gp.TILE_SIZE);
+        down2 = setup("/npc/Wander2", gp.TILE_SIZE, gp.TILE_SIZE);
         
         // Set all directions to use the same sprites since he doesn't move
         up1 = down1;
@@ -104,7 +104,7 @@ public class Wander extends Entity {
         gp.ui.textCompleted = false;
     	
     	super.speak();
-    	gp.gameState = gp.tradeState;
+    	gp.gameState = gp.TRADE_STATE;
     	gp.ui.wander = this;
     }
 }

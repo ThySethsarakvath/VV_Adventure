@@ -19,7 +19,7 @@ public class SnowParticle extends Entity {
         size = random.nextInt(5) + 4;
         
         // Random starting position across the screen width
-        worldX = random.nextInt(gp.screenWidth);
+        worldX = random.nextInt(gp.SCREEN_WIDTH);
         worldY = -size; // Start above the screen
         
         // Random horizontal movement (wind effect)
@@ -42,13 +42,13 @@ public class SnowParticle extends Entity {
         worldX += wind;
         
         // If particle goes off screen, reset it
-        if (worldY > gp.screenHeight || worldX < -size || worldX > gp.screenWidth) {
+        if (worldY > gp.SCREEN_HEIGHT || worldX < -size || worldX > gp.SCREEN_WIDTH) {
             reset();
         }
     }
     
     private void reset() {
-        worldX = random.nextInt(gp.screenWidth);
+        worldX = random.nextInt(gp.SCREEN_WIDTH);
         worldY = -size;
         wind = (random.nextFloat() - 0.5f) * 0.5f;
     }

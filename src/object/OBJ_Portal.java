@@ -19,10 +19,10 @@ public class OBJ_Portal extends Entity {
     }
     
     public void getImage() {
-        down1 = setup("/objects/portal1", gp.tileSize, gp.tileSize);
-        down2 = setup("/objects/portal2", gp.tileSize, gp.tileSize); 
-        up1 = setup("/objects/portal3", gp.tileSize, gp.tileSize);
-        up2 = setup("/objects/portal4", gp.tileSize, gp.tileSize);
+        down1 = setup("/objects/portal1", gp.TILE_SIZE, gp.TILE_SIZE);
+        down2 = setup("/objects/portal2", gp.TILE_SIZE, gp.TILE_SIZE); 
+        up1 = setup("/objects/portal3", gp.TILE_SIZE, gp.TILE_SIZE);
+        up2 = setup("/objects/portal4", gp.TILE_SIZE, gp.TILE_SIZE);
     }
     
     public void update() {
@@ -48,10 +48,10 @@ public class OBJ_Portal extends Entity {
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         // Only draw if on screen
-        if (worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-            worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-            worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-            worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+        if (worldX + gp.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+            worldX - gp.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+            worldY + gp.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+            worldY - gp.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
             
             BufferedImage image = null;
             

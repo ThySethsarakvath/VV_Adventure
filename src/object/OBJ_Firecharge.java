@@ -11,7 +11,7 @@ public class OBJ_Firecharge extends Entity {
 		
 		type = type_firecharge;
 		name = "Fire Charge";
-		down1 = setup("/objects/fire_charge",gp.tileSize,gp.tileSize);
+		down1 = setup("/objects/fire_charge",gp.TILE_SIZE,gp.TILE_SIZE);
 		defenseValue =1;
 		description = "[" + name + "]\nA Contain this to shoot the fire ball.";
 		price = 3;

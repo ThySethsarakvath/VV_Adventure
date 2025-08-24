@@ -28,18 +28,18 @@ public class Npc extends Entity {
 	// Set NPC sprite
 	public void getImage() {
 
-		up1 = setup("/npc/npc_up1", gp.tileSize, gp.tileSize);
-		up2 = setup("/npc/npc_up2", gp.tileSize, gp.tileSize);
-		down1 = setup("/npc/npc_down1", gp.tileSize, gp.tileSize);
-		down2 = setup("/npc/npc_down2", gp.tileSize, gp.tileSize);
-		left1 = setup("/npc/npc_left1", gp.tileSize, gp.tileSize);
-		left2 = setup("/npc/npc_left2", gp.tileSize, gp.tileSize);
-		right1 = setup("/npc/npc_right1", gp.tileSize, gp.tileSize);
-		right2 = setup("/npc/npc_right2", gp.tileSize, gp.tileSize);
-		upStand = setup("/npc/npc_up", gp.tileSize, gp.tileSize);
-		downStand = setup("/npc/npc_down", gp.tileSize, gp.tileSize);
-		leftStand = setup("/npc/npc_left", gp.tileSize, gp.tileSize);
-		rightStand = setup("/npc/npc_right", gp.tileSize, gp.tileSize);
+		up1 = setup("/npc/npc_up1", gp.TILE_SIZE, gp.TILE_SIZE);
+		up2 = setup("/npc/npc_up2", gp.TILE_SIZE, gp.TILE_SIZE);
+		down1 = setup("/npc/npc_down1", gp.TILE_SIZE, gp.TILE_SIZE);
+		down2 = setup("/npc/npc_down2", gp.TILE_SIZE, gp.TILE_SIZE);
+		left1 = setup("/npc/npc_left1", gp.TILE_SIZE, gp.TILE_SIZE);
+		left2 = setup("/npc/npc_left2", gp.TILE_SIZE, gp.TILE_SIZE);
+		right1 = setup("/npc/npc_right1", gp.TILE_SIZE, gp.TILE_SIZE);
+		right2 = setup("/npc/npc_right2", gp.TILE_SIZE, gp.TILE_SIZE);
+		upStand = setup("/npc/npc_up", gp.TILE_SIZE, gp.TILE_SIZE);
+		downStand = setup("/npc/npc_down", gp.TILE_SIZE, gp.TILE_SIZE);
+		leftStand = setup("/npc/npc_left", gp.TILE_SIZE, gp.TILE_SIZE);
+		rightStand = setup("/npc/npc_right", gp.TILE_SIZE, gp.TILE_SIZE);
 	}
 
 	public void setDialogue() {

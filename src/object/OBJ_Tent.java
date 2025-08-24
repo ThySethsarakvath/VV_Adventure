@@ -13,7 +13,7 @@ public class OBJ_Tent extends Entity {
 		
 		type = type_consumable;
 		name = "Tent";
-		down1 = setup("/objects/tent", gp.tileSize, gp.tileSize);
+		down1 = setup("/objects/tent", gp.TILE_SIZE, gp.TILE_SIZE);
 		description = "[tent]\nYou can sleep until\nnext morning.";
 		price = 4;
 		stackable = true;
@@ -22,7 +22,7 @@ public class OBJ_Tent extends Entity {
 	@Override
 	public boolean use(Entity entity) {
 		
-		gp.gameState = gp.sleepState;
+		gp.gameState = gp.SLEEP_STATE;
 //		gp.playSE(9);
 		gp.player.life = gp.player.maxLife;
 		gp.player.mana = gp.player.maxMana;

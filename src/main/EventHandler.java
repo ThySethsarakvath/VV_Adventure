@@ -14,13 +14,13 @@ public class EventHandler {
 	public EventHandler(GamePanel gp) {
 		this.gp = gp;
 
-		eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+		eventRect = new EventRect[gp.MAX_MAP][gp.maxWorldCol][gp.maxWorldRow];
 
 		int map = 0;
 		int col = 0;
 		int row = 0;
 
-		while (map < gp.maxMap && col < gp.maxWorldCol && row < gp.maxWorldRow) {
+		while (map < gp.MAX_MAP && col < gp.maxWorldCol && row < gp.maxWorldRow) {
 			eventRect[map][col][row] = new EventRect();
 			eventRect[map][col][row].x = 23;
 			eventRect[map][col][row].y = 23;
@@ -50,7 +50,7 @@ public class EventHandler {
 		int yDis = Math.abs(gp.player.worldY - previousEventY);
 		int distance = Math.max(xDis, yDis);
 		
-		if (distance > gp.tileSize) {
+		if (distance > gp.TILE_SIZE) {
 			canTouchEvent = true;
 		}
 		
@@ -60,12 +60,12 @@ public class EventHandler {
 			}
 			else if (hit(0, 110, 118, "any") == true) {
 				gp.playSE(17);
-				teleport(1, 30, 32, gp.indoor);
+				teleport(1, 30, 32, gp.INDOOR);
 				
 			}
 			else if (hit(1, 30, 32, "any") == true) {
 				gp.playSE(17);
-				teleport(0, 110, 118, gp.outside);
+				teleport(0, 110, 118, gp.OUTSIDE);
 			}
 			else if(hit(1,30,25,"up") == true) {
 				speak(gp.npc[1][0]);
@@ -73,31 +73,31 @@ public class EventHandler {
 			else if (hit(0, 34, 91, "any") == true) {
 				gp.playSE(18);
 				gp.startSnowEffect();
-				teleport(2, 82, 50, gp.outside);
+				teleport(2, 82, 50, gp.OUTSIDE);
 			}
 			else if(hit(2,82,50,"any") == true) {
 				gp.playSE(18);
 				gp.stopSnowEffect();
-				teleport(0,34,91, gp.outside);
+				teleport(0,34,91, gp.OUTSIDE);
 			}
 			else if (hit(0, 152,117, "any") == true) {
 				gp.playSE(18);
-				teleport(3, 16, 50, gp.outside);
+				teleport(3, 16, 50, gp.OUTSIDE);
 			}
 			else if (hit(3, 16, 50, "any") == true) {
 				gp.playSE(18);
-				teleport(0, 152,117, gp.outside);
+				teleport(0, 152,117, gp.OUTSIDE);
 			}
 			
 			// Enter Final
 			else if (hit(0, 89, 96, "any") == true) {
 				gp.playSE(18);
-				teleport(4, 13, 97, gp.dungeon);
+				teleport(4, 13, 97, gp.DUNGEON);
 			}
 			
 			else if (hit(4, 13, 97, "any") == true) {
 				gp.playSE(18);
-				teleport(0, 89, 96, gp.outside);
+				teleport(0, 89, 96, gp.OUTSIDE);
 			}
 			else if (hit(4, 38, 76, "any") == true) {
 				Golem();
@@ -116,8 +116,8 @@ public class EventHandler {
 			gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
 			gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
 			
-			eventRect[map][col][row].x = col * gp.tileSize + eventRect[map][col][row].x;
-			eventRect[map][col][row].y = row * gp.tileSize + eventRect[map][col][row].y;
+			eventRect[map][col][row].x = col * gp.TILE_SIZE + eventRect[map][col][row].x;
+			eventRect[map][col][row].y = row * gp.TILE_SIZE + eventRect[map][col][row].y;
 			
 			if (gp.player.solidArea.intersects(eventRect[map][col][row]) && eventRect[map][col][row].eventDone == false) {
 				if (gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")) {
@@ -138,7 +138,7 @@ public class EventHandler {
 	}
 
 	public void teleport(int map, int col, int row, int area) {
-		gp.gameState = gp.transitionState;
+		gp.gameState = gp.TRANSITION_STATE;
 		gp.nextArea = area;
 		tempMap = map;
 		tempCol =col;
@@ -161,7 +161,7 @@ public class EventHandler {
 	public void speak(Entity entity) {
 		
 		if(gp.keyH.enterPressed == true) {
-			gp.gameState = gp.dialogueState;
+			gp.gameState = gp.DIALOGUE_STATE;
 			entity.speak();
 		}
 	}

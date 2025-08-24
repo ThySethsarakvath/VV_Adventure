@@ -11,7 +11,7 @@ public class OBJ_Firekey extends Entity{
 		// TODO Auto-generated constructor stub
 		type = type_consumable;
 		name = "Fire_trailKey";
-		down1 = setup("/objects/fire_trailkey",gp.tileSize,gp.tileSize);
+		down1 = setup("/objects/fire_trailkey",gp.TILE_SIZE,gp.TILE_SIZE);
 		description = "[Fire Trail Key]\nKey to open gate for\n Fire Iceland.";
 	}
 	

@@ -12,7 +12,7 @@ public class OBJ_Emerald extends Entity{
 		
 		type = type_pickup;
 		name = "Emerald";
-		down1 = setup("/objects/emerald",gp.tileSize,gp.tileSize);
+		down1 = setup("/objects/emerald",gp.TILE_SIZE,gp.TILE_SIZE);
 		description = "["+ name +"]\nValuable Item for Trading!";
 		stackable = true;
 	}

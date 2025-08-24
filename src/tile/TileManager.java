@@ -68,7 +68,7 @@ public class TileManager {
 	        }
 	        
 	        // Initialize map array with proper dimensions
-	        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+	        mapTileNum = new int[gp.MAX_MAP][gp.maxWorldCol][gp.maxWorldRow];
 	        
 	    } catch(IOException e) {
 	        System.out.println("Exception reading map dimensions!");
@@ -76,7 +76,7 @@ public class TileManager {
 	        // Set safe default dimensions
 	        gp.maxWorldCol = 50;
 	        gp.maxWorldRow = 50;
-	        mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
+	        mapTileNum = new int[gp.MAX_MAP][gp.maxWorldCol][gp.maxWorldRow];
 	    }
 		
 		loadMap("/maps/world02.txt", 0);
@@ -114,7 +114,7 @@ public class TileManager {
 			
 			tile[index] =new Tile();
 			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"+image));
-			tile[index].image = uTool.scaleImage(tile[index].image,gp.tileSize,gp.tileSize);
+			tile[index].image = uTool.scaleImage(tile[index].image,gp.TILE_SIZE,gp.TILE_SIZE);
 			tile[index].collision = collision;
 			
 		}catch(IOException e) {
@@ -165,8 +165,8 @@ public class TileManager {
 			
 			int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
 			
-			int worldX = worldCol * gp.tileSize; // For example worldX = worldCol++ x 48
-			int worldY = worldRow * gp.tileSize; // For example worldY = worldRow++ x 48
+			int worldX = worldCol * gp.TILE_SIZE; // For example worldX = worldCol++ x 48
+			int worldY = worldRow * gp.TILE_SIZE; // For example worldY = worldRow++ x 48
 			/*
 			 	+ gp.player.screenX, because we want the player still origin at the center 
 			 	in your screen while you are walking
@@ -180,10 +180,10 @@ public class TileManager {
 			 		  it not draw 10000 x 10000 at the same time 
 			 */
 			
-			if(worldX + gp.tileSize > gp.player.worldX - gp.player.screenX &&
-			   worldX - gp.tileSize < gp.player.worldX + gp.player.screenX &&
-		       worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
-			   worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
+			if(worldX + gp.TILE_SIZE > gp.player.worldX - gp.player.screenX &&
+			   worldX - gp.TILE_SIZE < gp.player.worldX + gp.player.screenX &&
+		       worldY + gp.TILE_SIZE > gp.player.worldY - gp.player.screenY &&
+			   worldY - gp.TILE_SIZE < gp.player.worldY + gp.player.screenY) {
 				
 				g2.drawImage(tile[tileNum].image, screenX, screenY, null);
 				
@@ -202,12 +202,12 @@ public class TileManager {
 			
 			for(int i = 0 ; i < gp.pFinder.pathList.size();i++) {
 				
-				int worldX = gp.pFinder.pathList.get(i).col * gp.tileSize;
-				int worldY = gp.pFinder.pathList.get(i).row * gp.tileSize;
+				int worldX = gp.pFinder.pathList.get(i).col * gp.TILE_SIZE;
+				int worldY = gp.pFinder.pathList.get(i).row * gp.TILE_SIZE;
 				int screenX = worldX - gp.player.worldX + gp.player.screenX;
 				int screenY = worldY - gp.player.worldY + gp.player.screenY;
 				
-				g2.fillRect(screenX, screenY, gp.tileSize, gp.tileSize);
+				g2.fillRect(screenX, screenY, gp.TILE_SIZE, gp.TILE_SIZE);
 			}
 		}
 	}

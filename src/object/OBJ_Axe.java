@@ -10,7 +10,7 @@ public class OBJ_Axe extends Entity {
 		// TODO Auto-generated constructor stub
 		type = type_axe;
 		name = "Diamond Axe";
-		down1 = setup("/objects/axe",gp.tileSize,gp.tileSize);
+		down1 = setup("/objects/axe",gp.TILE_SIZE,gp.TILE_SIZE);
 		attackValue = 3;
 		attackArea.width = 30;
 		attackArea.height = 30;

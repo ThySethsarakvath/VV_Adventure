@@ -38,59 +38,59 @@ public class AssetSetter {
 		
 		// Over world
 		gp.obj[mapNum][i] = new OBJ_Axe(gp);
-		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 64 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 52 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 64 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Lantern(gp);
-		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 34 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 61 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Tent(gp);
-		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 34 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 63 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Tent(gp);
-		gp.obj[mapNum][i].worldX = 33 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 33 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 63 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_WoodenSword(gp);
-		gp.obj[mapNum][i].worldX = 30 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 30 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 61 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
-		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 91 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 34 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 91 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
-		gp.obj[mapNum][i].worldX = 152 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 152 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 117 * gp.TILE_SIZE;
 		i++;
 		
 		// Final Boss Portal
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
-		gp.obj[mapNum][i].worldX = 89 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 96 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 89 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 96 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_GateIce(gp);
-		gp.obj[mapNum][i].worldX = 36 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 91 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 36 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 91 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_GateFire(gp);
-		gp.obj[mapNum][i].worldX = 150 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 150 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 117 * gp.TILE_SIZE;
 		i++;
 		
 		gp.obj[mapNum][i] = new OBJ_Chest(gp,new OBJ_Icekey(gp));
-		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 52 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 62 * gp.TILE_SIZE;
 		i++;
 		
 		// Ice Map
@@ -98,24 +98,24 @@ public class AssetSetter {
 		i=0;
 		
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
-		gp.obj[mapNum][i].worldX = 82 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 82 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 50 * gp.TILE_SIZE;
 		i++;
 		
 		// Nether Map
 		mapNum = 3;
 		i=0;
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
-		gp.obj[mapNum][i].worldX = 16 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 16 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 50 * gp.TILE_SIZE;
 		i++;
 		
 		// Final Map
 		mapNum = 4;
 		i= 0;
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
-		gp.obj[mapNum][i].worldX = 13 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 97 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 13 * gp.TILE_SIZE;
+		gp.obj[mapNum][i].worldY = 97 * gp.TILE_SIZE;
 		i++;
 	}
 	
@@ -125,15 +125,15 @@ public class AssetSetter {
 		int i = 0;
 		
 		gp.npc[mapNum][i] = new Npc(gp);
-		gp.npc[mapNum][i].worldX = gp.tileSize*49;
-		gp.npc[mapNum][i].worldY = gp.tileSize*63;
+		gp.npc[mapNum][i].worldX = gp.TILE_SIZE*49;
+		gp.npc[mapNum][i].worldY = gp.TILE_SIZE*63;
 		i++;
 		
 		mapNum =1;
 		i=0;
 		gp.npc[mapNum][i] = new Wander(gp);
-		gp.npc[mapNum][i].worldX = gp.tileSize*30;
-		gp.npc[mapNum][i].worldY = gp.tileSize*23;
+		gp.npc[mapNum][i].worldX = gp.TILE_SIZE*30;
+		gp.npc[mapNum][i].worldY = gp.TILE_SIZE*23;
 		i++;
 	}
 	
@@ -142,6 +142,7 @@ public class AssetSetter {
 		int mapNum = 0;
 		int i =0;
 		
+<<<<<<< Updated upstream
 //		gp.monster[mapNum][i] = new Zombie(gp);
 //		gp.monster[mapNum][i].worldX = gp.tileSize*42;
 //		gp.monster[mapNum][i].worldY = gp.tileSize*65;
@@ -186,6 +187,38 @@ public class AssetSetter {
 		if(Progress.GolemDefeated) {
 			
 		}
+=======
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.TILE_SIZE*42;
+		gp.monster[mapNum][i].worldY = gp.TILE_SIZE*65;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.TILE_SIZE*43;
+		gp.monster[mapNum][i].worldY = gp.TILE_SIZE*65;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.TILE_SIZE*44;
+		gp.monster[mapNum][i].worldY = gp.TILE_SIZE*65;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.TILE_SIZE*42;
+		gp.monster[mapNum][i].worldY = gp.TILE_SIZE*66;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.TILE_SIZE*43;
+		gp.monster[mapNum][i].worldY = gp.TILE_SIZE*66;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.TILE_SIZE*44;
+		gp.monster[mapNum][i].worldY = gp.TILE_SIZE*66;
+		i++;
+		
+>>>>>>> Stashed changes
 	}
 	
 	public void setInteractiveTile() {

@@ -43,8 +43,8 @@ public class Player extends Entity {
 		super(gp);
 		this.keyH = keyH;
 
-		screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-		screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+		screenX = gp.SCREEN_WIDTH / 2 - (gp.TILE_SIZE / 2);
+		screenY = gp.SCREEN_HEIGHT / 2 - (gp.TILE_SIZE / 2);
 
 		solidArea = new Rectangle();
 		solidArea.x = 8;
@@ -66,8 +66,8 @@ public class Player extends Entity {
 	// Player coordinate
 	public void setDefaultValues() {
 
-		worldX = gp.tileSize * 32;
-		worldY = gp.tileSize * 61;
+		worldX = gp.TILE_SIZE * 32;
+		worldY = gp.TILE_SIZE * 61;
 		defaultSpeed = 4;
 		speed = defaultSpeed;
 		direction = "down";
@@ -111,8 +111,8 @@ public class Player extends Entity {
 
 	public void setDefaultPositions() {
 
-		worldX = gp.tileSize * 32;
-		worldY = gp.tileSize * 61;
+		worldX = gp.TILE_SIZE * 32;
+		worldY = gp.TILE_SIZE * 61;
 		direction = "down";
 
 	}
@@ -128,52 +128,52 @@ public class Player extends Entity {
 
 	public void getPlayerImage() {
 
-		up1 = setup("/player/Steve_up1", gp.tileSize, gp.tileSize);
-		up2 = setup("/player/Steve_up2", gp.tileSize, gp.tileSize);
-		down1 = setup("/player/Steve_down1", gp.tileSize, gp.tileSize);
-		down2 = setup("/player/Steve_down2", gp.tileSize, gp.tileSize);
-		left1 = setup("/player/Steve_left1", gp.tileSize, gp.tileSize);
-		left2 = setup("/player/Steve_left2", gp.tileSize, gp.tileSize);
-		right1 = setup("/player/Steve_right1", gp.tileSize, gp.tileSize);
-		right2 = setup("/player/Steve_right2", gp.tileSize, gp.tileSize);
-		upStand = setup("/player/Steve_up_stand", gp.tileSize, gp.tileSize);
-		downStand = setup("/player/Steve_down_stand", gp.tileSize, gp.tileSize);
-		leftStand = setup("/player/Steve_left_stand", gp.tileSize, gp.tileSize);
-		rightStand = setup("/player/Steve_right_stand", gp.tileSize, gp.tileSize);
+		up1 = setup("/player/Steve_up1", gp.TILE_SIZE, gp.TILE_SIZE);
+		up2 = setup("/player/Steve_up2", gp.TILE_SIZE, gp.TILE_SIZE);
+		down1 = setup("/player/Steve_down1", gp.TILE_SIZE, gp.TILE_SIZE);
+		down2 = setup("/player/Steve_down2", gp.TILE_SIZE, gp.TILE_SIZE);
+		left1 = setup("/player/Steve_left1", gp.TILE_SIZE, gp.TILE_SIZE);
+		left2 = setup("/player/Steve_left2", gp.TILE_SIZE, gp.TILE_SIZE);
+		right1 = setup("/player/Steve_right1", gp.TILE_SIZE, gp.TILE_SIZE);
+		right2 = setup("/player/Steve_right2", gp.TILE_SIZE, gp.TILE_SIZE);
+		upStand = setup("/player/Steve_up_stand", gp.TILE_SIZE, gp.TILE_SIZE);
+		downStand = setup("/player/Steve_down_stand", gp.TILE_SIZE, gp.TILE_SIZE);
+		leftStand = setup("/player/Steve_left_stand", gp.TILE_SIZE, gp.TILE_SIZE);
+		rightStand = setup("/player/Steve_right_stand", gp.TILE_SIZE, gp.TILE_SIZE);
 	}
 
 	public void getPlayerAttackImage() {
 
 		if (currentWeapon.type == type_dsword) {
-			aUp1 = setup("/player/Steve_up_a1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_up_a2", gp.tileSize, gp.tileSize * 2);
-			aDown1 = setup("/player/Steve_down_a1", gp.tileSize, gp.tileSize * 2);
-			aDown2 = setup("/player/Steve_down_a2", gp.tileSize, gp.tileSize * 2);
-			aRight1 = setup("/player/Steve_right_a1", gp.tileSize * 2, gp.tileSize);
-			aRight2 = setup("/player/Steve_right_a2", gp.tileSize * 2, gp.tileSize);
-			aLeft1 = setup("/player/Steve_left_a1", gp.tileSize * 2, gp.tileSize);
-			aLeft2 = setup("/player/Steve_left_a2", gp.tileSize * 2, gp.tileSize);
+			aUp1 = setup("/player/Steve_up_a1", gp.TILE_SIZE, gp.TILE_SIZE * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_up_a2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aDown1 = setup("/player/Steve_down_a1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aDown2 = setup("/player/Steve_down_a2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aRight1 = setup("/player/Steve_right_a1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aRight2 = setup("/player/Steve_right_a2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aLeft1 = setup("/player/Steve_left_a1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aLeft2 = setup("/player/Steve_left_a2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
 		}
 		if (currentWeapon.type == type_wsword) {
-			aUp1 = setup("/player/Steve_wood_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_wood_up2", gp.tileSize, gp.tileSize * 2);
-			aDown1 = setup("/player/Steve_wood_down1", gp.tileSize, gp.tileSize * 2);
-			aDown2 = setup("/player/Steve_wood_down2", gp.tileSize, gp.tileSize * 2);
-			aRight1 = setup("/player/Steve_wood_right2", gp.tileSize * 2, gp.tileSize);
-			aRight2 = setup("/player/Steve_wood_right1", gp.tileSize * 2, gp.tileSize);
-			aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
-			aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
+			aUp1 = setup("/player/Steve_wood_up1", gp.TILE_SIZE, gp.TILE_SIZE * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_wood_up2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aDown1 = setup("/player/Steve_wood_down1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aDown2 = setup("/player/Steve_wood_down2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aRight1 = setup("/player/Steve_wood_right2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aRight2 = setup("/player/Steve_wood_right1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aLeft1 = setup("/player/Steve_wood_left1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aLeft2 = setup("/player/Steve_wood_left2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
 		}
 
 		if (currentWeapon.type == type_axe) {
-			aUp1 = setup("/player/Steve_axe_u1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_axe_u2", gp.tileSize, gp.tileSize * 2);
-			aDown1 = setup("/player/Steve_axe_d1", gp.tileSize, gp.tileSize * 2);
-			aDown2 = setup("/player/Steve_axe_d2", gp.tileSize, gp.tileSize * 2);
-			aRight1 = setup("/player/Steve_axe_r1", gp.tileSize * 2, gp.tileSize);
-			aRight2 = setup("/player/Steve_axe_r2", gp.tileSize * 2, gp.tileSize);
-			aLeft1 = setup("/player/Steve_axe_l1", gp.tileSize * 2, gp.tileSize);
-			aLeft2 = setup("/player/Steve_axe_l2", gp.tileSize * 2, gp.tileSize);
+			aUp1 = setup("/player/Steve_axe_u1", gp.TILE_SIZE, gp.TILE_SIZE * 2); // 16 x 32
+			aUp2 = setup("/player/Steve_axe_u2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aDown1 = setup("/player/Steve_axe_d1", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aDown2 = setup("/player/Steve_axe_d2", gp.TILE_SIZE, gp.TILE_SIZE * 2);
+			aRight1 = setup("/player/Steve_axe_r1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aRight2 = setup("/player/Steve_axe_r2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aLeft1 = setup("/player/Steve_axe_l1", gp.TILE_SIZE * 2, gp.TILE_SIZE);
+			aLeft2 = setup("/player/Steve_axe_l2", gp.TILE_SIZE * 2, gp.TILE_SIZE);
 		}
 //		if(currentBall.type == type_firecharge) {
 //			aUp1 = setup("/player/Steve_fire_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
@@ -325,7 +325,7 @@ public class Player extends Entity {
 			}
 		}
 		if (life <= 0) {
-			gp.gameState = gp.gameOverState;
+			gp.gameState = gp.GAME_OVER_STATE;
 			gp.music.stop();
 //			gp.playSE(); For game over sound
 		}
@@ -364,7 +364,7 @@ public class Player extends Entity {
 		// 🗣️ Talk using Enter key
 		if (gp.keyH.enterPressed == true) {
 			if (i != -1) {
-				gp.gameState = gp.dialogueState;
+				gp.gameState = gp.DIALOGUE_STATE;
 				gp.npc[gp.currentMap][i].speak(); // FIXED
 			}
 		}
@@ -582,7 +582,7 @@ public class Player extends Entity {
 				}
 			}
 			if (attacking == true) {
-				tempScreenY = screenY - gp.tileSize; // adjust y when attack upward
+				tempScreenY = screenY - gp.TILE_SIZE; // adjust y when attack upward
 				if (spriteNum == 1) {
 					image = aUp1;
 				}
@@ -625,7 +625,7 @@ public class Player extends Entity {
 				}
 			}
 			if (attacking == true) {
-				tempScreenX = screenX - gp.tileSize;
+				tempScreenX = screenX - gp.TILE_SIZE;
 				if (spriteNum == 1) {
 					image = aLeft1;
 				}

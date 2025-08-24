@@ -38,6 +38,7 @@ public class Zombie extends Entity {
 	}
 
 	public void getImage() {
+<<<<<<< Updated upstream
 
 		up1 = setup("/monster/zombie_up1", gp.tileSize, gp.tileSize);
 		up2 = setup("/monster/zombie_up2", gp.tileSize, gp.tileSize);
@@ -52,6 +53,23 @@ public class Zombie extends Entity {
 		leftStand = setup("/monster/zombie_left", gp.tileSize, gp.tileSize);
 		rightStand = setup("/monster/zombie_right", gp.tileSize, gp.tileSize);
 
+=======
+		
+		up1 = setup("/monster/zombie_up1",gp.TILE_SIZE,gp.TILE_SIZE);
+		up2 = setup("/monster/zombie_up2",gp.TILE_SIZE,gp.TILE_SIZE);
+		down1 = setup("/monster/zombie_down1",gp.TILE_SIZE,gp.TILE_SIZE);
+		down2 = setup("/monster/zombie_down2",gp.TILE_SIZE,gp.TILE_SIZE);
+		left1 = setup("/monster/zombie_left1",gp.TILE_SIZE,gp.TILE_SIZE);
+		left2 = setup("/monster/zombie_left2",gp.TILE_SIZE,gp.TILE_SIZE);
+		right1 = setup("/monster/zombie_right1",gp.TILE_SIZE,gp.TILE_SIZE);
+		right2 = setup("/monster/zombie_right2",gp.TILE_SIZE,gp.TILE_SIZE);
+		upStand = setup("/monster/zombie_up",gp.TILE_SIZE,gp.TILE_SIZE);
+		downStand = setup("/monster/zombie_down",gp.TILE_SIZE,gp.TILE_SIZE);
+		leftStand = setup("/monster/zombie_left",gp.TILE_SIZE,gp.TILE_SIZE);
+		rightStand = setup("/monster/zombie_right",gp.TILE_SIZE,gp.TILE_SIZE);
+		
+		
+>>>>>>> Stashed changes
 	}
 
 	public void setAction() {
@@ -62,6 +80,28 @@ public class Zombie extends Entity {
 			damagePlayer(attack);
 			shotCounter = 0;
 		}
+<<<<<<< Updated upstream
+=======
+		
+		int xDist = Math.abs(worldX - gp.player.worldX);
+		int yDist = Math.abs(worldY - gp.player.worldY);
+		int tileDist = (xDist + yDist)/gp.TILE_SIZE;
+		
+		if(onPath == false && tileDist < 5) {
+			
+			int i =  new Random().nextInt(100)+1;
+			if(i > 50) {
+				onPath = true;
+			}
+		}
+		// stop chasing
+		if(onPath == true && tileDist > 15) {
+			onPath = false;
+		}
+	}
+	
+	public void setAction() {
+>>>>>>> Stashed changes
 
 		if (onPath == true) {
 			
