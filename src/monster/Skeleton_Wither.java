@@ -17,7 +17,7 @@ public class Skeleton_Wither extends Entity {
 		super(gp);
 		this.gp = gp;
 
-		type = type_zombie;
+		type = type_skeleton;
 		name = "Skeleton Wither";
 		defaultSpeed = 1;
 		speed = defaultSpeed;
@@ -94,7 +94,7 @@ public class Skeleton_Wither extends Entity {
 			}
 		} else {
 			checkStartChasingOrNot(gp.player,5,100);
-			getRandomDirection();
+			getRandomDirection(120);
 			}
 		
 		if(attacking == false) {

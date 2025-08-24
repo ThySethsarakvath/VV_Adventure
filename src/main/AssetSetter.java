@@ -2,6 +2,7 @@ package main;
 
 import entity.Npc;
 import entity.Wander;
+import monster.Ice_Golem;
 import monster.Skeleton;
 import monster.Skeleton_Wither;
 import monster.Zombie;
@@ -174,6 +175,13 @@ public class AssetSetter {
 		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
 		gp.monster[mapNum][i].worldX = gp.tileSize*45;
 		gp.monster[mapNum][i].worldY = gp.tileSize*67;
+		i++;
+		
+		mapNum = 4;
+		i = 0;
+		gp.monster[mapNum][i] = new Ice_Golem(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*38;
+		gp.monster[mapNum][i].worldY = gp.tileSize*64;
 		i++;
 		
 	}

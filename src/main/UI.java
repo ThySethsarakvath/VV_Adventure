@@ -164,6 +164,7 @@ public class UI {
 			// Do playState stuff later
 
 			drawPlayerlife();
+			drawMonsterLife();
 		}
 
 		// PAUSE STATE
@@ -192,7 +193,7 @@ public class UI {
 			drawCharacterScreen(); // for character state if want in the future
 			drawInventory(gp.player, true);
 		}
-		
+
 		// transition state
 		if (gp.gameState == gp.transitionState) {
 			drawTransition();
@@ -202,7 +203,7 @@ public class UI {
 		if (gp.gameState == gp.tradeState) {
 			drawTradeScreen();
 		}
-		
+
 		// SLEEP STATE
 		if (gp.gameState == gp.sleepState) {
 			drawSleepScreen();
@@ -348,7 +349,7 @@ public class UI {
 			g2.drawImage(half_heart, x, y, null);
 			i++;
 			if (i < gp.player.life) {
-				g2.drawImage(full_heart, x, y, null);
+				g2.drawImage(full_heart, x,y, null);
 			}
 			i++;
 			x += gp.tileSize;
@@ -720,7 +721,8 @@ public class UI {
 
 			// Equip cursor
 			if (entity.inventory.get(i) == entity.currentWeapon || entity.inventory.get(i) == entity.currentShield
-					|| entity.inventory.get(i) == entity.currentBall || entity.inventory.get(i) == entity.currentLight) {
+					|| entity.inventory.get(i) == entity.currentBall
+					|| entity.inventory.get(i) == entity.currentLight) {
 				g2.setColor(new Color(75, 46, 25));
 				g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
 			}
@@ -1071,21 +1073,21 @@ public class UI {
 
 		}
 	}
-	
+
 	public void drawSleepScreen() {
-		
+
 		counter++;
-		
-		if(counter < 120) { // screen gets darker for the next 2s
+
+		if (counter < 120) { // screen gets darker for the next 2s
 			gp.eManager.lighting.filterAlpha += 0.01f;
-			if(gp.eManager.lighting.filterAlpha > 1f) {
+			if (gp.eManager.lighting.filterAlpha > 1f) {
 				gp.eManager.lighting.filterAlpha = 1f;
 			}
 		}
-		
-		if(counter >= 120) {
+
+		if (counter >= 120) {
 			gp.eManager.lighting.filterAlpha -= 0.01f;
-			if(gp.eManager.lighting.filterAlpha <= 0f) {
+			if (gp.eManager.lighting.filterAlpha <= 0f) {
 				gp.eManager.lighting.filterAlpha = 0f;
 				counter = 0;
 				gp.eManager.lighting.dayState = gp.eManager.lighting.day;
@@ -1128,11 +1130,57 @@ public class UI {
 		int x = gp.screenWidth / 2 - length / 2;
 		return x;
 	}
-	
+
 	public void resetDialogueState() {
-	    displayedText = "";
-	    charIndex = 0;
-	    textTimer = 0;
-	    textCompleted = false;
+		displayedText = "";
+		charIndex = 0;
+		textTimer = 0;
+		textCompleted = false;
+	}
+
+	public void drawMonsterLife() {
+	    // Monster HP bar
+	    for(int i = 0; i < gp.monster[1].length; i++) {
+	        Entity monster = gp.monster[gp.currentMap][i];
+	        if(monster != null && monster.inCamera()) {
+	            
+	            // BOSS health bar - check this FIRST
+	            if(monster.boss == true) {
+	                double oneScale = (double) gp.tileSize * 8 / monster.maxLife;
+	                double hpBarValue = oneScale * monster.life;
+	                
+	                int x = gp.screenWidth/2 - gp.tileSize*4;
+	                int y = gp.tileSize*10;
+
+	                g2.setColor(new Color(35, 35, 35));
+	                g2.fillRect(x - 1, y - 1, gp.tileSize*8 + 2, 22);
+
+	                g2.setColor(new Color(255, 0, 0));
+	                g2.fillRect(x, y, (int) hpBarValue, 20);
+	                
+	                g2.setFont(g2.getFont().deriveFont(Font.BOLD, 24f));
+	                g2.setColor(Color.white);
+	                g2.drawString(monster.name, x+4, y-10);
+	            }
+	            // REGULAR monster health bar - only for non-boss monsters
+	            else if (monster.hpBarOn == true) {
+	                double oneScale = (double) gp.tileSize / monster.maxLife;
+	                double hpBarValue = oneScale * monster.life;
+
+	                g2.setColor(new Color(35, 35, 35));
+	                g2.fillRect(monster.getScreenX() - 1, monster.getScreenY() - 16, gp.tileSize, 10);
+
+	                g2.setColor(new Color(255, 0, 0));
+	                g2.fillRect(monster.getScreenX(), monster.getScreenY() - 15, (int) hpBarValue, 10);
+
+	                monster.hpBarCounter++;
+
+	                if (monster.hpBarCounter > 600) {
+	                    monster.hpBarCounter = 0;
+	                    monster.hpBarOn = false;
+	                }
+	            }
+	        }
+	    }
 	}
 }

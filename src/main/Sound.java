@@ -37,6 +37,11 @@ public class Sound {
         soundURL[17] = getClass().getResource("/sound/door_close.wav");
         soundURL[18] = getClass().getResource("/sound/portial.wav");
         soundURL[19] = getClass().getResource("/sound/chest.wav");
+        soundURL[20] = getClass().getResource("/sound/Golem_hurt1.wav");
+        soundURL[21] = getClass().getResource("/sound/Golem_hurt2.wav");
+        soundURL[22] = getClass().getResource("/sound/Golem_death.wav");
+        soundURL[23] = getClass().getResource("/sound/Golem_damage.wav");
+        soundURL[24] = getClass().getResource("/sound/Sheild.wav");
 
 
     }

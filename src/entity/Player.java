@@ -464,6 +464,10 @@ public class Player extends Entity {
 					hurtSound = new java.util.Random().nextInt(2) + 12; // 12 or 13
 					deathSound = 14;
 					break;
+				case type_boss:
+					hurtSound = new java.util.Random().nextInt(2) + 20; 
+					deathSound = 22;
+					break;
 				default:
 					hurtSound = 2; // Fallback sound
 					deathSound = -1;
