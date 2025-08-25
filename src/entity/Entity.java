@@ -67,7 +67,7 @@ public class Entity {
 	public int guardCounter = 0;
 	int offBalanceCounter = 0;
 	public int pathRecalcCounter = 0;
-    public final int PATH_RECALC_COOLDOWN = 20;
+    public final int PATH_RECALC_COOLDOWN = 30;
 
 	// CHARACTER ATTRIBUTES
 	public String name;

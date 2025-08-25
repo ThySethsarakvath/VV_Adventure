@@ -152,6 +152,11 @@ public class AssetSetter {
 		int mapNum = 0;
 		int i =0;
 		
+		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*45;
+		gp.monster[mapNum][i].worldY = gp.tileSize*67;
+		i++;
+		
 //		gp.monster[mapNum][i] = new Zombie(gp);
 //		gp.monster[mapNum][i].worldX = gp.tileSize*42;
 //		gp.monster[mapNum][i].worldY = gp.tileSize*65;
@@ -201,10 +206,7 @@ public class AssetSetter {
 		gp.monster[mapNum][i].worldY = gp.tileSize*50;
 		i++;
 		
-		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*45;
-		gp.monster[mapNum][i].worldY = gp.tileSize*67;
-		i++;
+		
 		
 		mapNum = 4;
 		i = 0;

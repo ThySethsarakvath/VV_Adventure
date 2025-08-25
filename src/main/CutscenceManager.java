@@ -143,6 +143,7 @@ public class CutscenceManager {
 	public void scence_Ending() {
 		if(scencePhase == 0) {
 			gp.stopMusic();
+			gp.playSE(25);
 			scencePhase++;
 		}
 		if(scencePhase == 1) {
