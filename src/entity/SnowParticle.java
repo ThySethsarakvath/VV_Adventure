@@ -33,7 +33,21 @@ public class SnowParticle extends Entity {
         
         alive = true;
     }
-    
+
+    public int getSize() { return size; }
+    public float getOpacity() { return opacity; }
+    public float getWind() { return wind; }
+    public Random getRandom() { return random; }
+
+    public void setSize(int size) { this.size = size; }
+    public void setOpacity(float opacity) { this.opacity = opacity; }
+    public void setWind(float wind) { 
+        if(wind < 0){
+            this.wind = wind; 
+        }
+    }
+    public void setRandom(Random random) { this.random = random; }
+
     public void update() {
         // Move downward with gravity effect
         worldY += speed;
