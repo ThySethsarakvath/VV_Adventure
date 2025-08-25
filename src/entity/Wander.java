@@ -39,8 +39,8 @@ public class Wander extends Entity {
         // Set all directions to use the same sprites since he doesn't move
         up1 = down1;
         up2 = down2;
-        down1 = down1; 
-        down2 = down2;
+        // down1 = down1; 
+        // down2 = down2;
         left1 = down1;
         left2 = down2;
         right1 = down1;
