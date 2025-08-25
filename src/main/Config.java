@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Config {
+public class Config implements Configurable{
 
 	GamePanel gp;
 	
