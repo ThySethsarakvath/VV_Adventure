@@ -114,6 +114,11 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldX = 16 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
+
+		gp.obj[mapNum][i] = new OBJ_Chest(gp,new OBJ_Icekey(gp));
+		gp.obj[mapNum][i].worldX = 79 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
+		i++;
 		
 		// Final Map
 		mapNum = 4;
@@ -207,6 +212,23 @@ public class AssetSetter {
 		gp.monster[mapNum][i].worldX = gp.tileSize*36;
 		gp.monster[mapNum][i].worldY = gp.tileSize*57;
 		i++;
+
+		// FIRE MAP
+		mapNum = 3;
+		i = 0;
+		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*50;
+		gp.monster[mapNum][i].worldY = gp.tileSize*51;
+		i++;
+		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*60;
+		gp.monster[mapNum][i].worldY = gp.tileSize*51;
+		i++;
+		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize*70;
+		gp.monster[mapNum][i].worldY = gp.tileSize*51;
+		i++;
+
 		if(Progress.GolemDefeated) {
 			
 		}
