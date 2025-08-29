@@ -456,79 +456,76 @@ public class Entity {
 	}
 
 	public void attacking() {
-		if (spriteNum == 2 && !attackSoundPlayed) {
-			if (this.name != null && this.name.equals("Ice Golem")) {
-				gp.playSE(23);
-			} else {
-				gp.playSE(3);
-			}
+	    if (spriteNum == 2 && !attackSoundPlayed) {
+	        if (this.name != null && this.name.equals("Ice Golem")) {
+	            gp.playSE(23);
+	        } else {
+	            gp.playSE(3);
+	        }
+	        attackSoundPlayed = true;
+	    }
 
-			attackSoundPlayed = true;
-		}
+	    spriteCounter++;
 
-		spriteCounter++;
+	    if (spriteCounter <= motion1_duration) {
+	        spriteNum = 1;
+	    }
+	    if (spriteCounter > motion1_duration && spriteCounter <= motion2_duration) {
+	        spriteNum = 2;
 
-		if (spriteCounter <= motion1_duration) {
-			spriteNum = 1;
-		}
-		if (spriteCounter > motion1_duration && spriteCounter <= motion2_duration) {
-			spriteNum = 2;
+	        // Save the current WorldX,Y, solidArea
+	        int currentX = worldX;
+	        int currentY = worldY;
+	        int solidAreaWidth = solidArea.width;
+	        int solidAreaHeight = solidArea.height;
 
-			// Save the current WorldX,Y, solidArea
-			int currentX = worldX;
-			int currentY = worldY;
-			int solidAreaWidth = solidArea.width;
-			int solidAreaHeight = solidArea.height;
+	        // Adjust players world X,Y for attack Area
+	        switch (direction) {
+	        case "up":
+	            worldY -= attackArea.height;
+	            break;
+	        case "down":
+	            worldY += attackArea.height; // FIXED: was attackArea.width
+	            break;
+	        case "left":
+	            worldX -= attackArea.width;
+	            break;
+	        case "right":
+	            worldX += attackArea.width; // FIXED: was attackArea.height
+	            break;
+	        }
+	        
+	        // attack area become solid area
+	        solidArea.width = attackArea.width;
+	        solidArea.height = attackArea.height;
 
-			// Adjust players world X,Y for attack Area
-			switch (direction) {
-			case "up":
-				worldY -= attackArea.height;
-				break;
-			case "down":
-				worldY += attackArea.width;
-				break;
+	        if (type == type_skeleton || type == type_zombie || type == type_boss) {
+	            if (gp.cChecker.checkPlayer(this) == true) {
+	                damagePlayer(attack);
+	            }
+	        } else {
+	            // Check monster collision with the attack area
+	            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+	            gp.player.damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
 
-			case "left":
-				worldX -= attackArea.width;
-				break;
-			case "right":
-				worldX += attackArea.height;
-				break;
-			}
-			// attack area become solid area
-			solidArea.width = attackArea.width;
-			solidArea.height = attackArea.height;
+	            int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
+	            gp.player.damageInteractiveTile(iTileIndex);
 
-			if (type == type_skeleton || type == type_zombie || type == type_boss) {
+	            int proIndex = gp.cChecker.checkEntity(this, gp.projectile);
+	            gp.player.damageProjectile(proIndex);
+	        }
 
-				if (gp.cChecker.checkPlayer(this) == true) {
-					damagePlayer(attack);
-				}
-			} else {
-				// Check monster collision with the attack area
-				int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-				gp.player.damageMonster(monsterIndex, this, attack, currentWeapon.knockBackPower);
-
-				int iTileIndex = gp.cChecker.checkEntity(this, gp.iTile);
-				gp.player.damageInteractiveTile(iTileIndex);
-
-				int proIndex = gp.cChecker.checkEntity(this, gp.projectile);
-				gp.player.damageProjectile(proIndex);
-			}
-
-			worldX = currentX;
-			worldY = currentY;
-			solidArea.width = solidAreaWidth;
-			solidArea.height = attackArea.height;
-
-		}
-		if (spriteCounter > motion2_duration) {
-			spriteNum = 1;
-			spriteCounter = 0;
-			attacking = false;
-			attackSoundPlayed = false;
-		}
+	        worldX = currentX;
+	        worldY = currentY;
+	        solidArea.width = solidAreaWidth;
+	        solidArea.height = solidAreaHeight; // FIXED: was attackArea.height
+	    }
+	    if (spriteCounter > motion2_duration) {
+	        spriteNum = 1;
+	        spriteCounter = 0;
+	        attacking = false;
+	        attackSoundPlayed = false;
+	    }
 	}
 
 	// In Entity.java - replace the entire update() method with this:
@@ -674,132 +671,158 @@ public class Entity {
 	}
 
 	public void draw(Graphics2D g2) {
-		if (!alive)
-			return;
+	    if (!alive)
+	        return;
 
-		BufferedImage image = null;
+	    BufferedImage image = null;
 
-		if (inCamera() == true) {
+	    if (inCamera() == true) {
 
-			int tempScreenX = getScreenX();
-			int tempScreenY = getScreenY();
+	        int tempScreenX = getScreenX();
+	        int tempScreenY = getScreenY();
 
-//			boolean moving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
+	        switch (direction) {
+	        case "up":
+	            if (attacking == false) {
+	                if (spriteNum == 1) {
+	                    image = up1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = up2;
+	                }
+	                if (spriteNum == 3) {
+	                    image = upStand;
+	                }
+	            }
+	            if (attacking == true) {
+	                // For large entities like Ice Golem, adjust positioning based on entity size
+	                if (name != null && name.equals("Ice Golem")) {
+	                    // Ice Golem is 5x5 tiles, so we need different positioning
+	                	tempScreenY = getScreenY() - (aUp1.getHeight() - gp.tileSize) / 2; // Adjust for attack sprite height difference
+	                } else {
+	                    // Normal entities (1x1 tile)
+	                    tempScreenY = getScreenY() - (aUp1.getHeight() - gp.tileSize) / 2;
+	                }
+	                if (spriteNum == 1) {
+	                    image = aUp1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = aUp2;
+	                }
+	            }
+	            break;
+	        case "down":
+	            if (attacking == false) {
+	                if (spriteNum == 1) {
+	                    image = down1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = down2;
+	                }
+	                if (spriteNum == 3) {
+	                    image = downStand;
+	                }
+	            }
+	            if (attacking == true) {
+	                // For Ice Golem, keep the Y position the same since attack sprite extends downward
+	                if (name != null && name.equals("Ice Golem")) {
+	                    // No Y adjustment needed for downward attack
+	                    tempScreenY = getScreenY();
+	                } else {
+	                    // Normal entities
+	                    tempScreenY = getScreenY() - (aDown1.getHeight() - gp.tileSize) / 2;
+	                }
+	                if (spriteNum == 1) {
+	                    image = aDown1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = aDown2;
+	                }
+	            }
+	            break;
+	        case "left":
+	            if (attacking == false) {
+	                if (spriteNum == 1) {
+	                    image = left1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = left2;
+	                }
+	                if (spriteNum == 3) {
+	                    image = leftStand;
+	                }
+	            }
+	            if (attacking == true) {
+	                // For Ice Golem, adjust X positioning
+	                if (name != null && name.equals("Ice Golem")) {
+	                    // Ice Golem is 5x5 tiles, attack sprite extends leftward
+	                    tempScreenX = getScreenX() - gp.tileSize * 5; // Adjust for 5-tile width attack sprite
+	                } else {
+	                    // Normal entities
+	                    tempScreenX = getScreenX() - (aLeft1.getWidth() - gp.tileSize) / 2;
+	                }
+	                if (spriteNum == 1) {
+	                    image = aLeft1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = aLeft2;
+	                }
+	            }
+	            break;
+	        case "right":
+	            if (attacking == false) {
+	                if (spriteNum == 1) {
+	                    image = right1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = right2;
+	                }
+	                if (spriteNum == 3) {
+	                    image = rightStand;
+	                }
+	            }
+	            if (attacking == true) {
+	                // For Ice Golem, keep X position the same since attack sprite extends rightward
+	                if (name != null && name.equals("Ice Golem")) {
+	                    // No X adjustment needed for rightward attack
+	                    tempScreenX = getScreenX();
+	                } else {
+	                    // Normal entities
+	                    tempScreenX = getScreenX() - (aRight1.getWidth() - gp.tileSize) / 2;
+	                }
+	                if (spriteNum == 1) {
+	                    image = aRight1;
+	                }
+	                if (spriteNum == 2) {
+	                    image = aRight2;
+	                }
+	            }
+	            break;
+	        }
 
-			switch (direction) {
-			case "up":
-				if (attacking == false) {
-					if (spriteNum == 1) {
-						image = up1;
-					}
-					if (spriteNum == 2) {
-						image = up2;
-					}
-					if (spriteNum == 3) {
-						image = upStand;
-					}
-				}
-				if (attacking == true) {
-					tempScreenY = getScreenY() - (aUp1.getHeight() - gp.tileSize) / 2;
-					if (spriteNum == 1) {
-						image = aUp1;
-					}
-					if (spriteNum == 2) {
-						image = aUp2;
-					}
-				}
-				break;
-			case "down":
-				if (attacking == false) {
-					if (spriteNum == 1) {
-						image = down1;
-					}
-					if (spriteNum == 2) {
-						image = down2;
-					}
-					if (spriteNum == 3) {
-						image = downStand;
-					}
-				}
-				if (attacking == true) {
-					tempScreenY = getScreenY() - (aDown1.getHeight() - gp.tileSize) / 2;
-					if (spriteNum == 1) {
-						image = aDown1;
-					}
-					if (spriteNum == 2) {
-						image = aDown2;
-					}
-				}
-				break;
-			case "left":
-				if (attacking == false) {
-					if (spriteNum == 1) {
-						image = left1;
-					}
-					if (spriteNum == 2) {
-						image = left2;
-					}
-					if (spriteNum == 3) {
-						image = leftStand;
-					}
-				}
-				if (attacking == true) {
-					tempScreenX = getScreenX() - (aLeft1.getWidth() - gp.tileSize) / 2;
-					if (spriteNum == 1) {
-						image = aLeft1;
-					}
-					if (spriteNum == 2) {
-						image = aLeft2;
-					}
-				}
-				break;
-			case "right":
-				if (attacking == false) {
-					if (spriteNum == 1) {
-						image = right1;
-					}
-					if (spriteNum == 2) {
-						image = right2;
-					}
-					if (spriteNum == 3) {
-						image = rightStand;
-					}
-				}
-				if (attacking == true) {
-					tempScreenX = getScreenX() - (aRight1.getWidth() - gp.tileSize) / 2;
-					if (spriteNum == 1) {
-						image = aRight1;
-					}
-					if (spriteNum == 2) {
-						image = aRight2;
-					}
-				}
-				break;
-			}
+	        // Image transparent when receive damage
+	        if (invincible == true) {
+	            hpBarOn = true;
+	            hpBarCounter = 0;
+	            changeAlpha(g2, 0.5f);
+	        }
 
-			// Image transparent when receive damage
-			if (invincible == true) {
-				hpBarOn = true;
-				hpBarCounter = 0;
-				changeAlpha(g2, 0.5f);
-			}
+	        if (die == true) {
+	            deadAnimation(g2);
+	        }
 
-			if (die == true) {
-				deadAnimation(g2);
-			}
+	        g2.drawImage(image, tempScreenX, tempScreenY, null);
 
-			g2.drawImage(image, tempScreenX, tempScreenY, null);
+	        // Reset Alpha
+	        changeAlpha(g2, 1f);
+	    }
 
-			// Reset Alpha
-			changeAlpha(g2, 1f);
-		}
-
-		// solid area debugging
-//		g2.setColor(Color.RED);
-//	    g2.drawRect(screenX + solidArea.x, 
-//	                screenY + solidArea.y, 
-//	                solidArea.width, 
-//	                solidArea.height);
+	    // solid area debugging
+//			g2.setColor(Color.RED);
+//		    g2.drawRect(screenX + solidArea.x, 
+//		                screenY + solidArea.y, 
+//		                solidArea.width, 
+//		                solidArea.height);
 	}
 
 	public void deadAnimation(Graphics2D g2) {

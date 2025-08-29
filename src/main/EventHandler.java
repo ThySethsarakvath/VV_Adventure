@@ -166,11 +166,11 @@ public class EventHandler {
 	}
 	
 	public void Golem() {
-		
-		if(gp.bossBattleOn == false && Progress.GolemDefeated == false) {
-			gp.gameState = gp.cutscenceState;
-			gp.csManager.scenceNum = gp.csManager.Golem;
-		}
+	    // Only trigger if boss battle is not already on AND boss is not defeated
+	    if(gp.bossBattleOn == false && Progress.GolemDefeated == false) {
+	        gp.gameState = gp.cutscenceState;
+	        gp.csManager.scenceNum = gp.csManager.Golem;
+	    }
 	}
 	public void Ending() {
 	    if (Progress.GolemDefeated) { // Optional: only trigger if boss is defeated

@@ -21,7 +21,7 @@ public class Zombie extends Entity {
         speed = defaultSpeed;
         maxLife = 6;
         life = maxLife;
-        attack = 1;
+        attack = 2;
         defense = 0;
         
         solidArea.x = 8;

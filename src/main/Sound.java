@@ -43,6 +43,9 @@ public class Sound {
         soundURL[23] = getClass().getResource("/sound/Golem_damage.wav");
         soundURL[24] = getClass().getResource("/sound/Sheild.wav");
         soundURL[25] = getClass().getResource("/sound/victory.wav");
+        soundURL[26] = getClass().getResource("/sound/gameover.wav");
+        soundURL[27] = getClass().getResource("/sound/dungeon.wav");
+        soundURL[28] = getClass().getResource("/sound/bossfight.wav");
 
 
     }

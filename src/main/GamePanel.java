@@ -149,25 +149,34 @@ public class GamePanel extends JPanel implements Runnable {
 	public void retry() {
 
 		music.play();
+		currentMap = 0;
 		player.setDefaultPositions();
 		player.restoreLife();
 		aSetter.setNpc();
 		aSetter.setMonster();
-
+		bossBattleOn = false;
+		removeBossDoor();
+	    stopMusic();
+	    playMusic(0);
 	}
 
 	public void restart() {
 
 		removeTempEntity();
+		removeBossDoor();
 		bossBattleOn = false;
+		currentMap =0;
 		player.setDefaultValues();
 		player.setDefaultPositions();
 		player.restoreLife();
-//		player.setItems(); when we have inventory
+		player.setItems();
 		aSetter.setNpc();
 		aSetter.setMonster();
-//		aSetter.setInteractiveTile(); Future version
-
+		aSetter.setInteractiveTile();
+		
+		Progress.GolemDefeated = false;
+		stopMusic();
+		playMusic(0);
 	}
 
 	public void setFullScreen() {
@@ -507,7 +516,7 @@ public class GamePanel extends JPanel implements Runnable {
 			
 			if(nextArea == outside) {
 				// Outside music
-//				playMusic(0);
+				playMusic(0);
 			}
 			
 			if(nextArea == indoor) {
@@ -517,7 +526,7 @@ public class GamePanel extends JPanel implements Runnable {
 			
 			if(nextArea == dungeon) {
 				// Dungeon music
-//				playMusic(0);
+				playMusic(27);
 			}
 		}
 		currentArea = nextArea;
@@ -533,5 +542,15 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		}
+	}
+	
+	public void removeBossDoor() {
+	    for (int mapNum = 0; mapNum < maxMap; mapNum++) {
+	        for (int i = 0; i < obj[1].length; i++) {
+	            if (obj[mapNum][i] != null && obj[mapNum][i].temp == true) {
+	                obj[mapNum][i] = null;
+	            }
+	        }
+	    }
 	}
 }

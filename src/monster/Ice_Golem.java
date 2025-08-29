@@ -139,34 +139,60 @@ public class Ice_Golem extends Entity {
 		actionLockCounter = 0;
 	}
 
-	public void checkDrop() {
-		
-		gp.bossBattleOn = false;
-		Progress.GolemDefeated = true;
-//		gp.playMusic(0);
-		
-		// remove door
-		for(int i=0;i<gp.obj[1].length;i++) {
-			if(gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals(OBJ_Door.objName)) {
-				
-//				gp.playSE();
-				gp.obj[gp.currentMap][i] = null;
-			}
-		}
-		// cast a die
-		int i = new Random().nextInt(100) + 1;
-
-		// set dropping
-		if (i < 50) {
-			dropItem(new OBJ_Emerald(gp));
-		}
-		if (i >= 50 && i < 75) {
-			dropItem(new OBJ_Firecharge(gp));
-		}
-		if (i >= 75 && i < 100) {
-			dropItem(new OBJ_healingP(gp));
-		}
+	// Add this method to reset the boss state
+	public void resetBoss() {
+	    life = maxLife;
+	    alive = true;
+	    die = false;
+	    sleep = true;
+	    inRange = false;
+	    attacking = false;
+	    onPath = false;
+	    knockBack = false;
+	    invincible = false;
+	    
+	    // Reset images to non-enraged state
+	    getImage();
+	    getAttackImage();
+	    
+	    // Reset speed and attack
+	    defaultSpeed = 1;
+	    speed = defaultSpeed;
+	    attack = 10;
 	}
+
+	public void checkDrop() {
+	    // Only proceed if the boss was actually defeated by the player
+	    if (life <= 0) {
+	        gp.bossBattleOn = false;
+	        Progress.GolemDefeated = true;
+	        gp.stopMusic();
+	        gp.playMusic(27); // Only play this if boss is actually defeated
+	        
+	        // remove door
+	        for(int i=0;i<gp.obj[1].length;i++) {
+	            if(gp.obj[gp.currentMap][i] != null && gp.obj[gp.currentMap][i].name.equals(OBJ_Door.objName) && gp.obj[gp.currentMap][i].temp) {
+	                gp.playSE(16);
+	                gp.obj[gp.currentMap][i] = null;
+	            }
+	        }
+	        
+	        // cast a die
+	        int i = new Random().nextInt(100) + 1;
+
+	        // set dropping
+	        if (i < 50) {
+	            dropItem(new OBJ_Emerald(gp));
+	        }
+	        if (i >= 50 && i < 75) {
+	            dropItem(new OBJ_Firecharge(gp));
+	        }
+	        if (i >= 75 && i < 100) {
+	            dropItem(new OBJ_healingP(gp));
+	        }
+	    }
+	}
+	
 	public void setDialogue() {
 		dialogues[0] = "You have come so far huh?";
 		dialogues[1] = "HEHEHE.....";

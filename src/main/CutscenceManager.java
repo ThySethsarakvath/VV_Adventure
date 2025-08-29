@@ -37,6 +37,15 @@ public class CutscenceManager {
 	}
 	
 	public void scence_Golem() {
+		
+		if (gp.player.life <= 0) {
+	        scenceNum = NA;
+	        scencePhase = 0;
+	        gp.gameState = gp.playState;
+	        gp.bossBattleOn = false;
+	        return;
+	    }
+		
 	    if(scencePhase == 0) {
 	        gp.bossBattleOn = true;
 	        for(int i = 0; i< gp.obj[1].length ;i++) {
@@ -137,7 +146,7 @@ public class CutscenceManager {
 	        gp.gameState = gp.playState;
 	        
 	        gp.stopMusic();
-//	        gp.playMusic(0);
+	        gp.playMusic(28);
 	    }
 	}
 	public void scence_Ending() {

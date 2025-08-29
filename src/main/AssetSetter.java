@@ -26,150 +26,150 @@ import tile_interactive.IT_DryTree;
 public class AssetSetter {
 
 	GamePanel gp;
-	
+
 	public AssetSetter(GamePanel gp) {
 		this.gp = gp;
 	}
-	
+
 	public void setObject() {
-		
+
 		int mapNum = 0;
-		int i = 0 ;
-		
+		int i = 0;
+
 		// Over world
 		gp.obj[mapNum][i] = new OBJ_Axe(gp);
 		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 64 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_Lantern(gp);
 		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_Tent(gp);
 		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_Tent(gp);
 		gp.obj[mapNum][i].worldX = 33 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_WoodenSword(gp);
 		gp.obj[mapNum][i].worldX = 30 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 91 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 152 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
 		i++;
-		
+
 		// Final Boss Portal
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 89 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 96 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_GateIce(gp);
 		gp.obj[mapNum][i].worldX = 36 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 91 * gp.tileSize;
 		i++;
-		
+
 		gp.obj[mapNum][i] = new OBJ_GateFire(gp);
 		gp.obj[mapNum][i].worldX = 150 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
 		i++;
-		
-		gp.obj[mapNum][i] = new OBJ_Chest(gp,new OBJ_Icekey(gp));
+
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Icekey(gp));
 		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
 		i++;
-		
+
 		// Ice Map
 		mapNum = 2;
-		i=0;
-		
+		i = 0;
+
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 82 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
 
-		gp.obj[mapNum][i] = new OBJ_Chest(gp,new OBJ_Icekey(gp));
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Icekey(gp));
 		gp.obj[mapNum][i].worldX = 14 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
-		
+
 		// Nether Map
 		mapNum = 3;
-		i=0;
+		i = 0;
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 16 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
 
-		gp.obj[mapNum][i] = new OBJ_Chest(gp,new OBJ_Icekey(gp));
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Icekey(gp));
 		gp.obj[mapNum][i].worldX = 79 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
-		
+
 		// Final Map
 		mapNum = 4;
-		i= 0;
+		i = 0;
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 13 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 97 * gp.tileSize;
 		i++;
 	}
-	
+
 	public void setNpc() {
-		
+
 		int mapNum = 0;
 		int i = 0;
-		
+
 		gp.npc[mapNum][i] = new Npc(gp);
-		gp.npc[mapNum][i].worldX = gp.tileSize*49;
-		gp.npc[mapNum][i].worldY = gp.tileSize*63;
+		gp.npc[mapNum][i].worldX = gp.tileSize * 49;
+		gp.npc[mapNum][i].worldY = gp.tileSize * 63;
 		i++;
-		
-		mapNum =1;
-		i=0;
+
+		mapNum = 1;
+		i = 0;
 		gp.npc[mapNum][i] = new Wander(gp);
-		gp.npc[mapNum][i].worldX = gp.tileSize*30;
-		gp.npc[mapNum][i].worldY = gp.tileSize*23;
+		gp.npc[mapNum][i].worldX = gp.tileSize * 30;
+		gp.npc[mapNum][i].worldY = gp.tileSize * 23;
 		i++;
 	}
-	
+
 	public void setMonster() {
-		
+
 		int mapNum = 0;
-		int i =0;
-		
+		int i = 0;
+
 //		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
 //		gp.monster[mapNum][i].worldX = gp.tileSize*45;
 //		gp.monster[mapNum][i].worldY = gp.tileSize*67;
 //		i++;
-		
+
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*42;
-		gp.monster[mapNum][i].worldY = gp.tileSize*65;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 42;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 65;
 		i++;
-		
+
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*43;
-		gp.monster[mapNum][i].worldY = gp.tileSize*65;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 43;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 65;
 		i++;
 //		
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*44;
-		gp.monster[mapNum][i].worldY = gp.tileSize*65;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 44;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 65;
 		i++;
 //		
 //		gp.monster[mapNum][i] = new Skeleton(gp);
@@ -181,7 +181,7 @@ public class AssetSetter {
 //		gp.monster[mapNum][i].worldX = gp.tileSize*43;
 //		gp.monster[mapNum][i].worldY = gp.tileSize*66;
 //		i++;
-		
+
 //		gp.monster[mapNum][i] = new Skeleton(gp);
 //		gp.monster[mapNum][i].worldX = gp.tileSize*44;
 //		gp.monster[mapNum][i].worldY = gp.tileSize*66;
@@ -192,55 +192,64 @@ public class AssetSetter {
 		i = 0;
 
 		gp.monster[mapNum][i] = new Skeleton(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*44;
-		gp.monster[mapNum][i].worldY = gp.tileSize*50;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 44;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 50;
 		i++;
 
 		gp.monster[mapNum][i] = new Skeleton(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*50;
-		gp.monster[mapNum][i].worldY = gp.tileSize*50;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 50;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 50;
 		i++;
 
 		gp.monster[mapNum][i] = new Skeleton(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*55;
-		gp.monster[mapNum][i].worldY = gp.tileSize*50;
-		i++;
-		
-		
-		
-		mapNum = 4;
-		i = 0;
-		gp.monster[mapNum][i] = new Ice_Golem(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*36;
-		gp.monster[mapNum][i].worldY = gp.tileSize*57;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 55;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 50;
 		i++;
 
 		// FIRE MAP
 		mapNum = 3;
 		i = 0;
 		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*50;
-		gp.monster[mapNum][i].worldY = gp.tileSize*51;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 50;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
 		i++;
 		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*60;
-		gp.monster[mapNum][i].worldY = gp.tileSize*51;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 60;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
 		i++;
 		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize*70;
-		gp.monster[mapNum][i].worldY = gp.tileSize*51;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 70;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
 		i++;
 
-		if(Progress.GolemDefeated) {
-			
-		}
-	}
-	
-	public void setInteractiveTile() {
+		mapNum = 4;
+		i = 0;
 		
+		if (!Progress.GolemDefeated) {
+			gp.monster[mapNum][i] = new Ice_Golem(gp);
+			gp.monster[mapNum][i].worldX = gp.tileSize * 36;
+			gp.monster[mapNum][i].worldY = gp.tileSize * 57;
+			i++;
+		}
+		
+		
+		for (int map = 0; map < gp.maxMap; map++) {
+	        for (int j = 0; j < gp.monster[map].length; j++) {
+	            if (gp.monster[map][j] != null && 
+	                gp.monster[map][j].name.equals(Ice_Golem.monName)) {
+	                
+	                Ice_Golem golem = (Ice_Golem) gp.monster[map][j];
+	                golem.resetBoss();
+	            }
+	        }
+	    }	
+	}
+
+	public void setInteractiveTile() {
+
 		int mapNum = 0;
 		int i = 0;
-		
+
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 43, 54);
 		i++;
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 44, 54);
@@ -467,95 +476,7 @@ public class AssetSetter {
 		i++;
 		gp.iTile[mapNum][i] = new IT_DryTree(gp, 119, 120);
 		i++;
-
-		mapNum = 2;
-		i = 0;
-
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 43);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 33, 43);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 32, 42);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 41);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 40);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 39);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 30, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 29, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 28, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 27, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 26, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 25, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 24, 38);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 44);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 45);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 46);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 47);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 48);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 49);
-		i++;
-
-		// Centre 
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 50);
-		i++;
-
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 51);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 52);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 53);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 54);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 55);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 56);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 34, 57);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 33, 57);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 32, 58);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 59);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 60);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 61);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 31, 62);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 30, 62);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 29, 62);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 28, 62);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 27, 62);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 26, 62);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 25, 62);
-		i++;
-		gp.iTile[mapNum][i] = new IT_DryTree(gp, 24, 62);
-		i++;
+		
 	}
-	
+
 }

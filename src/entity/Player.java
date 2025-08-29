@@ -202,7 +202,7 @@ public class Player extends Entity {
 		gRight = setup("/player/Steve_right_guard", gp.tileSize, gp.tileSize);
 
 	}
-	
+
 	public void getSleepImage(BufferedImage image) {
 		up1 = image;
 		up2 = image;
@@ -235,18 +235,18 @@ public class Player extends Entity {
 				speed = defaultSpeed;
 			} else if (collisionOn == false) {
 				switch (knockBackDirection) {
-					case "up":
-						worldY -= speed;
-						break;
-					case "down":
-						worldY += speed;
-						break;
-					case "left":
-						worldX -= speed;
-						break;
-					case "right":
-						worldX += speed;
-						break;
+				case "up":
+					worldY -= speed;
+					break;
+				case "down":
+					worldY += speed;
+					break;
+				case "left":
+					worldX -= speed;
+					break;
+				case "right":
+					worldX += speed;
+					break;
 				}
 			}
 
@@ -262,7 +262,7 @@ public class Player extends Entity {
 		// Handle guarding state first
 		if (keyH.shiftPressed && !attacking) { // Can only guard if not attacking
 			guarding = true;
-			guardCounter ++;
+			guardCounter++;
 		} else {
 			guarding = false;
 		}
@@ -389,38 +389,38 @@ public class Player extends Entity {
 				invinCounter = 0;
 			}
 		}
-// 		if (life <= 0) {
-// 			gp.gameState = gp.gameOverState;
-// 			gp.music.stop();
-//  		gp.playSE(); For game over sound
-// 		}
+		if (life <= 0) {
+			gp.gameState = gp.gameOverState;
+			gp.music.stop();
+			gp.playSE(26);
+		}
 	}
 
 	public void pickUpObject(int i) {
-	    if (i != -1) {
-	        Entity object = gp.obj[gp.currentMap][i];
-	        
-	        if (object.type == type_portal) {
-	            return;  // Skip decorative objects entirely
-	        } else if(object.type == type_pickup) {
-	            // Play sound and use the item
-	            if (canObtainItem(object)) {
-	                gp.playSE(8);
-	                object.use(this);
-	            }
-	            gp.obj[gp.currentMap][i] = null;
-	        } else if(object.type == type_obstacle) {
-	            if(keyH.enterPressed == true) {
-	                object.interact();
-	            }
-	        } else {
-	            // For all other collectible items (including emeralds)
-	            if (canObtainItem(object)) {
-	                gp.playSE(8);  // Play collection sound
-	            }
-	            gp.obj[gp.currentMap][i] = null;
-	        }
-	    }
+		if (i != -1) {
+			Entity object = gp.obj[gp.currentMap][i];
+
+			if (object.type == type_portal) {
+				return; // Skip decorative objects entirely
+			} else if (object.type == type_pickup) {
+				// Play sound and use the item
+				if (canObtainItem(object)) {
+					gp.playSE(8);
+					object.use(this);
+				}
+				gp.obj[gp.currentMap][i] = null;
+			} else if (object.type == type_obstacle) {
+				if (keyH.enterPressed == true) {
+					object.interact();
+				}
+			} else {
+				// For all other collectible items (including emeralds)
+				if (canObtainItem(object)) {
+					gp.playSE(8); // Play collection sound
+				}
+				gp.obj[gp.currentMap][i] = null;
+			}
+		}
 	}
 
 	public void interactNpc(int i) {
@@ -478,7 +478,7 @@ public class Player extends Entity {
 					deathSound = 14;
 					break;
 				case type_boss:
-					hurtSound = new java.util.Random().nextInt(2) + 20; 
+					hurtSound = new java.util.Random().nextInt(2) + 20;
 					deathSound = 22;
 					break;
 				default:
@@ -492,7 +492,7 @@ public class Player extends Entity {
 					setKnockBack(monster, attacker, knockBackPower);
 				}
 
-				if(gp.monster[gp.currentMap][i].offBalance == true) {
+				if (gp.monster[gp.currentMap][i].offBalance == true) {
 					attack *= 5;
 				}
 
@@ -579,7 +579,7 @@ public class Player extends Entity {
 			}
 
 			if (selectedItem.type == type_consumable) {
-				if(selectedItem.use(this) == true) {
+				if (selectedItem.use(this) == true) {
 					if (selectedItem.amount > 1) {
 						selectedItem.amount--;
 					} else {
@@ -750,8 +750,8 @@ public class Player extends Entity {
 		if (transparent == true) {
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
 		}
-		
-		if(drawing == true) {
+
+		if (drawing == true) {
 			g2.drawImage(image, tempScreenX, tempScreenY, null);
 		}
 		// Reset Alpha
