@@ -81,6 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public Entity monster[][] = new Entity[maxMap][20];
 	public InteractiveTile iTile[][] = new InteractiveTile[maxMap][300];
 	public Entity projectile[][] = new Entity[maxMap][20];
+	public ArrayList<Entity> projectileList = new ArrayList<>();
 	public ArrayList<Entity> particleList = new ArrayList<>();
 	// This list store player npc obj
 	ArrayList<Entity> entityList = new ArrayList<>();
@@ -226,7 +227,7 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 
 			if (timer >= 1000000000) {
-//				System.out.println("FPS: "+ drawCount );
+				System.out.println("FPS: "+ drawCount );
 				drawCount = 0;
 				timer = 0;
 			}
@@ -259,6 +260,10 @@ public class GamePanel extends JPanel implements Runnable {
 	                        monster[currentMap][i].update();
 	                    }
 	                    if (monster[currentMap][i].alive == false) {
+	                        // Clear pathfinding before removing
+	                        if (monster[currentMap][i].onPath) {
+	                            pFinder.clearPath();
+	                        }
 	                        monster[currentMap][i].checkDrop();
 	                        monster[currentMap][i] = null;
 	                    }

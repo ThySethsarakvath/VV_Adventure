@@ -5,102 +5,130 @@ import java.util.Random;
 import entity.Entity;
 import main.GamePanel;
 import object.OBJ_Emerald;
-import object.OBJ_Fireball;
 import object.OBJ_Firecharge;
 import object.OBJ_healingP;
 
 public class Zombie extends Entity {
+    GamePanel gp;
+    
+    public Zombie(GamePanel gp) {
+        super(gp);
+        this.gp = gp;
+        
+        type = type_zombie;
+        name = "Zombie";
+        defaultSpeed = 1;
+        speed = defaultSpeed;
+        maxLife = 6;
+        life = maxLife;
+        attack = 1;
+        defense = 0;
+        
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
 
-	GamePanel gp;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        getImage();
+    }
+    
+    public void getImage() {
+        up1 = setup("/monster/zombie_up1", gp.tileSize, gp.tileSize);
+        up2 = setup("/monster/zombie_up2", gp.tileSize, gp.tileSize);
+        down1 = setup("/monster/zombie_down1", gp.tileSize, gp.tileSize);
+        down2 = setup("/monster/zombie_down2", gp.tileSize, gp.tileSize);
+        left1 = setup("/monster/zombie_left1", gp.tileSize, gp.tileSize);
+        left2 = setup("/monster/zombie_left2", gp.tileSize, gp.tileSize);
+        right1 = setup("/monster/zombie_right1", gp.tileSize, gp.tileSize);
+        right2 = setup("/monster/zombie_right2", gp.tileSize, gp.tileSize);
+        upStand = setup("/monster/zombie_up", gp.tileSize, gp.tileSize);
+        downStand = setup("/monster/zombie_down", gp.tileSize, gp.tileSize);
+        leftStand = setup("/monster/zombie_left", gp.tileSize, gp.tileSize);
+        rightStand = setup("/monster/zombie_right", gp.tileSize, gp.tileSize);
+    }
+    
+    public void setAction() {
+        // Don't calculate actions if dead, dying, or in knockback
+        if (!alive || die || knockBack) {
+            return;
+        }
+        
+        int tileDist = getTileDistance(gp.player);
+        
+        // Simple chasing logic - if player is close, chase them
+        if (tileDist < 8) {
+            onPath = true;
+            
+            // Get player's position
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+            
+            // Search path to player
+            searchPath(goalCol, goalRow);
+            
+            // If pathfinding fails, use simple movement
+            if (gp.pFinder.pathList == null || gp.pFinder.pathList.isEmpty()) {
+                moveTowardPlayer(30);
+            }
+        } else {
+            onPath = false;
+            // Random movement when player is far
+            getRandomDirection(120);
+        }
+    }
+    
+    public void damageReaction() {
+        actionLockCounter = 0;
+        // Always try to chase when hit
+        onPath = true;
+    }
+    
+    // Simple movement toward player without pathfinding
+    public void moveTowardPlayer(int interval) {
+        actionLockCounter++;
+        
+        if(actionLockCounter > interval) {
+            // Simple direction calculation based on player position
+            if(Math.abs(gp.player.worldX - worldX) > Math.abs(gp.player.worldY - worldY)) {
+                if(gp.player.worldX < worldX) {
+                    direction = "left";
+                } else {
+                    direction = "right";
+                }
+            } else {
+                if(gp.player.worldY < worldY) {
+                    direction = "up";
+                } else {
+                    direction = "down";
+                }
+            }
+            actionLockCounter = 0;
+        }
+    }
+    
+    public void checkDrop() {
+        int i = new Random().nextInt(100) + 1;
+        
+        if (i < 50) {
+            dropItem(new OBJ_Emerald(gp));
+        } else if (i < 75) {
+            dropItem(new OBJ_Firecharge(gp));
+        } else {
+            dropItem(new OBJ_healingP(gp));
+        }
+    }
+    
+    // Override to ensure proper behavior after knockback
+    @Override
+    public void setKnockBack(Entity target, Entity attacker, int knockBackPower) {
+        super.setKnockBack(target, attacker, knockBackPower);
+        // Clear any pathfinding when knocked back
+        if (gp.pFinder.pathList != null) {
+            gp.pFinder.pathList.clear();
+        }
+        onPath = false;
+    }
 
-	public Zombie(GamePanel gp) {
-		super(gp);
-		this.gp = gp;
-		
-
-		type = type_zombie;
-		name = "Zombie";
-		defaultSpeed = 1;
-		speed = defaultSpeed;
-		maxLife = 6;
-		life = maxLife;
-		attack = 2;
-//		pro = new OBJ_Fireball(gp);
-
-		solidArea.x = 8; // X-offset within zombie sprite
-		solidArea.y = 16; // Y-offset
-		solidArea.width = 32; // Hitbox width
-		solidArea.height = 32; // Hitbox height
-
-		solidAreaDefaultX = solidArea.x;
-		solidAreaDefaultY = solidArea.y;
-		getImage();
-	}
-
-	public void getImage() {
-
-		up1 = setup("/monster/zombie_up1", gp.tileSize, gp.tileSize);
-		up2 = setup("/monster/zombie_up2", gp.tileSize, gp.tileSize);
-		down1 = setup("/monster/zombie_down1", gp.tileSize, gp.tileSize);
-		down2 = setup("/monster/zombie_down2", gp.tileSize, gp.tileSize);
-		left1 = setup("/monster/zombie_left1", gp.tileSize, gp.tileSize);
-		left2 = setup("/monster/zombie_left2", gp.tileSize, gp.tileSize);
-		right1 = setup("/monster/zombie_right1", gp.tileSize, gp.tileSize);
-		right2 = setup("/monster/zombie_right2", gp.tileSize, gp.tileSize);
-		upStand = setup("/monster/zombie_up", gp.tileSize, gp.tileSize);
-		downStand = setup("/monster/zombie_down", gp.tileSize, gp.tileSize);
-		leftStand = setup("/monster/zombie_left", gp.tileSize, gp.tileSize);
-		rightStand = setup("/monster/zombie_right", gp.tileSize, gp.tileSize);
-
-	}
-
-	public void setAction() {
-
-		boolean contactPlayer = gp.cChecker.checkPlayer(this);
-
-		if (contactPlayer && shotCounter >= 30 && !gp.player.invincible) {
-			damagePlayer(attack);
-			shotCounter = 0;
-		}
-
-		if (onPath == true) {
-			
-			checkStopChasingOrNot(gp.player,15,100);
-			
-			checkCollision();
-			if (collisionOn) {
-				gp.pFinder.pathList.clear();
-				searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
-			} else {
-				searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
-			}
-		} else {
-			checkStartChasingOrNot(gp.player,5,100);
-			getRandomDirection(120);
-			}
-			
-		}
-	
-
-	public void damageReaction() {
-
-		actionLockCounter = 0;
-		onPath = true;
-	}
-
-	public void checkDrop() {
-		// cast a die
-		int i = new Random().nextInt(100) + 1;
-
-		// set dropping
-		if (i < 50) {
-			dropItem(new OBJ_Emerald(gp));
-		}
-		if (i >= 50 && i < 75) {
-			dropItem(new OBJ_Firecharge(gp));
-		}
-		if (i >= 75 && i < 100) {
-			dropItem(new OBJ_healingP(gp));
-		}
-	}
 }

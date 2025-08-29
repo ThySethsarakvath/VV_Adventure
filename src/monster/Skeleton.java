@@ -12,10 +12,7 @@ import object.OBJ_healingP;
 public class Skeleton extends Entity {
 
     GamePanel gp;
-    private int pathRecalcCounter = 0;
-    private final int PATH_RECALC_COOLDOWN = 30;
-    private int attackCooldown = 0;
-    private final int ATTACK_COOLDOWN = 90; // 1.5 seconds at 60FPS
+    boolean lockedDirection = false;
 
     public Skeleton(GamePanel gp) {
         super(gp);
@@ -23,10 +20,11 @@ public class Skeleton extends Entity {
 
         type = type_skeleton;
         name = "Skeleton";
-        speed = 1;
+        defaultSpeed = 1;
+        speed = defaultSpeed;
         maxLife = 6;
         life = maxLife;
-        attack = 2;
+        pro = new OBJ_Arrow(gp);
 
         solidArea.x = 8;
         solidArea.y = 16;
@@ -67,141 +65,179 @@ public class Skeleton extends Entity {
 
     @Override
     public void update() {
-        super.update();
-
-        
-
-        if (attacking) {
-            attackAnimation();
+        // Don't process if in knockback - let parent class handle it
+        if (knockBack) {
+            super.update();
             return;
         }
-     // Handle attack cooldown
-        if (attackCooldown > 0) {
-            attackCooldown--;
+
+        // Handle attack animation first if we're attacking
+        if (attacking) {
+            attackAnimation();
+        } else {
+            // Call parent update for normal behavior when not attacking
+            super.update();
         }
 
-        boolean contactPlayer = gp.cChecker.checkPlayer(this);
-        if (contactPlayer && shotCounter >= 30) {
-            damagePlayer(attack);
-            shotCounter = 0;
-        }
+        // Skeleton-specific logic (only if not attacking and not in knockback)
+        if (!attacking && !knockBack) {
+            boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-        int xDist = Math.abs(gp.player.worldX - worldX);
-        int yDist = Math.abs(gp.player.worldY - worldY);
-        int tileDist = (xDist + yDist) / gp.tileSize;
-
-        // Stop chasing if player is too far
-        if (tileDist > 15) {
-            onPath = false;
-            getRandomDirection(120);
-        }
-        // If player is within 7 tiles and attack cooldown is ready, shoot
-        else if (tileDist <= 7 && attackCooldown == 0) {
-            onPath = false;
-            gp.pFinder.pathList.clear();
-
-            // Face player
-            int yDistSigned = gp.player.worldY - worldY;
-            int xDistSigned = gp.player.worldX - worldX;
-            
-            if (Math.abs(yDistSigned) > Math.abs(xDistSigned)) {
-                direction = yDistSigned > 0 ? "down" : "up";
-            } else {
-                direction = xDistSigned > 0 ? "right" : "left";
+            if (contactPlayer && shotCounter >= 30) {
+                damagePlayer(attack);
+                shotCounter = 0;
             }
 
-            // Start attack
-            attacking = true;
-            spriteNum = 1;
-            spriteCounter = 0;
-            attackCooldown = ATTACK_COOLDOWN;
-        }
-        // If player is between 8 and 15 tiles, chase using pathfinding
-        else {
-            onPath = true;
-            
-            // Use pathfinding to chase player with cooldown
-            pathRecalcCounter++;
-            if (pathRecalcCounter >= PATH_RECALC_COOLDOWN) {
-                pathRecalcCounter = 0;
-                int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-                int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
-                searchPath(goalCol, goalRow);
+            int xDist = gp.player.worldX - worldX;
+            int yDist = gp.player.worldY - worldY;
+            int tileDist = (Math.abs(xDist) + Math.abs(yDist)) / gp.tileSize;
+
+            if (tileDist > 15) {
+                onPath = false;
+                attacking = false;
+                lockedDirection = false;
+            }
+            else if (tileDist <= 7) {
+                onPath = false;
+                if (gp.pFinder.pathList != null) {
+                    gp.pFinder.pathList.clear();
+                }
+
+                if (!lockedDirection) {
+                    double angle = Math.atan2(yDist, xDist);
+                    double degrees = Math.toDegrees(angle);
+                    if (degrees < 0) degrees += 360;
+
+                    if (degrees >= 45 && degrees < 135) direction = "down";
+                    else if (degrees >= 135 && degrees < 225) direction = "left";
+                    else if (degrees >= 225 && degrees < 315) direction = "up";
+                    else direction = "right";
+
+                    lockedDirection = true;
+                }
+
+                if (!attacking && shotCounter >= 30 && !pro.alive) {
+                    attacking = true;
+                    spriteNum = 1;
+                    spriteCounter = 0;
+                }
+            }
+            else {
+                onPath = true;
+                lockedDirection = false;
             }
         }
     }
 
     public void attackAnimation() {
         spriteCounter++;
-        System.out.println("Attack animation - counter: " + spriteCounter + ", spriteNum: " + spriteNum); // DEBUG
 
+        // Simple 2-frame attack animation
         if (spriteCounter <= 20) {
-            spriteNum = 1;
-            System.out.println("Attack frame 1"); // DEBUG
+            spriteNum = 1; // Draw bow
         } 
         else if (spriteCounter <= 35) {
-            spriteNum = 2;
-            System.out.println("Attack frame 2"); // DEBUG
+            spriteNum = 2; // Release arrow
             
-            if (spriteCounter == 25) {
-                System.out.println("FIRING ARROW!"); // DEBUG
-                OBJ_Arrow arrow = new OBJ_Arrow(gp);
-                
+            if (spriteCounter == 21 && !pro.alive && shotCounter >= 30) {
+                // Calculate position in front of the skeleton based on direction
                 int arrowX = worldX;
                 int arrowY = worldY;
+                
                 switch (direction) {
-                    case "up": arrowY -= gp.tileSize; break;
-                    case "down": arrowY += gp.tileSize; break;
-                    case "left": arrowX -= gp.tileSize; break;
-                    case "right": arrowX += gp.tileSize; break;
+                    case "up":
+                        arrowY = worldY - gp.tileSize;
+                        break;
+                    case "down":
+                        arrowY = worldY + gp.tileSize;
+                        break;
+                    case "left":
+                        arrowX = worldX - gp.tileSize;
+                        break;
+                    case "right":
+                        arrowX = worldX + gp.tileSize;
+                        break;
                 }
                 
-                arrow.set(arrowX, arrowY, direction, true, this);
+                // Center the arrow on the tile
+                arrowX += (gp.tileSize - pro.up1.getWidth()) / 2;
+                arrowY += (gp.tileSize - pro.up1.getHeight()) / 2;
                 
-                boolean arrowPlaced = false;
-                for(int i = 0; i < gp.projectile[1].length; i++) {
-                    if(gp.projectile[gp.currentMap][i] == null) {
-                        gp.projectile[gp.currentMap][i] = arrow;
-                        arrowPlaced = true;
+                pro.set(arrowX, arrowY, direction, true, this);
+                
+                // Add to projectile array
+                for (int i = 0; i < gp.projectile[gp.currentMap].length; i++) {
+                    if (gp.projectile[gp.currentMap][i] == null) {
+                        gp.projectile[gp.currentMap][i] = pro;
                         break;
                     }
                 }
-                System.out.println("Arrow placed: " + arrowPlaced); // DEBUG
+                
+                shotCounter = 0;
                 gp.playSE(11);
             }
-        } 
-        else if (spriteCounter > 45) {
+        }
+        else {
+            // End attack
             attacking = false;
-            spriteNum = 1;
+            spriteNum = 3; // Standing frame
             spriteCounter = 0;
-            System.out.println("Attack ended"); // DEBUG
+            lockedDirection = false;
         }
     }
 
     public void setAction() {
-        if (!onPath && !attacking) {
-            getRandomDirection(120);
+        // Don't move while shooting or in knockback
+        if (attacking || knockBack) {
+            return;
+        }
+
+        if (onPath) {
+            int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
+            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
+            
+            // Only search path if coordinates are valid
+            if (goalCol >= 0 && goalCol < gp.maxWorldCol && goalRow >= 0 && goalRow < gp.maxWorldRow) {
+                searchPath(goalCol, goalRow);
+            } else {
+                onPath = false;
+            }
         }
     }
 
     public void damageReaction() {
         actionLockCounter = 0;
         onPath = true;
-        int goalCol = (gp.player.worldX + gp.player.solidArea.x) / gp.tileSize;
-        int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
-        searchPath(goalCol, goalRow);
+        
+        // Clear any existing path to force recalculation
+        if (gp.pFinder.pathList != null) {
+            gp.pFinder.pathList.clear();
+        }
+    }
+    
+    // Override to handle knockback properly
+    @Override
+    public void setKnockBack(Entity target, Entity attacker, int knockBackPower) {
+        super.setKnockBack(target, attacker, knockBackPower);
+        // Clear pathfinding when knocked back
+        if (gp.pFinder.pathList != null) {
+            gp.pFinder.pathList.clear();
+        }
+        onPath = false;
+        attacking = false; // Stop attacking during knockback
+        lockedDirection = false;
     }
     
     public void checkDrop() {
-        int i = new Random().nextInt(100)+1;
+        int i = new Random().nextInt(100) + 1;
         
-        if(i<50) {
+        if (i < 50) {
             dropItem(new OBJ_Emerald(gp));
         }
-        if(i >= 50 && i< 75) {
+        if (i >= 50 && i < 75) {
             dropItem(new OBJ_Firecharge(gp));
         }
-        if(i >= 75 && i< 100) {
+        if (i >= 75 && i < 100) {
             dropItem(new OBJ_healingP(gp));
         }
     }

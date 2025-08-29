@@ -14,7 +14,9 @@ import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
 import main.UtilityTool;
+import object.OBJ_Arrow;
 import object.OBJ_Fireball;
+import object.OBJ_Firecharge;
 import object.OBJ_Firekey;
 import object.OBJ_Icekey;
 import object.OBJ_Shield;
@@ -97,6 +99,8 @@ public class Player extends Entity {
 		inventory.add(currentWeapon);
 		inventory.add(new OBJ_Icekey(gp));
 		inventory.add(new OBJ_Firekey(gp));
+		inventory.add(new OBJ_Firecharge(gp));
+		inventory.add(new OBJ_Firecharge(gp));
 	}
 
 	public int getAttack() {
@@ -393,26 +397,30 @@ public class Player extends Entity {
 	}
 
 	public void pickUpObject(int i) {
-
-		if (i != -1) {
-			
-			if (gp.obj[gp.currentMap][i].type == type_portal) {
+	    if (i != -1) {
+	        Entity object = gp.obj[gp.currentMap][i];
+	        
+	        if (object.type == type_portal) {
 	            return;  // Skip decorative objects entirely
-	        } else if(gp.obj[gp.currentMap][i].type == type_pickup) {
-				gp.obj[gp.currentMap][i].use(this);
-				gp.obj[gp.currentMap][i] = null;
-				} else if(gp.obj[gp.currentMap][i].type == type_obstacle) {
-				if(keyH.enterPressed == true) {
-					gp.obj[gp.currentMap][i].interact();
-				}
-			} else {
-				if (canObtainItem(gp.obj[gp.currentMap][i]) == true) {
-					gp.playSE(8);
-				}
-				String objectName = gp.obj[gp.currentMap][i].name; // FIXED
-				gp.obj[gp.currentMap][i] = null; // FIXED Important
-			}
-		}
+	        } else if(object.type == type_pickup) {
+	            // Play sound and use the item
+	            if (canObtainItem(object)) {
+	                gp.playSE(8);
+	                object.use(this);
+	            }
+	            gp.obj[gp.currentMap][i] = null;
+	        } else if(object.type == type_obstacle) {
+	            if(keyH.enterPressed == true) {
+	                object.interact();
+	            }
+	        } else {
+	            // For all other collectible items (including emeralds)
+	            if (canObtainItem(object)) {
+	                gp.playSE(8);  // Play collection sound
+	            }
+	            gp.obj[gp.currentMap][i] = null;
+	        }
+	    }
 	}
 
 	public void interactNpc(int i) {

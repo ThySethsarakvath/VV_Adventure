@@ -2,6 +2,8 @@ package object;
 
 import java.awt.Color;
 
+import entity.Entity;
+import entity.Player;
 import entity.Projectile;
 import main.GamePanel;
 
