@@ -19,8 +19,10 @@ import object.OBJ_Fireball;
 import object.OBJ_Firecharge;
 import object.OBJ_Firekey;
 import object.OBJ_Icekey;
+import object.OBJ_Lantern;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
+import object.OBJ_dunKey;
 
 public class Player extends Entity {
 
@@ -61,7 +63,6 @@ public class Player extends Entity {
 
 		setDefaultValues();
 		getImage();
-		getAttackImage();
 		getGuardImage();
 		setItems();
 	}
@@ -87,31 +88,37 @@ public class Player extends Entity {
 		exp = 0;
 		nextLevelExp = 5;
 		coin = 0;
-		currentWeapon = new OBJ_Sword(gp);
-		currentShield = new OBJ_Shield(gp);
+		currentWeapon = null;
+		currentShield = null;
 		pro = new OBJ_Fireball(gp);
 		attack = getAttack(); // total attack base on strength and weapon
 		defense = getDefense(); // total defense base on dexterity and shield
 	}
 
 	public void setItems() {
-		inventory.add(currentShield);
-		inventory.add(currentWeapon);
-		inventory.add(new OBJ_Icekey(gp));
-		inventory.add(new OBJ_Firekey(gp));
-		inventory.add(new OBJ_Firecharge(gp));
-		inventory.add(new OBJ_Firecharge(gp));
 	}
 
 	public int getAttack() {
-		attackArea = currentWeapon.attackArea;
-		motion1_duration = currentWeapon.motion1_duration;
-		motion2_duration = currentWeapon.motion2_duration;
-		return attack = strength * currentWeapon.attackValue;
+		if (currentWeapon != null) {
+			attackArea = currentWeapon.attackArea;
+			motion1_duration = currentWeapon.motion1_duration;
+			motion2_duration = currentWeapon.motion2_duration;
+			return attack = strength * currentWeapon.attackValue;
+		} else {
+			// No weapon equipped - minimal base attack with bare hands
+			attackArea = new Rectangle(0, 0, 0, 0); // No attack area for bare hands
+			motion1_duration = 5; // Default bare hand attack timing
+			motion2_duration = 20; // Default bare hand attack timing
+			return attack = strength; // Just base strength without weapon bonus
+		}
 	}
 
 	public int getDefense() {
-		return defense = dexterity * currentShield.defenseValue;
+		if (currentShield != null) {
+			return dexterity * currentShield.defenseValue;
+		} else {
+			return dexterity; // Just base dexterity without shield bonus
+		}
 	}
 
 	public void setDefaultPositions() {
@@ -121,9 +128,7 @@ public class Player extends Entity {
 		direction = "down";
 
 	}
-
-	// public void restoreLifeAndMana()
-
+	
 	public void restoreLife() {
 
 		life = maxLife;
@@ -149,49 +154,38 @@ public class Player extends Entity {
 	}
 
 	public void getAttackImage() {
-
-		if (currentWeapon.type == type_dsword) {
-			aUp1 = setup("/player/Steve_up_a1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_up_a2", gp.tileSize, gp.tileSize * 2);
-			aDown1 = setup("/player/Steve_down_a1", gp.tileSize, gp.tileSize * 2);
-			aDown2 = setup("/player/Steve_down_a2", gp.tileSize, gp.tileSize * 2);
-			aRight1 = setup("/player/Steve_right_a1", gp.tileSize * 2, gp.tileSize);
-			aRight2 = setup("/player/Steve_right_a2", gp.tileSize * 2, gp.tileSize);
-			aLeft1 = setup("/player/Steve_left_a1", gp.tileSize * 2, gp.tileSize);
-			aLeft2 = setup("/player/Steve_left_a2", gp.tileSize * 2, gp.tileSize);
+		if (currentWeapon != null) {
+			if (currentWeapon.type == type_dsword) {
+				aUp1 = setup("/player/Steve_up_a1", gp.tileSize, gp.tileSize * 2);
+				aUp2 = setup("/player/Steve_up_a2", gp.tileSize, gp.tileSize * 2);
+				aDown1 = setup("/player/Steve_down_a1", gp.tileSize, gp.tileSize * 2);
+				aDown2 = setup("/player/Steve_down_a2", gp.tileSize, gp.tileSize * 2);
+				aRight1 = setup("/player/Steve_right_a1", gp.tileSize * 2, gp.tileSize);
+				aRight2 = setup("/player/Steve_right_a2", gp.tileSize * 2, gp.tileSize);
+				aLeft1 = setup("/player/Steve_left_a1", gp.tileSize * 2, gp.tileSize);
+				aLeft2 = setup("/player/Steve_left_a2", gp.tileSize * 2, gp.tileSize);
+			}
+			if (currentWeapon.type == type_wsword) {
+				aUp1 = setup("/player/Steve_wood_up1", gp.tileSize, gp.tileSize * 2);
+				aUp2 = setup("/player/Steve_wood_up2", gp.tileSize, gp.tileSize * 2);
+				aDown1 = setup("/player/Steve_wood_down1", gp.tileSize, gp.tileSize * 2);
+				aDown2 = setup("/player/Steve_wood_down2", gp.tileSize, gp.tileSize * 2);
+				aRight1 = setup("/player/Steve_wood_right2", gp.tileSize * 2, gp.tileSize);
+				aRight2 = setup("/player/Steve_wood_right1", gp.tileSize * 2, gp.tileSize);
+				aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
+				aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
+			}
+			if (currentWeapon.type == type_axe) {
+				aUp1 = setup("/player/Steve_axe_u1", gp.tileSize, gp.tileSize * 2);
+				aUp2 = setup("/player/Steve_axe_u2", gp.tileSize, gp.tileSize * 2);
+				aDown1 = setup("/player/Steve_axe_d1", gp.tileSize, gp.tileSize * 2);
+				aDown2 = setup("/player/Steve_axe_d2", gp.tileSize, gp.tileSize * 2);
+				aRight1 = setup("/player/Steve_axe_r1", gp.tileSize * 2, gp.tileSize);
+				aRight2 = setup("/player/Steve_axe_r2", gp.tileSize * 2, gp.tileSize);
+				aLeft1 = setup("/player/Steve_axe_l1", gp.tileSize * 2, gp.tileSize);
+				aLeft2 = setup("/player/Steve_axe_l2", gp.tileSize * 2, gp.tileSize);
+			}
 		}
-		if (currentWeapon.type == type_wsword) {
-			aUp1 = setup("/player/Steve_wood_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_wood_up2", gp.tileSize, gp.tileSize * 2);
-			aDown1 = setup("/player/Steve_wood_down1", gp.tileSize, gp.tileSize * 2);
-			aDown2 = setup("/player/Steve_wood_down2", gp.tileSize, gp.tileSize * 2);
-			aRight1 = setup("/player/Steve_wood_right2", gp.tileSize * 2, gp.tileSize);
-			aRight2 = setup("/player/Steve_wood_right1", gp.tileSize * 2, gp.tileSize);
-			aLeft1 = setup("/player/Steve_wood_left1", gp.tileSize * 2, gp.tileSize);
-			aLeft2 = setup("/player/Steve_wood_left2", gp.tileSize * 2, gp.tileSize);
-		}
-
-		if (currentWeapon.type == type_axe) {
-			aUp1 = setup("/player/Steve_axe_u1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-			aUp2 = setup("/player/Steve_axe_u2", gp.tileSize, gp.tileSize * 2);
-			aDown1 = setup("/player/Steve_axe_d1", gp.tileSize, gp.tileSize * 2);
-			aDown2 = setup("/player/Steve_axe_d2", gp.tileSize, gp.tileSize * 2);
-			aRight1 = setup("/player/Steve_axe_r1", gp.tileSize * 2, gp.tileSize);
-			aRight2 = setup("/player/Steve_axe_r2", gp.tileSize * 2, gp.tileSize);
-			aLeft1 = setup("/player/Steve_axe_l1", gp.tileSize * 2, gp.tileSize);
-			aLeft2 = setup("/player/Steve_axe_l2", gp.tileSize * 2, gp.tileSize);
-		}
-//		if(currentBall.type == type_firecharge) {
-//			aUp1 = setup("/player/Steve_fire_up1", gp.tileSize, gp.tileSize * 2); // 16 x 32
-//			aUp2 = setup("/player/Steve_fire_up2", gp.tileSize, gp.tileSize * 2);
-//			aDown1 = setup("/player/Steve_fire_down1", gp.tileSize, gp.tileSize * 2);
-//			aDown2 = setup("/player/Steve_fire_down2", gp.tileSize, gp.tileSize * 2);
-//			aRight1 = setup("/player/Steve_fire_right2", gp.tileSize * 2, gp.tileSize);
-//			aRight2 = setup("/player/Steve_fire_right1", gp.tileSize * 2, gp.tileSize);
-//			aLeft1 = setup("/player/Steve_fire_left1", gp.tileSize * 2, gp.tileSize);
-//			aLeft2 = setup("/player/Steve_fire_left2", gp.tileSize * 2, gp.tileSize);
-//		}
-
 	}
 
 	public void getGuardImage() {
@@ -268,17 +262,20 @@ public class Player extends Entity {
 		}
 
 		// Can only attack if not currently guarding
+		// In the attack section of update() method:
 		if (gp.keyH.fPressed && !guarding) {
-			attacking = true;
-			gp.keyH.fPressed = false;
+			if (currentWeapon != null) { // Only allow attack if player has a weapon
+				attacking = true;
+				gp.keyH.fPressed = false;
+			}
+
 		}
-		// 🗡️ Priority: Attack Mode
+		// Priority: Attack Mode
 		else if (attacking == true) {
-			attacking(); // handles its own spriteNum logic
-//			return; // skip movement and other updates during attack
+			attacking();
 		}
 
-		// 🎮 Movement Input Handling - Only if not attacking
+		//  Movement Input Handling - Only if not attacking
 		else if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
 			// Update direction
@@ -371,7 +368,7 @@ public class Player extends Entity {
 			shotCounter++;
 		}
 
-		// ⚡ Speed boost timer
+		// Speed boost timer
 		if (speedBoosted) {
 			speedTimer--;
 			if (speedTimer <= 0) {
@@ -380,7 +377,7 @@ public class Player extends Entity {
 			}
 		}
 
-		// 🛡️ Invincibility frames
+		// Invincibility frames
 		if (invincible) {
 			invinCounter++;
 			if (invinCounter > 60) { // 60 frames = 1 second at 60 FPS
@@ -425,7 +422,7 @@ public class Player extends Entity {
 
 	public void interactNpc(int i) {
 
-		// 🗣️ Talk using Enter key
+		// Talk using Enter key
 		if (gp.keyH.enterPressed == true) {
 			if (i != -1) {
 				gp.gameState = gp.dialogueState;
@@ -433,9 +430,8 @@ public class Player extends Entity {
 			}
 		}
 
-		// 🗡️ Attack using F key
+		//Attack using F key
 		if (gp.keyH.fPressed == true) {
-//	    	gp.playSE(3);
 			attacking = true;
 			gp.keyH.fPressed = false;
 		}
@@ -542,21 +538,15 @@ public class Player extends Entity {
 	}
 
 	public void selectItem() {
-
 		int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
 
 		if (itemIndex < inventory.size()) {
 			Entity selectedItem = inventory.get(itemIndex);
 
-//			if(selectedItem.type == type_dsword || selectedItem.type == type_wsword) {
-//				currentWeapon = selectedItem;
-//				attack = getAttack();
-//			}
-
 			if (selectedItem.type == type_dsword || selectedItem.type == type_wsword || selectedItem.type == type_axe) {
 				currentWeapon = selectedItem;
 				attack = getAttack();
-				getAttackImage();
+				getAttackImage(); // Call this only when a weapon is actually equipped
 			}
 
 			if (selectedItem.type == type_firecharge) {
@@ -569,7 +559,6 @@ public class Player extends Entity {
 			}
 
 			if (selectedItem.type == type_light) {
-
 				if (currentLight == selectedItem) {
 					currentLight = null;
 				} else {
@@ -588,7 +577,6 @@ public class Player extends Entity {
 				}
 			}
 		}
-
 	}
 
 	public int searchItemInInventory(String itemName) {
@@ -637,14 +625,10 @@ public class Player extends Entity {
 	@Override
 	public void draw(Graphics2D g2) {
 
-//		g2.setColor(Color.white);
-//		g2.fillRect(x, y, gp.tileSize , gp.tileSize);
-
 		int tempScreenX = screenX;
 		int tempScreenY = screenY;
 		BufferedImage image = null;
-//		boolean moving = keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed;
-
+		
 		switch (direction) {
 		case "up":
 			if (attacking == false) {
@@ -659,16 +643,20 @@ public class Player extends Entity {
 				}
 			}
 			if (attacking == true) {
-				tempScreenY = screenY - gp.tileSize; // adjust y when attack upward
-				if (spriteNum == 1) {
-					image = aUp1;
-				}
-				if (spriteNum == 2) {
-					image = aUp2;
+				if (currentWeapon != null) {
+					tempScreenY = screenY - gp.tileSize; // adjust y when attack upward
+					if (spriteNum == 1) {
+						image = aUp1;
+					}
+					if (spriteNum == 2) {
+						image = aUp2;
+					}
 				}
 			}
 			if (guarding == true) {
-				image = gUp;
+				if (currentShield != null) {
+					image = gUp;
+				}
 			}
 			break;
 		case "down":
@@ -692,7 +680,9 @@ public class Player extends Entity {
 				}
 			}
 			if (guarding == true) {
-				image = gDown;
+				if (currentShield != null) {
+					image = gDown;
+				}
 			}
 			break;
 		case "left":
@@ -717,7 +707,9 @@ public class Player extends Entity {
 				}
 			}
 			if (guarding == true) {
-				image = gLeft;
+				if (currentShield != null) {
+					image = gLeft;
+				}
 			}
 			break;
 		case "right":
@@ -741,7 +733,9 @@ public class Player extends Entity {
 				}
 			}
 			if (guarding == true) {
-				image = gRight;
+				if (currentShield != null) {
+					image = gRight;
+				}
 			}
 			break;
 		}
@@ -756,9 +750,5 @@ public class Player extends Entity {
 		}
 		// Reset Alpha
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
-
-//		g2.setFont(new Font("Arail",Font.PLAIN,26));
-//		g2.setColor(Color.white);
-//		g2.drawString("Invincible: "+invinCounter,10,400);
 	}
 }

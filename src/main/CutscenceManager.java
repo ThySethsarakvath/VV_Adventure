@@ -43,9 +43,16 @@ public class CutscenceManager {
 	        scencePhase = 0;
 	        gp.gameState = gp.playState;
 	        gp.bossBattleOn = false;
+	        
+	        // FIX: Stop boss music and play appropriate area music
+	        gp.stopMusic();
+	        if (gp.currentArea == 50) {
+	            gp.playMusic(0); // Overworld
+	        } else if (gp.currentArea == 52) {
+	            gp.playMusic(27); // Dungeon
+	        }
 	        return;
 	    }
-		
 	    if(scencePhase == 0) {
 	        gp.bossBattleOn = true;
 	        for(int i = 0; i< gp.obj[1].length ;i++) {
@@ -74,7 +81,7 @@ public class CutscenceManager {
 	    else if(scencePhase == 1) {
 	        gp.player.worldY -= 2;
 	        
-	        if(gp.player.worldY < gp.tileSize*60) {
+	        if(gp.player.worldY < gp.tileSize*62) {
 	            scencePhase++;
 	        }
 	    }
@@ -113,7 +120,7 @@ public class CutscenceManager {
 	                            gp.ui.currentDialogue = null;
 	                            gp.ui.displayedText = "";
 	                            gp.ui.textCompleted = false;
-	                            scencePhase++; // ✅ Move to phase 4
+	                            scencePhase++;
 	                        }
 	                        break;
 	                    }
@@ -150,52 +157,59 @@ public class CutscenceManager {
 	    }
 	}
 	public void scence_Ending() {
-		if(scencePhase == 0) {
-			gp.stopMusic();
-			gp.playSE(25);
-			scencePhase++;
-		}
-		if(scencePhase == 1) {
-			if(counterReached(300) == true) {
-				scencePhase++;
-			}
-		}
-		if (scencePhase == 2) {
-		    alpha += 0.005f;
-		    if (alpha >= 1f) {
-		        alpha = 1f;
-		        scencePhase++; // Only move to next phase when fade is complete
-		    }
-		    drawBlackBackground(alpha); // Keep drawing until fully black
-		}
-		else if (scencePhase == 3) {
-		    drawBlackBackground(1f); // Ensure full black background
-		    String text = "The End";
-		    g2.setFont(g2.getFont().deriveFont(48f));
-		    FontMetrics fm = g2.getFontMetrics();
-		    int textWidth = fm.stringWidth(text);
-		    int textHeight = fm.getHeight();
+	    if(scencePhase == 0) {
+	        gp.stopMusic();
+	        gp.playSE(25);
+	        scencePhase++;
+	    }
+	    if(scencePhase == 1) {
+	        if(counterReached(300) == true) {
+	            scencePhase++;
+	        }
+	    }
+	    if (scencePhase == 2) {
+	        alpha += 0.005f;
+	        if (alpha >= 1f) {
+	            alpha = 1f;
+	            scencePhase++;
+	        }
+	        drawBlackBackground(alpha);
+	    }
+	    else if (scencePhase == 3) {
+	        drawBlackBackground(1f);
+	        String text = "The End";
+	        g2.setFont(g2.getFont().deriveFont(48f));
+	        FontMetrics fm = g2.getFontMetrics();
+	        int textWidth = fm.stringWidth(text);
+	        int textHeight = fm.getHeight();
 
-		    // Center horizontally and vertically
-		    int x = (gp.screenWidth - textWidth) / 2;
-		    int y = (gp.screenHeight - textHeight) / 2 + fm.getAscent();
+	        int x = (gp.screenWidth - textWidth) / 2;
+	        int y = (gp.screenHeight - textHeight) / 2 + fm.getAscent();
 
-		    g2.setColor(Color.white);
-		    g2.drawString(text, x, y);
+	        g2.setColor(Color.white);
+	        g2.drawString(text, x, y);
 
-
-		    if (counterReached(180)) { // Wait ~3 seconds at 60 FPS
-		        scencePhase++;
-		    }
-		}
-		else if (scencePhase == 4) {
-		    // Reset or transition
-		    scenceNum = NA;
-		    scencePhase = 0;
-		    gp.gameState = gp.playState; // Or creditsState, etc.
-		}
-
-
+	        if (counterReached(180)) {
+	            scencePhase++;
+	        }
+	    }
+	    else if (scencePhase == 4) {
+	        // RETURN PLAYER TO OVERWORLD (world02)
+	        gp.currentMap = 0; // Overworld map
+	        gp.player.worldX = gp.tileSize * 32; // Original X position
+	        gp.player.worldY = gp.tileSize * 61; // Original Y position
+	        
+	        // Reset area and music
+	        gp.currentArea = gp.outside; // 50 - overworld
+	        gp.nextArea = gp.outside;    // 50 - overworld
+	        gp.stopMusic();
+	        gp.playMusic(0); // Overworld music
+	        
+	        // Reset cutscene state
+	        scenceNum = NA;
+	        scencePhase = 0;
+	        gp.gameState = gp.playState;
+	    }
 	}
 	
 	public boolean counterReached( int target) {

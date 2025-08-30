@@ -816,13 +816,6 @@ public class Entity {
 	        // Reset Alpha
 	        changeAlpha(g2, 1f);
 	    }
-
-	    // solid area debugging
-//			g2.setColor(Color.RED);
-//		    g2.drawRect(screenX + solidArea.x, 
-//		                screenY + solidArea.y, 
-//		                solidArea.width, 
-//		                solidArea.height);
 	}
 
 	public void deadAnimation(Graphics2D g2) {
@@ -1027,7 +1020,6 @@ public class Entity {
 		}
 	}
 	
-	// Add to Entity.java
 	public boolean isValidPosition(int col, int row) {
 	    return col >= 0 && col < gp.maxWorldCol && row >= 0 && row < gp.maxWorldRow;
 	}

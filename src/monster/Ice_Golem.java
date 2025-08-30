@@ -9,6 +9,7 @@ import object.OBJ_Door;
 import object.OBJ_Emerald;
 import object.OBJ_Fireball;
 import object.OBJ_Firecharge;
+import object.OBJ_dunKey;
 import object.OBJ_healingP;
 
 public class Ice_Golem extends Entity {
@@ -26,15 +27,14 @@ public class Ice_Golem extends Entity {
 		speed = defaultSpeed;
 		maxLife = 50;
 		life = maxLife;
-		attack = 10;
+		attack = 6;
 		boss = true;
 		sleep = true;
 		
 		knockBackPower = 15;
-//		pro = new OBJ_Fireball(gp);
 
 		int size = gp.tileSize * 5;
-		solidArea.x = 48; // X-offset within zombie sprite
+		solidArea.x = 48; // X-offset 
 		solidArea.y = 48; // Y-offset
 		solidArea.width = size - 48 * 2; // Hitbox width
 		solidArea.height = size - 48; // Hitbox height
@@ -167,7 +167,12 @@ public class Ice_Golem extends Entity {
 	        gp.bossBattleOn = false;
 	        Progress.GolemDefeated = true;
 	        gp.stopMusic();
-	        gp.playMusic(27); // Only play this if boss is actually defeated
+	     // FIX: Play dungeon music after boss defeat, not overworld
+	        if (gp.currentArea == 52) {
+	            gp.playMusic(27); // Dungeon music
+	        } else {
+	            gp.playMusic(0); // Fallback to overworld
+	        }
 	        
 	        // remove door
 	        for(int i=0;i<gp.obj[1].length;i++) {
@@ -176,20 +181,7 @@ public class Ice_Golem extends Entity {
 	                gp.obj[gp.currentMap][i] = null;
 	            }
 	        }
-	        
-	        // cast a die
-	        int i = new Random().nextInt(100) + 1;
-
-	        // set dropping
-	        if (i < 50) {
-	            dropItem(new OBJ_Emerald(gp));
-	        }
-	        if (i >= 50 && i < 75) {
-	            dropItem(new OBJ_Firecharge(gp));
-	        }
-	        if (i >= 75 && i < 100) {
-	            dropItem(new OBJ_healingP(gp));
-	        }
+	        dropItem(new OBJ_Emerald(gp));
 	    }
 	}
 	

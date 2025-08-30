@@ -116,15 +116,11 @@ public class GamePanel extends JPanel implements Runnable {
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
-
-		/*
-		 * DoubleBuffered is a technique that draws graphics to an off-screen image
-		 * first, then displays it all at once to prevent flickering and make rendering
-		 * smoother.
-		 */
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
+		currentArea = outside;
+		nextArea = outside;
 	}
 
 	public void setupGame() {
@@ -132,7 +128,6 @@ public class GamePanel extends JPanel implements Runnable {
 		aSetter.setNpc();
 		aSetter.setMonster();
 		aSetter.setInteractiveTile();
-//		playMusic(0);
 		eManager.setup();
 
 		gameState = titleState;
@@ -147,17 +142,19 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void retry() {
-
-		music.play();
+		bossBattleOn = false;
+		stopMusic();
 		currentMap = 0;
 		player.setDefaultPositions();
 		player.restoreLife();
 		aSetter.setNpc();
 		aSetter.setMonster();
-		bossBattleOn = false;
+		
 		removeBossDoor();
-	    stopMusic();
-	    playMusic(0);
+		currentArea = outside;
+		nextArea = outside;
+		playMusic(0);
+
 	}
 
 	public void restart() {
@@ -235,9 +232,7 @@ public class GamePanel extends JPanel implements Runnable {
 				drawCount++;
 			}
 
-			if (timer >= 1000000000) {
-				System.out.println("FPS: "+ drawCount );
-				drawCount = 0;
+			if (timer >= 1000000000) {				drawCount = 0;
 				timer = 0;
 			}
 		}
@@ -291,18 +286,7 @@ public class GamePanel extends JPanel implements Runnable {
 	                }
 	            }
 	        }
-
-	        // Particle
-	        // for (int i = 0; i < particleList.size(); i++) {
-	        //     if (particleList.get(i) != null) {
-	        //         if (particleList.get(i).alive == true) {
-	        //             particleList.get(i).update();
-	        //         }
-	        //         if (particleList.get(i).alive == false) {
-	        //             particleList.remove(i);
-	        //         }
-	        //     }
-	        // }
+	        
 			// Particle Improvement
 			for (int i = particleList.size() - 1; i >= 0; i--) {
 				Entity particle = particleList.get(i);
@@ -321,13 +305,6 @@ public class GamePanel extends JPanel implements Runnable {
 	            }
 	        }
 	        
-	        // SNOW PARTICLES - Add this section
-	        // if (snowEffectActive && currentMap == 2) { // Map 2 is frozen map
-	        //     for (int i = 0; i < snowParticles.size(); i++) {
-	        //         if (snowParticles.get(i) != null) {
-	        //             snowParticles.get(i).update();
-	        //         }
-	        //     }
 			// SNOW PARTICLES Improvement
 			if (snowEffectActive && currentMap == 2) { // Map 2 is the frozen map
 				for (int i = snowParticles.size() - 1; i >= 0; i--) {
@@ -423,26 +400,10 @@ public class GamePanel extends JPanel implements Runnable {
 	                return result;
 	            }
 	        });
-
-	        // draw entities (player, NPCs, monsters - these will be on TOP of objects)
-	        // for (int i = 0; i < entityList.size(); i++) {
-	        //     entityList.get(i).draw(g2);
-	        // }
+	        
 			for(Entity entity : entityList) {
 				entity.draw(g2);
 			}
-
-	        // empty entities list
-	        // entityList.clear();
-
-	        // SNOW PARTICLES - Add this section (draw on top of everything)
-	        // if (snowEffectActive && currentMap == 2) {
-	        //     for (int i = 0; i < snowParticles.size(); i++) {
-	        //         if (snowParticles.get(i) != null) {
-	        //             snowParticles.get(i).draw(g2);
-	        //         }
-	        //     }
-	        // }
 			// SNOW PARTICLES Improvement
 			if (snowEffectActive && currentMap == 2) {
 				for (int i = snowParticles.size() - 1; i >= 0; i--) {
@@ -509,28 +470,26 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 	
 	public void changeArea() {
-		
-		if(nextArea != currentArea) {
-			
-			stopMusic();
-			
-			if(nextArea == outside) {
-				// Outside music
-				playMusic(0);
-			}
-			
-			if(nextArea == indoor) {
-				// Indoor music
-//				playMusic(0);
-			}
-			
-			if(nextArea == dungeon) {
-				// Dungeon music
-				playMusic(27);
-			}
-		}
-		currentArea = nextArea;
-		aSetter.setMonster();
+	    if(nextArea != currentArea) {
+	        stopMusic();
+	        
+	        // FIX: Only play music if NOT in boss battle
+	        if(!bossBattleOn) {
+	            if(nextArea == outside) {
+	                playMusic(0); // Overworld music
+	            }
+	            else if(nextArea == indoor) {
+	                // Indoor music
+	                // playMusic(x);
+	            }
+	            else if(nextArea == dungeon) {
+	                playMusic(27); // Dungeon music
+	            }
+	        }
+	        // If in boss battle, the boss fight music should continue playing
+	    }
+	    currentArea = nextArea;
+	    aSetter.setMonster();
 	}
 	
 	public void removeTempEntity() {

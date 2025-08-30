@@ -25,9 +25,8 @@ public class Skeleton_Wither extends Entity {
 		life = maxLife;
 		attack = 5;
 		knockBackPower = 5;
-//		pro = new OBJ_Fireball(gp);
 
-		solidArea.x = 8; // X-offset within zombie sprite
+		solidArea.x = 8; // X-offset 
 		solidArea.y = 16; // Y-offset
 		solidArea.width = 32; // Hitbox width
 		solidArea.height = 32; // Hitbox height
@@ -109,18 +108,13 @@ public class Skeleton_Wither extends Entity {
 	}
 
 	public void checkDrop() {
-		// cast a die
-		int i = new Random().nextInt(100) + 1;
+	    int i = new Random().nextInt(2); // Generates 0 or 1
 
-		// set dropping
-		if (i < 50) {
-			dropItem(new OBJ_Emerald(gp));
-		}
-		if (i >= 50 && i < 75) {
-			dropItem(new OBJ_Firecharge(gp));
-		}
-		if (i >= 75 && i < 100) {
-			dropItem(new OBJ_healingP(gp));
-		}
+	    if (i == 0) {
+	        dropItem(new OBJ_Emerald(gp)); // 50% chance
+	    } else {
+	        dropItem(new OBJ_Firecharge(gp)); // 50% chance
+	    }
 	}
+
 }

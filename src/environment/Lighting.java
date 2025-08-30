@@ -98,7 +98,7 @@ public class Lighting {
 			
 			dayCounter++;
 			
-			if(dayCounter > 600) { // 36000 = 10mn
+			if(dayCounter > 18000) { // 36000 = 10mn
 				dayState = dusk;
 				dayCounter = 0;
 			}	
@@ -106,7 +106,7 @@ public class Lighting {
 		
 		if(dayState == dusk) {
 			
-			filterAlpha += 0.001f; // Change this as well
+			filterAlpha += 0.00028f; // Change this as well
 			
 			if(filterAlpha > 1f) {
 				filterAlpha = 1f;
@@ -118,7 +118,7 @@ public class Lighting {
 			
 			dayCounter++;
 			
-			if(dayCounter > 600) {
+			if(dayCounter > 18000) {
 				dayState = dawn;
 				dayCounter = 0;
 			}
@@ -126,7 +126,7 @@ public class Lighting {
 		
 		if(dayState == dawn) {
 			
-			filterAlpha -= 0.001f;
+			filterAlpha -= 0.00028f;
 			
 			if(filterAlpha < 0f) {
 				filterAlpha = 0;

@@ -229,16 +229,12 @@ public class Skeleton extends Entity {
     }
     
     public void checkDrop() {
-        int i = new Random().nextInt(100) + 1;
-        
-        if (i < 50) {
-            dropItem(new OBJ_Emerald(gp));
-        }
-        if (i >= 50 && i < 75) {
-            dropItem(new OBJ_Firecharge(gp));
-        }
-        if (i >= 75 && i < 100) {
-            dropItem(new OBJ_healingP(gp));
+        int i = new Random().nextInt(100) + 1; // Generates 1 to 100
+
+        if (i <= 75) {
+            dropItem(new OBJ_Emerald(gp)); // 75% chance
+        } else {
+            dropItem(new OBJ_healingP(gp)); // 25% chance
         }
     }
 }

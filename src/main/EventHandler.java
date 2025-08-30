@@ -144,12 +144,9 @@ public class EventHandler {
 		tempCol =col;
 		tempRow = row;
 		canTouchEvent = false;
-//		gp.playSE(16);
 	}
 
 	public void damagePit() {
-//		gp.gameState = gameState;
-//		gp.ui.currentDialogue = "You fail";
 		gp.player.life -= 1;
 		// for one time event
 //		eventRect[col][row].eventDone = true;
@@ -173,7 +170,13 @@ public class EventHandler {
 	    }
 	}
 	public void Ending() {
-	    if (Progress.GolemDefeated) { // Optional: only trigger if boss is defeated
+	    if (Progress.GolemDefeated) {
+	        // Store the player's current position to return to after ending
+	        tempMap = gp.currentMap;
+	        tempCol = gp.player.worldX / gp.tileSize;
+	        tempRow = gp.player.worldY / gp.tileSize;
+	        
+	        // Trigger the ending cutscene
 	        gp.gameState = gp.cutscenceState;
 	        gp.csManager.scenceNum = gp.csManager.ending;
 	        canTouchEvent = false;

@@ -3,8 +3,10 @@ package entity;
 import main.GamePanel;
 import object.OBJ_Axe;
 import object.OBJ_Firecharge;
+import object.OBJ_Lantern;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
+import object.OBJ_Tent;
 import object.OBJ_WoodenSword;
 import object.OBJ_healingP;
 
@@ -39,8 +41,6 @@ public class Wander extends Entity {
         // Set all directions to use the same sprites since he doesn't move
         up1 = down1;
         up2 = down2;
-        // down1 = down1; 
-        // down2 = down2;
         left1 = down1;
         left2 = down2;
         right1 = down1;
@@ -64,6 +64,8 @@ public class Wander extends Entity {
         inventory.add(new OBJ_WoodenSword(gp));
         inventory.add(new OBJ_Axe(gp));
         inventory.add(new OBJ_Shield(gp));
+        inventory.add(new OBJ_Tent(gp));
+        inventory.add(new OBJ_Lantern(gp));
     }
 
     @Override

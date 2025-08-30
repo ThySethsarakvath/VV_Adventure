@@ -160,15 +160,7 @@ public class KeyHandler implements KeyListener {
 			case 0: gp.tileM.loadMap("/maps/world01.txt", 0); break;
 			case 1: gp.tileM.loadMap("/maps/home.txt", 1); break;
 			}
-			
 		}
-//		if(code == KeyEvent.VK_ESCAPE){
-//		    if (gp.gameState == gp.playState) {
-//		        gp.gameState = gp.optionsState;
-//		        gp.ui.subState = 0; // make sure it always starts at the top
-//		        gp.ui.commandNum = 0;
-//		    }
-//		}
 	}
 
 	public void characterState(int code) {

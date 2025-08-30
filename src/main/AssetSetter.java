@@ -8,8 +8,10 @@ import monster.Skeleton_Wither;
 import monster.Zombie;
 import object.OBJ_Axe;
 import object.OBJ_Chest;
+import object.OBJ_DungeonDoor;
 import object.OBJ_Emerald;
 import object.OBJ_Firecharge;
+import object.OBJ_Firekey;
 import object.OBJ_GateFire;
 import object.OBJ_GateIce;
 import object.OBJ_Icekey;
@@ -19,6 +21,7 @@ import object.OBJ_Portal;
 import object.OBJ_Shield;
 import object.OBJ_Sword;
 import object.OBJ_WoodenSword;
+import object.OBJ_dunKey;
 import object.OBJ_healingP;
 import object.OBJ_speedBoot;
 import tile_interactive.IT_DryTree;
@@ -38,28 +41,18 @@ public class AssetSetter {
 
 		// Over world
 		gp.obj[mapNum][i] = new OBJ_Axe(gp);
-		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 64 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 146 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 41 * gp.tileSize;
 		i++;
 
 		gp.obj[mapNum][i] = new OBJ_Lantern(gp);
-		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
-		i++;
-
-		gp.obj[mapNum][i] = new OBJ_Tent(gp);
-		gp.obj[mapNum][i].worldX = 34 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
-		i++;
-
-		gp.obj[mapNum][i] = new OBJ_Tent(gp);
-		gp.obj[mapNum][i].worldX = 33 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 63 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 54 * gp.tileSize;
 		i++;
 
 		gp.obj[mapNum][i] = new OBJ_WoodenSword(gp);
-		gp.obj[mapNum][i].worldX = 30 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 61 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
 		i++;
 
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
@@ -87,10 +80,55 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldX = 150 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
 		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_DungeonDoor(gp);
+		gp.obj[mapNum][i].worldX = 89 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 101 * gp.tileSize;
+		i++;
 
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Tent(gp));
+		gp.obj[mapNum][i].worldX = 55 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 55 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_healingP(gp));
+		gp.obj[mapNum][i].worldX = 37 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 52 * gp.tileSize;
+		i++;
+		
 		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Icekey(gp));
-		gp.obj[mapNum][i].worldX = 52 * gp.tileSize;
-		gp.obj[mapNum][i].worldY = 62 * gp.tileSize;
+		gp.obj[mapNum][i].worldX = 83 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 51 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Tent(gp));
+		gp.obj[mapNum][i].worldX = 90 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 65 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Emerald(gp));
+		gp.obj[mapNum][i].worldX = 134 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 70 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Emerald(gp));
+		gp.obj[mapNum][i].worldX = 128 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 94 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Tent(gp));
+		gp.obj[mapNum][i].worldX = 128 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 95 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Emerald(gp));
+		gp.obj[mapNum][i].worldX = 119 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 117 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Tent(gp));
+		gp.obj[mapNum][i].worldX = 128 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 95 * gp.tileSize;
 		i++;
 
 		// Ice Map
@@ -102,9 +140,14 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
 
-		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Icekey(gp));
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Firekey(gp));
 		gp.obj[mapNum][i].worldX = 14 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Shield(gp);
+		gp.obj[mapNum][i].worldX = 83 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 83 * gp.tileSize;
 		i++;
 
 		// Nether Map
@@ -115,7 +158,7 @@ public class AssetSetter {
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
 
-		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Icekey(gp));
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_dunKey(gp));
 		gp.obj[mapNum][i].worldX = 79 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 50 * gp.tileSize;
 		i++;
@@ -126,6 +169,11 @@ public class AssetSetter {
 		gp.obj[mapNum][i] = new OBJ_Portal(gp);
 		gp.obj[mapNum][i].worldX = 13 * gp.tileSize;
 		gp.obj[mapNum][i].worldY = 97 * gp.tileSize;
+		i++;
+		
+		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Firecharge(gp));
+		gp.obj[mapNum][i].worldX = 13 * gp.tileSize;
+		gp.obj[mapNum][i].worldY = 85 * gp.tileSize;
 		i++;
 	}
 
@@ -152,40 +200,85 @@ public class AssetSetter {
 		int mapNum = 0;
 		int i = 0;
 
-//		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
-//		gp.monster[mapNum][i].worldX = gp.tileSize*45;
-//		gp.monster[mapNum][i].worldY = gp.tileSize*67;
-//		i++;
-
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize * 42;
-		gp.monster[mapNum][i].worldY = gp.tileSize * 65;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 46;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
 		i++;
 
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize * 43;
-		gp.monster[mapNum][i].worldY = gp.tileSize * 65;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 47;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
 		i++;
-//		
+		
 		gp.monster[mapNum][i] = new Zombie(gp);
-		gp.monster[mapNum][i].worldX = gp.tileSize * 44;
-		gp.monster[mapNum][i].worldY = gp.tileSize * 65;
+		gp.monster[mapNum][i].worldX = gp.tileSize * 51;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 50;
 		i++;
-//		
-//		gp.monster[mapNum][i] = new Skeleton(gp);
-//		gp.monster[mapNum][i].worldX = gp.tileSize*42;
-//		gp.monster[mapNum][i].worldY = gp.tileSize*66;
-//		i++;
-//		
-//		gp.monster[mapNum][i] = new Skeleton(gp);
-//		gp.monster[mapNum][i].worldX = gp.tileSize*43;
-//		gp.monster[mapNum][i].worldY = gp.tileSize*66;
-//		i++;
 
-//		gp.monster[mapNum][i] = new Skeleton(gp);
-//		gp.monster[mapNum][i].worldX = gp.tileSize*44;
-//		gp.monster[mapNum][i].worldY = gp.tileSize*66;
-//		i++;
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 45;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 133;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 56;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 131;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 52;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 130;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 52;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 135;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 84;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 54;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 81;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 55;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 80;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 55;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 84;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 55;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 85;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 57;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 137;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 52;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 142;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 145;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 46;
+		i++;
+		
+		gp.monster[mapNum][i] = new Zombie(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 143;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 42;
+		i++;
 
 		// ICE MAP
 		mapNum = 2;
@@ -205,6 +298,26 @@ public class AssetSetter {
 		gp.monster[mapNum][i].worldX = gp.tileSize * 55;
 		gp.monster[mapNum][i].worldY = gp.tileSize * 50;
 		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 22;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 50;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 17;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 18;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 48;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 23;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
+		i++;
 
 		// FIRE MAP
 		mapNum = 3;
@@ -221,6 +334,21 @@ public class AssetSetter {
 		gp.monster[mapNum][i].worldX = gp.tileSize * 70;
 		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
 		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 76;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 49;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 76;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 51;
+		i++;
+		
+		gp.monster[mapNum][i] = new Skeleton_Wither(gp);
+		gp.monster[mapNum][i].worldX = gp.tileSize * 73;
+		gp.monster[mapNum][i].worldY = gp.tileSize * 50;
+		i++;
 
 		mapNum = 4;
 		i = 0;
@@ -228,7 +356,7 @@ public class AssetSetter {
 		if (!Progress.GolemDefeated) {
 			gp.monster[mapNum][i] = new Ice_Golem(gp);
 			gp.monster[mapNum][i].worldX = gp.tileSize * 36;
-			gp.monster[mapNum][i].worldY = gp.tileSize * 57;
+			gp.monster[mapNum][i].worldY = gp.tileSize * 60;
 			i++;
 		}
 		

@@ -240,6 +240,7 @@ public class UI {
 		g2.drawString(text, x, y);
 		if (commandNum == 0) {
 			g2.drawString(">", x - 40, y);
+			gp.stopMusic();
 		}
 
 		// Back to the title screen
@@ -292,37 +293,6 @@ public class UI {
 
 			y += gp.tileSize * 1.5;
 		}
-		// ======================================================
-
-		// IF WE ARE USING paintComponent()
-		// ================= paintComponent() =================
-//		text = "NEW GAME";
-//		x = getXforCenteredText(text); 
-//		y += gp.tileSize * 4;
-//		g2.drawString(text, x, y);
-//		
-//		if(commandNum == 0) {
-//			g2.drawString(">", x - gp.tileSize , y);
-//		}
-//		
-//		text = "LOAD GAME";
-//		x = getXforCenteredText(text); 
-//		y += gp.tileSize * 1.5;
-//		g2.drawString(text, x, y);
-//		
-//		if(commandNum == 1) {
-//			g2.drawString(">", x - gp.tileSize , y);
-//		}
-//		
-//		text = "QUIT";
-//		x = getXforCenteredText(text); 
-//		y += gp.tileSize * 1.5;
-//		g2.drawString(text, x, y);
-//		
-//		if(commandNum == 2) {
-//			g2.drawString(">", x - gp.tileSize , y);
-//		}
-		// ====================================================
 	}
 
 	public void drawPlayerlife() {
@@ -720,11 +690,18 @@ public class UI {
 		for (int i = 0; i < entity.inventory.size(); i++) {
 
 			// Equip cursor
-			if (entity.inventory.get(i) == entity.currentWeapon || entity.inventory.get(i) == entity.currentShield
-					|| entity.inventory.get(i) == entity.currentBall
-					|| entity.inventory.get(i) == entity.currentLight) {
-				g2.setColor(new Color(75, 46, 25));
-				g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+			// In drawInventory method, update the equipment highlighting:
+			if (entity.inventory.get(i) == entity.currentWeapon || 
+			    entity.inventory.get(i) == entity.currentShield || 
+			    entity.inventory.get(i) == entity.currentBall || 
+			    entity.inventory.get(i) == entity.currentLight) {
+			    
+			    // Only highlight if the equipment is actually equipped (not null)
+			    if (entity.currentWeapon != null || entity.currentShield != null || 
+			        entity.currentBall != null || entity.currentLight != null) {
+			        g2.setColor(new Color(75, 46, 25));
+			        g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
+			    }
 			}
 			g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
 
@@ -738,10 +715,6 @@ public class UI {
 
 				int amountX = slotX + gp.tileSize - textWidth - 4; // 4px padding from right
 				int amountY = slotY + gp.tileSize - 4; // 4px padding from bottom
-
-//				String s = "" + entity.inventory.get(i).amount;
-//				amountX = getXforAlignToRightText(s,slotX+44);
-//				amountY = slotY +gp.tileSize;
 
 				// Shadow
 				g2.setColor(new Color(60, 60, 60));

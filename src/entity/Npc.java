@@ -44,11 +44,14 @@ public class Npc extends Entity {
 
 	public void setDialogue() {
 
-		dialogues[0] = "Hello, player!";
-		dialogues[1] = "How are you!";
-		dialogues[2] = "You need to find a way to get out \nfrom this island!";
-		dialogues[3] = "You will face some monsters!";
-
+		dialogues[0] = "Hello there \nHow are you ?";
+		dialogues[1] = "Just awake huh....\nI found you along river \nthen I brought you here";
+		dialogues[2] = "This island is crazy \nso you better watch out";
+		dialogues[3] = "And i heard there are portals \nthat will bring you to new island";
+		dialogues[4] = "I haven't been there...\nbut you should go check it out \nand find out your way out";
+		dialogues[5] = "Take my wooden sword overthere \nto protect yourself";
+		dialogues[6] = "Ohh... and also try to find my \nLantern in the upper forest\nin case for night time";
+		dialogues[7] = "Becareful and Good Luck...";
 	}
 
 	public void setAction() {
@@ -58,8 +61,6 @@ public class Npc extends Entity {
 //			 goal position
 			int goalCol = 32;
 			int goalRow = 61;
-//			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
-//			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;
 
 			checkCollision();
 			if (collisionOn) {
@@ -99,6 +100,5 @@ public class Npc extends Entity {
 		// Do this character specific stuff
 
 		super.speak();
-//		onPath = true;
 	}
 }

@@ -16,7 +16,7 @@ public class OBJ_Sword extends Entity {
 		attackArea.width = 36;
 		attackArea.height = 36;
 		description = "[" + name + "]\nA Diamond Sword.";
-		price =3;
+		price =8;
 		knockBackPower = 3;
 		motion1_duration = 5;
 		motion2_duration = 25;
